@@ -3,39 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дашборд / Dashboard</title>
+    <title>Дашборд розпоряджень / Task Orders Dashboard</title>
     <style>
         :root { --primary: #0366d6; --bg: #f6f8fa; --border: #e1e4e8; --text: #24292e; }
         body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .controls { display: flex; align-items: center; gap: 15px; }
         .lang-switcher span { font-size: 24px; cursor: pointer; opacity: 0.5; transition: 0.2s; }
         .lang-switcher span.active { opacity: 1; }
         
         .card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(27,31,35,0.04); }
-        .admin-panel { display: none; border-left: 4px solid #2ea44f; } /* Приховано за замовчуванням */
+        .admin-panel { display: none; border-left: 4px solid #2ea44f; } 
         
         h2, h3 { margin-top: 0; }
-        .form-group { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
-        input, select, button { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; }
-        input[type="text"], input[type="month"], select { flex: 1; }
-        button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; gap: 10px; align-items: center; }
+        .full-width { grid-column: span 2; }
+        .dynamic-fields { display: none; background: #f0f8ff; padding: 15px; border-radius: 4px; border: 1px solid #c8e1ff; margin-bottom: 15px; }
+        .dynamic-fields.active { display: grid; }
+
+        input, select, button { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box; }
+        button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; width: auto; }
         button:hover { background-color: #005cc5; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
         th { background-color: var(--bg); font-weight: 600; }
         .delete-btn { background-color: #d73a49; padding: 4px 8px; font-size: 12px; }
         
         .admin-lock { cursor: pointer; font-size: 20px; opacity: 0.7; }
         .status { font-size: 12px; color: #6a737d; margin-top: 10px; }
+        .tag { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 12px; font-weight: bold; background: #e1e4e8; margin-bottom: 4px;}
+        .tag.demining { background: #ffdce0; color: #86181d; }
+        .tag.nts { background: #dbedff; color: #0366d6; }
+        .tag.eore { background: #dcffe4; color: #176f2c; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h2 id="t_mainTitle">Дашборд розпоряджень на полігони</h2>
+        <h2 id="t_mainTitle">Дашборд розпоряджень</h2>
         <div class="controls">
             <span class="admin-lock" onclick="toggleAdmin()" title="Увійти як Адмін">🔒</span>
             <div class="lang-switcher">
@@ -45,36 +54,66 @@
         </div>
     </div>
 
-    <!-- Панель адміністратора (бачите тільки ви) -->
     <div id="adminForms" class="admin-panel">
         <div class="card">
             <h3 id="t_addPolygonTitle">Додати новий полігон</h3>
             <div class="form-group">
-                <input type="text" id="newPolygonInput" placeholder="Наприклад: Південний">
+                <input type="text" id="newPolygonInput" placeholder="Назва полігону">
                 <button id="t_addPolygonBtn" onclick="addPolygon()">Додати до списку</button>
             </div>
         </div>
 
         <div class="card">
             <h3 id="t_newOrderTitle">Нове розпорядження</h3>
-            <div class="form-group">
+            
+            <div class="form-grid">
+                <input type="text" id="orderNumber" placeholder="Номер розпорядження" required>
+                <select id="orderRegion">
+                    <option value="" disabled selected id="t_optRegion">Оберіть область...</option>
+                    <option value="kharkiv" id="t_regKh">Харківська область</option>
+                    <option value="mykolaiv" id="t_regMyk">Миколаївська область</option>
+                </select>
+
                 <select id="polygonSelect"></select>
                 <input type="month" id="orderDate" required>
-                <input type="text" id="orderDesc" placeholder="Номер або деталі розпорядження">
-                <button id="t_addOrderBtn" onclick="addOrder()">Зберегти розпорядження</button>
+
+                <select id="orderType" class="full-width" onchange="toggleTypeFields()">
+                    <option value="" disabled selected id="t_optType">Оберіть тип...</option>
+                    <option value="demining" id="t_typeDemining">Розмінування</option>
+                    <option value="nts" id="t_typeNts">НТО</option>
+                    <option value="eore" id="t_typeEore">ІНРМ</option>
+                </select>
             </div>
+
+            <div id="deminingFields" class="form-grid dynamic-fields">
+                <input type="text" id="imsmaId" placeholder="IMSMA ID">
+                <input type="text" id="deminingType" placeholder="Тип розмінування">
+            </div>
+
+            <div id="ntsFields" class="form-grid dynamic-fields">
+                <select id="ntsSubType" class="full-width">
+                    <option value="" disabled selected id="t_optSubNts">Оберіть підтип НТО...</option>
+                    <option value="in_nts" id="t_ntsIn">Первинне</option>
+                    <option value="re_nts" id="t_ntsRe">Первинне НТО (Повторне)</option>
+                    <option value="demarcation" id="t_ntsDemarc">НТО З метою встановлення маркування</option>
+                    <option value="targeted" id="t_ntsTarget">Цільове НТО</option>
+                </select>
+            </div>
+
+            <button id="t_addOrderBtn" onclick="addOrder()">Зберегти розпорядження</button>
         </div>
     </div>
 
-    <!-- Таблиця (бачать всі) -->
     <div class="card">
         <h3 id="t_actualOrdersTitle">Актуальні розпорядження</h3>
         <table id="ordersTable">
             <thead>
                 <tr>
-                    <th id="t_thPolygon">Полігон</th>
-                    <th id="t_thDate">Місяць/Рік</th>
-                    <th id="t_thDesc">Опис</th>
+                    <th id="t_thNum">Номер (TO)</th>
+                    <th id="t_thReg">Область</th>
+                    <th id="t_thPol">Полігон</th>
+                    <th id="t_thType">Тип та Деталі</th>
+                    <th id="t_thDate">Місяць</th>
                     <th id="t_thAction" class="admin-only" style="display:none;">Дія</th>
                 </tr>
             </thead>
@@ -85,64 +124,96 @@
 </div>
 
 <script>
-    // ==========================================
-    // НАЛАШТУВАННЯ 
-    // ==========================================
     const GITHUB_USER = 'babmlbee'; 
-    const GITHUB_REPO = 'polygon-dashbord'; 
+    const GITHUB_REPO = 'polygon-dashbord';  
     const FILE_PATH = 'data.json';
-    // ==========================================
 
     let currentLang = localStorage.getItem('language') || 'uk';
     let polygons = [];
     let orders = [];
     let isAdmin = !!localStorage.getItem('gh_token');
 
-    // Базові переклади
     const translations = {
         uk: {
-            mainTitle: "Дашборд розпоряджень на полігони", addPolygonTitle: "Додати новий полігон",
-            polygonPlaceholder: "Наприклад: Південний", addPolygonBtn: "Додати до списку",
-            newOrderTitle: "Нове розпорядження", selectDefault: "Оберіть полігон...",
-            descPlaceholder: "Номер або деталі розпорядження", addOrderBtn: "Зберегти",
-            actualOrdersTitle: "Актуальні розпорядження", thPolygon: "Полігон",
-            thDate: "Місяць/Рік", thDesc: "Опис", thAction: "Дія", deleteBtn: "Видалити",
-            statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження на сервер...", statusSaved: "✅ Успішно збережено"
+            mainTitle: "Дашборд розпоряджень", addPolygonTitle: "Додати новий полігон",
+            polygonPlaceholder: "Назва полігону", addPolygonBtn: "Додати полігон",
+            newOrderTitle: "Нове розпорядження", optRegion: "Оберіть область...", 
+            regKh: "Харківська область", regMyk: "Миколаївська область",
+            optType: "Оберіть тип розпорядження...", selectDefault: "Оберіть полігон...",
+            typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
+            optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне", ntsRe: "Первинне НТО", 
+            ntsDemarc: "НТО З метою встановлення маркування", ntsTarget: "Цільове НТО",
+            orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID", deminingTypePlaceholder: "Тип розмінування",
+            addOrderBtn: "Зберегти розпорядження", actualOrdersTitle: "Актуальні розпорядження", 
+            thNum: "Номер (TO)", thReg: "Область", thPol: "Полігон", thType: "Тип та Деталі",
+            thDate: "Місяць", thAction: "Дія", deleteBtn: "Видалити",
+            statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження...", statusSaved: "✅ Збережено",
+            lblImsma: "IMSMA ID", lblType: "Тип", lblSubtype: "Підтип"
         },
         en: {
-            mainTitle: "Polygon Orders Dashboard", addPolygonTitle: "Add New Polygon",
-            polygonPlaceholder: "For example: Southern", addPolygonBtn: "Add to List",
-            newOrderTitle: "New Order", selectDefault: "Select polygon...",
-            descPlaceholder: "Order details", addOrderBtn: "Save",
-            actualOrdersTitle: "Current Orders", thPolygon: "Polygon",
-            thDate: "Month/Year", thDesc: "Description", thAction: "Action", deleteBtn: "Delete",
-            statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving to server...", statusSaved: "✅ Saved successfully"
+            mainTitle: "Task Orders Dashboard", addPolygonTitle: "Add New Polygon",
+            polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add Polygon",
+            newOrderTitle: "New Task Order", optRegion: "Select Region...", 
+            regKh: "Kharkiv Region", regMyk: "Mykolaiv Region",
+            optType: "Select Order Type...", selectDefault: "Select Polygon...",
+            typeDemining: "Demining", typeNts: "NTS", typeEore: "EORE",
+            optSubNts: "Select NTS Subtype...", ntsIn: "In-NTS", ntsRe: "Re-NTS", 
+            ntsDemarc: "Demarcation NTS", ntsTarget: "Targeted NTS",
+            orderNumberPlaceholder: "Task Order Number", imsmaPlaceholder: "IMSMA ID", deminingTypePlaceholder: "Demining Type",
+            addOrderBtn: "Save Task Order", actualOrdersTitle: "Current Task Orders", 
+            thNum: "TO Number", thReg: "Region", thPol: "Polygon", thType: "Type & Details",
+            thDate: "Month", thAction: "Action", deleteBtn: "Delete",
+            statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving...", statusSaved: "✅ Saved",
+            lblImsma: "IMSMA ID", lblType: "Type", lblSubtype: "Subtype"
         }
     };
 
     function setLanguage(lang) {
         currentLang = lang; localStorage.setItem('language', lang);
+        const t = translations[lang];
+        
         document.getElementById('lang_uk').className = lang === 'uk' ? 'active' : '';
         document.getElementById('lang_en').className = lang === 'en' ? 'active' : '';
-        document.getElementById('t_mainTitle').innerText = translations[lang].mainTitle;
-        document.getElementById('t_addPolygonTitle').innerText = translations[lang].addPolygonTitle;
-        document.getElementById('newPolygonInput').placeholder = translations[lang].polygonPlaceholder;
-        document.getElementById('t_addPolygonBtn').innerText = translations[lang].addPolygonBtn;
-        document.getElementById('t_newOrderTitle').innerText = translations[lang].newOrderTitle;
-        document.getElementById('orderDesc').placeholder = translations[lang].descPlaceholder;
-        document.getElementById('t_addOrderBtn').innerText = translations[lang].addOrderBtn;
-        document.getElementById('t_actualOrdersTitle').innerText = translations[lang].actualOrdersTitle;
-        document.getElementById('t_thPolygon').innerText = translations[lang].thPolygon;
-        document.getElementById('t_thDate').innerText = translations[lang].thDate;
-        document.getElementById('t_thDesc').innerText = translations[lang].thDesc;
-        document.getElementById('t_thAction').innerText = translations[lang].thAction;
+        
+        document.getElementById('t_mainTitle').innerText = t.mainTitle;
+        document.getElementById('t_addPolygonTitle').innerText = t.addPolygonTitle;
+        document.getElementById('newPolygonInput').placeholder = t.polygonPlaceholder;
+        document.getElementById('t_addPolygonBtn').innerText = t.addPolygonBtn;
+        document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle;
+        
+        document.getElementById('t_optRegion').innerText = t.optRegion;
+        document.getElementById('t_regKh').innerText = t.regKh;
+        document.getElementById('t_regMyk').innerText = t.regMyk;
+        
+        document.getElementById('t_optType').innerText = t.optType;
+        document.getElementById('t_typeDemining').innerText = t.typeDemining;
+        document.getElementById('t_typeNts').innerText = t.typeNts;
+        document.getElementById('t_typeEore').innerText = t.typeEore;
+        
+        document.getElementById('t_optSubNts').innerText = t.optSubNts;
+        document.getElementById('t_ntsIn').innerText = t.ntsIn;
+        document.getElementById('t_ntsRe').innerText = t.ntsRe;
+        document.getElementById('t_ntsDemarc').innerText = t.ntsDemarc;
+        document.getElementById('t_ntsTarget').innerText = t.ntsTarget;
+
+        document.getElementById('orderNumber').placeholder = t.orderNumberPlaceholder;
+        document.getElementById('imsmaId').placeholder = t.imsmaPlaceholder;
+        document.getElementById('deminingType').placeholder = t.deminingTypePlaceholder;
+        
+        document.getElementById('t_addOrderBtn').innerText = t.addOrderBtn;
+        document.getElementById('t_actualOrdersTitle').innerText = t.actualOrdersTitle;
+        document.getElementById('t_thNum').innerText = t.thNum;
+        document.getElementById('t_thReg').innerText = t.thReg;
+        document.getElementById('t_thPol').innerText = t.thPol;
+        document.getElementById('t_thType').innerText = t.thType;
+        document.getElementById('t_thDate').innerText = t.thDate;
+        document.getElementById('t_thAction').innerText = t.thAction;
+        
         renderPolygons(); renderOrders();
     }
 
-    // Завантаження даних з GitHub (для всіх)
     async function loadData() {
         try {
-            // Читаємо raw файл з репозиторію. Додаємо Date.now(), щоб обійти кеш браузера
             const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}?t=${Date.now()}`);
             if (response.ok) {
                 const data = await response.json();
@@ -150,18 +221,14 @@
                 orders = data.orders || [];
                 document.getElementById('syncStatus').innerText = translations[currentLang].statusLoaded;
             } else {
-                document.getElementById('syncStatus').innerText = "Створюємо нову базу (файл ще не існує)";
+                document.getElementById('syncStatus').innerText = "База порожня";
             }
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) { console.error(e); }
         renderPolygons(); renderOrders(); updateAdminUI();
     }
 
-    // Кодування в Base64 (з підтримкою української мови)
     function utf8_to_b64(str) { return window.btoa(unescape(encodeURIComponent(str))); }
 
-    // Збереження даних назад у GitHub (працює тільки з токеном)
     async function saveToGitHub() {
         const token = localStorage.getItem('gh_token');
         if (!token) return;
@@ -171,13 +238,11 @@
         const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
 
         try {
-            // 1. Отримуємо SHA поточного файлу, щоб перезаписати його
             let sha = null;
             const getRes = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
             if (getRes.ok) { const fileData = await getRes.json(); sha = fileData.sha; }
 
-            // 2. Відправляємо нові дані
-            const body = { message: "Оновлення дашборду", content: contentBase64 };
+            const body = { message: "Оновлення бази розпоряджень", content: contentBase64 };
             if (sha) body.sha = sha;
 
             const putRes = await fetch(apiUrl, {
@@ -186,25 +251,19 @@
                 body: JSON.stringify(body)
             });
 
-            if (putRes.ok) {
-                document.getElementById('syncStatus').innerText = translations[currentLang].statusSaved;
-            } else {
-                alert("Помилка збереження. Перевірте правильність токена або назву репозиторію.");
-                localStorage.removeItem('gh_token');
-                isAdmin = false; updateAdminUI();
+            if (putRes.ok) { document.getElementById('syncStatus').innerText = translations[currentLang].statusSaved; } 
+            else { 
+                alert("Помилка збереження. Перевірте токен."); 
+                localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI(); 
             }
-        } catch (e) {
-            console.error(e);
-        }
+        } catch (e) { console.error(e); }
     }
 
     function toggleAdmin() {
         if (isAdmin) {
-            if(confirm("Вийти з режиму Адміністратора?")) {
-                localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI();
-            }
+            if(confirm("Вийти з режиму Адміністратора?")) { localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI(); }
         } else {
-            const token = prompt("Введіть ваш GitHub Personal Access Token для редагування:");
+            const token = prompt("Введіть ваш GitHub Personal Access Token:");
             if (token) { localStorage.setItem('gh_token', token.trim()); isAdmin = true; updateAdminUI(); }
         }
     }
@@ -214,6 +273,12 @@
         const actionHeaders = document.querySelectorAll('.admin-only');
         actionHeaders.forEach(el => el.style.display = isAdmin ? 'table-cell' : 'none');
         renderOrders();
+    }
+
+    function toggleTypeFields() {
+        const type = document.getElementById('orderType').value;
+        document.getElementById('deminingFields').classList.toggle('active', type === 'demining');
+        document.getElementById('ntsFields').classList.toggle('active', type === 'nts');
     }
 
     function renderPolygons() {
@@ -229,12 +294,39 @@
     function renderOrders() {
         const tbody = document.getElementById('tableBody'); tbody.innerHTML = '';
         const sorted = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date));
+        const t = translations[currentLang];
+        
         sorted.forEach((order) => {
             const tr = document.createElement('tr');
-            let html = `<td><strong>${order.polygon}</strong></td><td>${order.date}</td><td>${order.description}</td>`;
+            let detailsHtml = "";
+            let typeTag = "";
+            let regionName = order.region === 'kharkiv' ? t.regKh : t.regMyk;
+            
+            if (order.type === 'demining') {
+                typeTag = `<span class="tag demining">${t.typeDemining}</span><br>`;
+                detailsHtml = `<small><b>${t.lblImsma}:</b> ${order.imsma || '-'}<br><b>${t.lblType}:</b> ${order.deminingType || '-'}</small>`;
+            } else if (order.type === 'nts') {
+                typeTag = `<span class="tag nts">${t.typeNts}</span><br>`;
+                let ntsName = t.ntsIn;
+                if(order.ntsSubType === 're_nts') ntsName = t.ntsRe;
+                if(order.ntsSubType === 'demarcation') ntsName = t.ntsDemarc;
+                if(order.ntsSubType === 'targeted') ntsName = t.ntsTarget;
+                detailsHtml = `<small><b>${t.lblSubtype}:</b> ${ntsName}</small>`;
+            } else if (order.type === 'eore') {
+                typeTag = `<span class="tag eore">${t.typeEore}</span>`;
+            }
+
+            let html = `
+                <td><strong>${order.number}</strong></td>
+                <td>${regionName}</td>
+                <td>${order.polygon}</td>
+                <td>${typeTag}${detailsHtml}</td>
+                <td>${order.date}</td>
+            `;
+            
             if (isAdmin) {
                 const realIndex = orders.indexOf(order);
-                html += `<td class="admin-only"><button class="delete-btn" onclick="deleteOrder(${realIndex})">${translations[currentLang].deleteBtn}</button></td>`;
+                html += `<td class="admin-only"><button class="delete-btn" onclick="deleteOrder(${realIndex})">${t.deleteBtn}</button></td>`;
             }
             tr.innerHTML = html;
             tbody.appendChild(tr);
@@ -251,18 +343,39 @@
     }
 
     function addOrder() {
+        const number = document.getElementById('orderNumber').value.trim();
+        const region = document.getElementById('orderRegion').value;
         const polygon = document.getElementById('polygonSelect').value;
         const date = document.getElementById('orderDate').value;
-        const description = document.getElementById('orderDesc').value.trim();
-        if (!polygon || !date) return alert("Оберіть полігон та дату!");
+        const type = document.getElementById('orderType').value;
         
-        orders.push({ polygon, date, description });
-        document.getElementById('polygonSelect').value = ''; document.getElementById('orderDate').value = ''; document.getElementById('orderDesc').value = '';
+        if (!number || !region || !polygon || !date || !type) {
+            alert("Будь ласка, заповніть всі основні поля!"); return;
+        }
+
+        const newOrder = { number, region, polygon, date, type };
+
+        if (type === 'demining') {
+            newOrder.imsma = document.getElementById('imsmaId').value.trim();
+            newOrder.deminingType = document.getElementById('deminingType').value.trim();
+        } else if (type === 'nts') {
+            newOrder.ntsSubType = document.getElementById('ntsSubType').value;
+        }
+
+        orders.push(newOrder);
+        
+        document.getElementById('orderNumber').value = '';
+        document.getElementById('orderType').value = '';
+        document.getElementById('imsmaId').value = '';
+        document.getElementById('deminingType').value = '';
+        document.getElementById('ntsSubType').value = '';
+        toggleTypeFields();
+        
         renderOrders(); saveToGitHub();
     }
 
     function deleteOrder(index) {
-        if(confirm("Видалити?")) { orders.splice(index, 1); renderOrders(); saveToGitHub(); }
+        if(confirm("Видалити це розпорядження?")) { orders.splice(index, 1); renderOrders(); saveToGitHub(); }
     }
 
     setLanguage(currentLang);
