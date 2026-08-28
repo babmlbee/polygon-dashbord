@@ -28,7 +28,7 @@
         button:hover { background-color: #005cc5; }
         
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-        th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+        th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
         th { background-color: var(--bg); font-weight: 600; }
         .delete-btn { background-color: #d73a49; padding: 4px 8px; font-size: 12px; }
         
@@ -38,6 +38,7 @@
         .tag.demining { background: #ffdce0; color: #86181d; }
         .tag.nts { background: #dbedff; color: #0366d6; }
         .tag.eore { background: #dcffe4; color: #176f2c; }
+        .date-cell { font-family: monospace; font-size: 13px; white-space: nowrap; }
     </style>
 </head>
 <body>
@@ -75,21 +76,31 @@
                 </select>
 
                 <select id="polygonSelect"></select>
-                <input type="month" id="orderDate" required>
-
-                <select id="orderType" class="full-width" onchange="toggleTypeFields()">
+                <select id="orderType" onchange="toggleTypeFields()">
                     <option value="" disabled selected id="t_optType">Оберіть тип...</option>
                     <option value="demining" id="t_typeDemining">Розмінування</option>
                     <option value="nts" id="t_typeNts">НТО</option>
                     <option value="eore" id="t_typeEore">ІНРМ</option>
                 </select>
+                
+                <input type="date" id="startDate" required onchange="calculateEndDate()" title="Дата початку">
+                <input type="date" id="endDate" required title="Кінцева дата">
             </div>
 
+            <!-- Поля для Розмінування -->
             <div id="deminingFields" class="form-grid dynamic-fields">
                 <input type="text" id="imsmaId" placeholder="IMSMA ID">
-                <input type="text" id="deminingType" placeholder="Тип розмінування">
+                <select id="deminingType">
+                    <option value="" disabled selected id="t_optDemType">Оберіть тип розмінування...</option>
+                    <option value="ts" id="t_demTs">Технічне обстеження</option>
+                    <option value="mc" id="t_demMc">Розмінування в ручну</option>
+                    <option value="bac" id="t_demBac">ОРВБД</option>
+                    <option value="mdd" id="t_demMdd">Застосування кінологічних розрахунків МРС</option>
+                    <option value="mech" id="t_demMech">Розмінування з використанням машин і механізмів</option>
+                </select>
             </div>
 
+            <!-- Поля для НТО -->
             <div id="ntsFields" class="form-grid dynamic-fields">
                 <select id="ntsSubType" class="full-width">
                     <option value="" disabled selected id="t_optSubNts">Оберіть підтип НТО...</option>
@@ -113,7 +124,7 @@
                     <th id="t_thReg">Область</th>
                     <th id="t_thPol">Полігон</th>
                     <th id="t_thType">Тип та Деталі</th>
-                    <th id="t_thDate">Місяць</th>
+                    <th id="t_thPeriod">Період</th>
                     <th id="t_thAction" class="admin-only" style="display:none;">Дія</th>
                 </tr>
             </thead>
@@ -143,12 +154,15 @@
             typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
             optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне", ntsRe: "Первинне НТО", 
             ntsDemarc: "НТО З метою встановлення маркування", ntsTarget: "Цільове НТО",
-            orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID", deminingTypePlaceholder: "Тип розмінування",
+            optDemType: "Оберіть тип розмінування...", demTs: "Технічне обстеження", demMc: "Розмінування в ручну",
+            demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
+            orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID",
             addOrderBtn: "Зберегти розпорядження", actualOrdersTitle: "Актуальні розпорядження", 
             thNum: "Номер (TO)", thReg: "Область", thPol: "Полігон", thType: "Тип та Деталі",
-            thDate: "Місяць", thAction: "Дія", deleteBtn: "Видалити",
+            thPeriod: "Період", thAction: "Дія", deleteBtn: "Видалити",
             statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження...", statusSaved: "✅ Збережено",
-            lblImsma: "IMSMA ID", lblType: "Тип", lblSubtype: "Підтип"
+            lblImsma: "IMSMA ID", lblType: "Тип", lblSubtype: "Підтип",
+            dateWarning: "УВАГА: Наступний місяць має іншу кількість днів (наприклад, 31-ше число перескочило). Кінцева дата була автоматично встановлена на останній день місяця. Будь ласка, перевірте її та за потреби виправте вручну!"
         },
         en: {
             mainTitle: "Task Orders Dashboard", addPolygonTitle: "Add New Polygon",
@@ -159,12 +173,15 @@
             typeDemining: "Demining", typeNts: "NTS", typeEore: "EORE",
             optSubNts: "Select NTS Subtype...", ntsIn: "In-NTS", ntsRe: "Re-NTS", 
             ntsDemarc: "Demarcation NTS", ntsTarget: "Targeted NTS",
-            orderNumberPlaceholder: "Task Order Number", imsmaPlaceholder: "IMSMA ID", deminingTypePlaceholder: "Demining Type",
+            optDemType: "Select Demining Type...", demTs: "Technical survey", demMc: "Manual clearance",
+            demBac: "BAC", demMdd: "MDD", demMech: "Mechanical clearance",
+            orderNumberPlaceholder: "Task Order Number", imsmaPlaceholder: "IMSMA ID",
             addOrderBtn: "Save Task Order", actualOrdersTitle: "Current Task Orders", 
             thNum: "TO Number", thReg: "Region", thPol: "Polygon", thType: "Type & Details",
-            thDate: "Month", thAction: "Action", deleteBtn: "Delete",
+            thPeriod: "Period", thAction: "Action", deleteBtn: "Delete",
             statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving...", statusSaved: "✅ Saved",
-            lblImsma: "IMSMA ID", lblType: "Type", lblSubtype: "Subtype"
+            lblImsma: "IMSMA ID", lblType: "Type", lblSubtype: "Subtype",
+            dateWarning: "WARNING: The next month has a different number of days. The end date was automatically adjusted to the last day of the month. Please verify and correct it manually if necessary!"
         }
     };
 
@@ -196,9 +213,15 @@
         document.getElementById('t_ntsDemarc').innerText = t.ntsDemarc;
         document.getElementById('t_ntsTarget').innerText = t.ntsTarget;
 
+        document.getElementById('t_optDemType').innerText = t.optDemType;
+        document.getElementById('t_demTs').innerText = t.demTs;
+        document.getElementById('t_demMc').innerText = t.demMc;
+        document.getElementById('t_demBac').innerText = t.demBac;
+        document.getElementById('t_demMdd').innerText = t.demMdd;
+        document.getElementById('t_demMech').innerText = t.demMech;
+
         document.getElementById('orderNumber').placeholder = t.orderNumberPlaceholder;
         document.getElementById('imsmaId').placeholder = t.imsmaPlaceholder;
-        document.getElementById('deminingType').placeholder = t.deminingTypePlaceholder;
         
         document.getElementById('t_addOrderBtn').innerText = t.addOrderBtn;
         document.getElementById('t_actualOrdersTitle').innerText = t.actualOrdersTitle;
@@ -206,7 +229,7 @@
         document.getElementById('t_thReg').innerText = t.thReg;
         document.getElementById('t_thPol').innerText = t.thPol;
         document.getElementById('t_thType').innerText = t.thType;
-        document.getElementById('t_thDate').innerText = t.thDate;
+        document.getElementById('t_thPeriod').innerText = t.thPeriod;
         document.getElementById('t_thAction').innerText = t.thAction;
         
         renderPolygons(); renderOrders();
@@ -291,9 +314,40 @@
         if(currentVal) select.value = currentVal;
     }
 
+    // Автоматичний розрахунок кінцевої дати з перевіркою переходу місяця
+    function calculateEndDate() {
+        const startInput = document.getElementById('startDate').value;
+        if (!startInput) return;
+
+        let start = new Date(startInput);
+        let expectedMonth = (start.getMonth() + 1) % 12;
+        
+        let end = new Date(start);
+        end.setMonth(end.getMonth() + 1);
+
+        // Перевірка, чи не перескочило через дні (наприклад, з 31 серпня на 1 жовтня замість вересня)
+        if (end.getMonth() !== expectedMonth) {
+            end = new Date(start.getFullYear(), start.getMonth() + 2, 0); // Останній день попереднього місяця
+            alert(translations[currentLang].dateWarning);
+        }
+
+        let y = end.getFullYear();
+        let m = String(end.getMonth() + 1).padStart(2, '0');
+        let d = String(end.getDate()).padStart(2, '0');
+        document.getElementById('endDate').value = `${y}-${m}-${d}`;
+    }
+
+    // Форматування дати з YYYY-MM-DD у DD.MM.YYYY
+    function formatD(dStr) {
+        if(!dStr) return '';
+        const p = dStr.split('-');
+        return `${p[2]}.${p[1]}.${p[0]}`;
+    }
+
     function renderOrders() {
         const tbody = document.getElementById('tableBody'); tbody.innerHTML = '';
-        const sorted = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date));
+        // Сортуємо по даті початку
+        const sorted = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
         const t = translations[currentLang];
         
         sorted.forEach((order) => {
@@ -304,7 +358,13 @@
             
             if (order.type === 'demining') {
                 typeTag = `<span class="tag demining">${t.typeDemining}</span><br>`;
-                detailsHtml = `<small><b>${t.lblImsma}:</b> ${order.imsma || '-'}<br><b>${t.lblType}:</b> ${order.deminingType || '-'}</small>`;
+                let demName = order.deminingType || '-';
+                if (order.deminingType === 'ts') demName = t.demTs;
+                if (order.deminingType === 'mc') demName = t.demMc;
+                if (order.deminingType === 'bac') demName = t.demBac;
+                if (order.deminingType === 'mdd') demName = t.demMdd;
+                if (order.deminingType === 'mech') demName = t.demMech;
+                detailsHtml = `<small><b>${t.lblImsma}:</b> ${order.imsma || '-'}<br><b>${t.lblType}:</b> ${demName}</small>`;
             } else if (order.type === 'nts') {
                 typeTag = `<span class="tag nts">${t.typeNts}</span><br>`;
                 let ntsName = t.ntsIn;
@@ -316,12 +376,17 @@
                 typeTag = `<span class="tag eore">${t.typeEore}</span>`;
             }
 
+            // Сумісність зі старими даними (якщо вони були збережені просто як місяць)
+            let periodHtml = order.startDate ? 
+                `<div class="date-cell">${formatD(order.startDate)}<br>${formatD(order.endDate)}</div>` : 
+                order.date;
+
             let html = `
                 <td><strong>${order.number}</strong></td>
                 <td>${regionName}</td>
                 <td>${order.polygon}</td>
                 <td>${typeTag}${detailsHtml}</td>
-                <td>${order.date}</td>
+                <td>${periodHtml}</td>
             `;
             
             if (isAdmin) {
@@ -346,18 +411,19 @@
         const number = document.getElementById('orderNumber').value.trim();
         const region = document.getElementById('orderRegion').value;
         const polygon = document.getElementById('polygonSelect').value;
-        const date = document.getElementById('orderDate').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
         const type = document.getElementById('orderType').value;
         
-        if (!number || !region || !polygon || !date || !type) {
+        if (!number || !region || !polygon || !startDate || !endDate || !type) {
             alert("Будь ласка, заповніть всі основні поля!"); return;
         }
 
-        const newOrder = { number, region, polygon, date, type };
+        const newOrder = { number, region, polygon, startDate, endDate, type };
 
         if (type === 'demining') {
             newOrder.imsma = document.getElementById('imsmaId').value.trim();
-            newOrder.deminingType = document.getElementById('deminingType').value.trim();
+            newOrder.deminingType = document.getElementById('deminingType').value;
         } else if (type === 'nts') {
             newOrder.ntsSubType = document.getElementById('ntsSubType').value;
         }
@@ -369,6 +435,8 @@
         document.getElementById('imsmaId').value = '';
         document.getElementById('deminingType').value = '';
         document.getElementById('ntsSubType').value = '';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
         toggleTypeFields();
         
         renderOrders(); saveToGitHub();
