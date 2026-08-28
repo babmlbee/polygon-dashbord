@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дашборд / Dashboard</title>
+    <style>
+        :root {
+            --primary: #0366d6;
+            --bg: #f6f8fa;
+            --border: #e1e4e8;
+            --text: #24292e;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .lang-switcher span {
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 10px;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .lang-switcher span.active { opacity: 1; }
+        .lang-switcher span:hover { opacity: 0.8; }
+        
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(27,31,35,0.04);
+        }
+        h2, h3 { margin-top: 0; }
+        .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        input, select, button {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="text"], input[type="month"], select { flex: 1; }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover { background-color: #005cc5; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        th { background-color: var(--bg); font-weight: 600; }
+        .delete-btn {
+            background-color: #d73a49;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        .delete-btn:hover { background-color: #cb2431; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2 id="t_mainTitle">Дашборд розпоряджень на полігони</h2>
+        <div class="lang-switcher">
+            <span id="lang_uk" onclick="setLanguage('uk')" class="active">🇺🇦</span>
+            <span id="lang_en" onclick="setLanguage('en')">🇬🇧</span>
+        </div>
+    </div>
+
+    <!-- Блок додавання полігону -->
+    <div class="card">
+        <h3 id="t_addPolygonTitle">Додати новий полігон</h3>
+        <div class="form-group">
+            <input type="text" id="newPolygonInput" placeholder="Наприклад: Південний">
+            <button id="t_addPolygonBtn" onclick="addPolygon()">Додати до списку</button>
+        </div>
+    </div>
+
+    <!-- Блок додавання розпорядження -->
+    <div class="card">
+        <h3 id="t_newOrderTitle">Нове розпорядження</h3>
+        <div class="form-group">
+            <select id="polygonSelect"></select>
+            <input type="month" id="orderDate" required>
+            <input type="text" id="orderDesc" placeholder="Номер або деталі розпорядження">
+            <button id="t_addOrderBtn" onclick="addOrder()">Зберегти розпорядження</button>
+        </div>
+    </div>
+
+    <!-- Таблиця актуальних розпоряджень -->
+    <div class="card">
+        <h3 id="t_actualOrdersTitle">Актуальні розпорядження</h3>
+        <table id="ordersTable">
+            <thead>
+                <tr>
+                    <th id="t_thPolygon">Полігон</th>
+                    <th id="t_thDate">Місяць/Рік</th>
+                    <th id="t_thDesc">Опис</th>
+                    <th id="t_thAction">Дія</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Словник перекладів
+    const translations = {
+        uk: {
+            mainTitle: "Дашборд розпоряджень на полігони",
+            addPolygonTitle: "Додати новий полігон",
+            polygonPlaceholder: "Наприклад: Південний",
+            addPolygonBtn: "Додати до списку",
+            newOrderTitle: "Нове розпорядження",
+            selectDefault: "Оберіть полігон...",
+            descPlaceholder: "Номер або деталі розпорядження",
+            addOrderBtn: "Зберегти розпорядження",
+            actualOrdersTitle: "Актуальні розпорядження",
+            thPolygon: "Полігон",
+            thDate: "Місяць/Рік",
+            thDesc: "Опис",
+            thAction: "Дія",
+            deleteBtn: "Видалити",
+            alertExists: "Цей полігон вже є у списку!",
+            alertEmpty: "Будь ласка, оберіть полігон та дату розпорядження.",
+            confirmDelete: "Точно видалити це розпорядження?"
+        },
+        en: {
+            mainTitle: "Polygon Orders Dashboard",
+            addPolygonTitle: "Add New Polygon",
+            polygonPlaceholder: "For example: Southern",
+            addPolygonBtn: "Add to List",
+            newOrderTitle: "New Order",
+            selectDefault: "Select polygon...",
+            descPlaceholder: "Order number or details",
+            addOrderBtn: "Save Order",
+            actualOrdersTitle: "Current Orders",
+            thPolygon: "Polygon",
+            thDate: "Month/Year",
+            thDesc: "Description",
+            thAction: "Action",
+            deleteBtn: "Delete",
+            alertExists: "This polygon is already in the list!",
+            alertEmpty: "Please select a polygon and order date.",
+            confirmDelete: "Are you sure you want to delete this order?"
+        }
+    };
+
+    let currentLang = localStorage.getItem('language') || 'uk';
+    let polygons = JSON.parse(localStorage.getItem('polygons')) || ["Пришиб-4"];
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('language', lang);
+        
+        // Оновлення стилів прапорців
+        document.getElementById('lang_uk').className = lang === 'uk' ? 'active' : '';
+        document.getElementById('lang_en').className = lang === 'en' ? 'active' : '';
+
+        // Оновлення текстів
+        document.getElementById('t_mainTitle').innerText = translations[lang].mainTitle;
+        document.getElementById('t_addPolygonTitle').innerText = translations[lang].addPolygonTitle;
+        document.getElementById('newPolygonInput').placeholder = translations[lang].polygonPlaceholder;
+        document.getElementById('t_addPolygonBtn').innerText = translations[lang].addPolygonBtn;
+        document.getElementById('t_newOrderTitle').innerText = translations[lang].newOrderTitle;
+        document.getElementById('orderDesc').placeholder = translations[lang].descPlaceholder;
+        document.getElementById('t_addOrderBtn').innerText = translations[lang].addOrderBtn;
+        document.getElementById('t_actualOrdersTitle').innerText = translations[lang].actualOrdersTitle;
+        document.getElementById('t_thPolygon').innerText = translations[lang].thPolygon;
+        document.getElementById('t_thDate').innerText = translations[lang].thDate;
+        document.getElementById('t_thDesc').innerText = translations[lang].thDesc;
+        document.getElementById('t_thAction').innerText = translations[lang].thAction;
+
+        renderPolygons();
+        renderOrders();
+    }
+
+    function renderPolygons() {
+        const select = document.getElementById('polygonSelect');
+        const currentValue = select.value;
+        select.innerHTML = `<option value="" disabled selected>${translations[currentLang].selectDefault}</option>`;
+        polygons.forEach(polygon => {
+            const option = document.createElement('option');
+            option.value = polygon;
+            option.textContent = polygon;
+            select.appendChild(option);
+        });
+        if(currentValue) select.value = currentValue;
+    }
+
+    function renderOrders() {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+        const sortedOrders = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        sortedOrders.forEach((order, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${order.polygon}</strong></td>
+                <td>${order.date}</td>
+                <td>${order.description}</td>
+                <td><button class="delete-btn" onclick="deleteOrder(${index})">${translations[currentLang].deleteBtn}</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function addPolygon() {
+        const input = document.getElementById('newPolygonInput');
+        const name = input.value.trim();
+        if (name && !polygons.includes(name)) {
+            polygons.push(name);
+            localStorage.setItem('polygons', JSON.stringify(polygons));
+            input.value = '';
+            renderPolygons();
+        } else if (polygons.includes(name)) {
+            alert(translations[currentLang].alertExists);
+        }
+    }
+
+    function addOrder() {
+        const polygon = document.getElementById('polygonSelect').value;
+        const date = document.getElementById('orderDate').value;
+        const description = document.getElementById('orderDesc').value.trim();
+
+        if (!polygon || !date) {
+            alert(translations[currentLang].alertEmpty);
+            return;
+        }
+
+        orders.push({ polygon, date, description });
+        localStorage.setItem('orders', JSON.stringify(orders));
+        
+        document.getElementById('polygonSelect').value = '';
+        document.getElementById('orderDate').value = '';
+        document.getElementById('orderDesc').value = '';
+        renderOrders();
+    }
+
+    function deleteOrder(index) {
+        if(confirm(translations[currentLang].confirmDelete)) {
+            const sortedOrders = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const orderToDelete = sortedOrders[index];
+            const realIndex = orders.indexOf(orderToDelete);
+            
+            orders.splice(realIndex, 1);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            renderOrders();
+        }
+    }
+
+    // Ініціалізація
+    setLanguage(currentLang);
+</script>
+
+</body>
+</html>
