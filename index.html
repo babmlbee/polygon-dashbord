@@ -7,7 +7,7 @@
     <style>
         :root { --primary: #0366d6; --bg: #f6f8fa; --border: #e1e4e8; --text: #24292e; }
         body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .controls { display: flex; align-items: center; gap: 15px; }
         .lang-switcher span { font-size: 24px; cursor: pointer; opacity: 0.5; transition: 0.2s; }
@@ -16,29 +16,45 @@
         .card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(27,31,35,0.04); }
         .admin-panel { display: none; border-left: 4px solid #2ea44f; } 
         
-        h2, h3 { margin-top: 0; }
+        h2, h3 { margin-top: 0; margin-bottom: 15px; }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         .form-group { display: flex; gap: 10px; align-items: center; }
         .full-width { grid-column: span 2; }
-        .dynamic-fields { display: none; background: #f0f8ff; padding: 15px; border-radius: 4px; border: 1px solid #c8e1ff; margin-bottom: 15px; }
-        .dynamic-fields.active { display: grid; }
 
-        input, select, button { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box; }
-        button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; width: auto; }
+        input[type="text"], input[type="date"], select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box; }
+        button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; padding: 8px 12px; border-radius: 4px; }
         button:hover { background-color: #005cc5; }
+        .btn-outline { background-color: white; color: var(--primary); border: 1px solid var(--primary); }
+        .btn-outline:hover { background-color: #f0f8ff; }
+        .btn-remove { background-color: #d73a49; color: white; padding: 4px 8px; font-size: 12px; float: right; }
+        .btn-remove:hover { background-color: #cb2431; }
         
+        /* Блок окремого полігону всередині ТО */
+        .polygon-block { background: #fafbfc; border: 1px solid #e1e4e8; border-left: 4px solid var(--primary); padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .dynamic-fields { display: none; background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #e1e4e8; margin-top: 15px; }
+        .dynamic-fields.active { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        /* Чекбокси */
+        .checkbox-group { display: flex; flex-direction: column; gap: 6px; max-height: 160px; overflow-y: auto; border: 1px solid var(--border); padding: 10px; border-radius: 4px; background: #fff; }
+        .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; margin: 0; }
+        .checkbox-item input { width: auto; margin: 0; cursor: pointer; }
+        .lbl-bold { font-weight: 600; font-size: 14px; margin-bottom: 6px; display: block; }
+
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-        th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+        th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
         th { background-color: var(--bg); font-weight: 600; }
         .delete-btn { background-color: #d73a49; padding: 4px 8px; font-size: 12px; }
         
         .admin-lock { cursor: pointer; font-size: 20px; opacity: 0.7; }
         .status { font-size: 12px; color: #6a737d; margin-top: 10px; }
-        .tag { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 12px; font-weight: bold; background: #e1e4e8; margin-bottom: 4px;}
+        .tag { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 12px; font-weight: bold; background: #e1e4e8; margin-bottom: 4px; margin-right: 4px;}
         .tag.demining { background: #ffdce0; color: #86181d; }
         .tag.nts { background: #dbedff; color: #0366d6; }
         .tag.eore { background: #dcffe4; color: #176f2c; }
         .date-cell { font-family: monospace; font-size: 13px; white-space: nowrap; }
+        
+        .poly-list-item { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed var(--border); }
+        .poly-list-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
     </style>
 </head>
 <body>
@@ -56,16 +72,27 @@
     </div>
 
     <div id="adminForms" class="admin-panel">
-        <div class="card">
-            <h3 id="t_addPolygonTitle">Додати новий полігон</h3>
-            <div class="form-group">
-                <input type="text" id="newPolygonInput" placeholder="Назва полігону">
-                <button id="t_addPolygonBtn" onclick="addPolygon()">Додати до списку</button>
+        
+        <div class="form-grid">
+            <div class="card" style="margin-bottom: 0;">
+                <h3 id="t_addPolygonTitle">База полігонів</h3>
+                <div class="form-group">
+                    <input type="text" id="newPolygonInput" placeholder="Назва полігону">
+                    <button id="t_addPolygonBtn" onclick="addPolygon()">Додати</button>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-bottom: 0;">
+                <h3 id="t_addMethodTitle">База методів розмінування</h3>
+                <div class="form-group">
+                    <input type="text" id="newMethodInput" placeholder="Власний тип розмінування">
+                    <button id="t_addMethodBtn" onclick="addCustomMethod()">Додати</button>
+                </div>
             </div>
         </div>
 
         <div class="card">
-            <h3 id="t_newOrderTitle">Нове розпорядження</h3>
+            <h3 id="t_newOrderTitle">Нове розпорядження (ТО)</h3>
             
             <div class="form-grid">
                 <input type="text" id="orderNumber" placeholder="Номер розпорядження" required>
@@ -74,44 +101,24 @@
                     <option value="kharkiv" id="t_regKh">Харківська область</option>
                     <option value="mykolaiv" id="t_regMyk">Миколаївська область</option>
                 </select>
-
-                <select id="polygonSelect"></select>
-                <select id="orderType" onchange="toggleTypeFields()">
-                    <option value="" disabled selected id="t_optType">Оберіть тип...</option>
-                    <option value="demining" id="t_typeDemining">Розмінування</option>
-                    <option value="nts" id="t_typeNts">НТО</option>
-                    <option value="eore" id="t_typeEore">ІНРМ</option>
-                </select>
                 
-                <input type="date" id="startDate" required onchange="calculateEndDate()" title="Дата початку">
-                <input type="date" id="endDate" required title="Кінцева дата">
+                <div class="form-group full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <input type="date" id="startDate" required onchange="calculateEndDate()" title="Дата початку">
+                    <input type="date" id="endDate" required title="Кінцева дата">
+                </div>
             </div>
 
-            <!-- Поля для Розмінування -->
-            <div id="deminingFields" class="form-grid dynamic-fields">
-                <input type="text" id="imsmaId" placeholder="IMSMA ID">
-                <select id="deminingType">
-                    <option value="" disabled selected id="t_optDemType">Оберіть тип розмінування...</option>
-                    <option value="ts" id="t_demTs">Технічне обстеження</option>
-                    <option value="mc" id="t_demMc">Розмінування в ручну</option>
-                    <option value="bac" id="t_demBac">ОРВБД</option>
-                    <option value="mdd" id="t_demMdd">Застосування кінологічних розрахунків МРС</option>
-                    <option value="mech" id="t_demMech">Розмінування з використанням машин і механізмів</option>
-                </select>
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="margin: 0;" id="t_lblPolygonsInTO">Полігони в цьому розпорядженні:</h4>
+                <button type="button" class="btn-outline" onclick="addPolygonItemBlock()" id="t_btnAddPolygonToTO">+ Додати полігон до ТО</button>
             </div>
 
-            <!-- Поля для НТО -->
-            <div id="ntsFields" class="form-grid dynamic-fields">
-                <select id="ntsSubType" class="full-width">
-                    <option value="" disabled selected id="t_optSubNts">Оберіть підтип НТО...</option>
-                    <option value="in_nts" id="t_ntsIn">Первинне</option>
-                    <option value="re_nts" id="t_ntsRe">Первинне НТО (Повторне)</option>
-                    <option value="demarcation" id="t_ntsDemarc">НТО З метою встановлення маркування</option>
-                    <option value="targeted" id="t_ntsTarget">Цільове НТО</option>
-                </select>
-            </div>
+            <!-- Контейнер для блоків полігонів -->
+            <div id="polygonItemsContainer"></div>
 
-            <button id="t_addOrderBtn" onclick="addOrder()">Зберегти розпорядження</button>
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
+            <button id="t_addOrderBtn" onclick="addOrder()" style="width: 100%;">Зберегти розпорядження</button>
         </div>
     </div>
 
@@ -120,11 +127,9 @@
         <table id="ordersTable">
             <thead>
                 <tr>
-                    <th id="t_thNum">Номер (TO)</th>
-                    <th id="t_thReg">Область</th>
-                    <th id="t_thPol">Полігон</th>
-                    <th id="t_thType">Тип та Деталі</th>
+                    <th id="t_thNum">ТО / Регіон</th>
                     <th id="t_thPeriod">Період</th>
+                    <th id="t_thPolDetails">Полігони та їх деталі (Типи/Методи)</th>
                     <th id="t_thAction" class="admin-only" style="display:none;">Дія</th>
                 </tr>
             </thead>
@@ -141,47 +146,48 @@
 
     let currentLang = localStorage.getItem('language') || 'uk';
     let polygons = [];
+    let customMethods = [];
     let orders = [];
     let isAdmin = !!localStorage.getItem('gh_token');
 
     const translations = {
         uk: {
-            mainTitle: "Дашборд розпоряджень", addPolygonTitle: "Додати новий полігон",
-            polygonPlaceholder: "Назва полігону", addPolygonBtn: "Додати полігон",
-            newOrderTitle: "Нове розпорядження", optRegion: "Оберіть область...", 
+            mainTitle: "Дашборд розпоряджень", addPolygonTitle: "База полігонів",
+            polygonPlaceholder: "Назва полігону", addPolygonBtn: "Додати",
+            addMethodTitle: "База методів розмінування", methodPlaceholder: "Власний тип", addMethodBtn: "Додати",
+            newOrderTitle: "Нове розпорядження (ТО)", optRegion: "Оберіть область...", 
             regKh: "Харківська область", regMyk: "Миколаївська область",
-            optType: "Оберіть тип розпорядження...", selectDefault: "Оберіть полігон...",
+            optType: "Оберіть тип...", selectDefault: "Оберіть полігон...",
+            lblPolygonsInTO: "Полігони в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати полігон до ТО",
+            lblSelectMethods: "Типи розмінування (можна декілька):",
             typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
-            optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне", ntsRe: "Первинне НТО", 
-            ntsDemarc: "НТО З метою встановлення маркування", ntsTarget: "Цільове НТО",
-            optDemType: "Оберіть тип розмінування...", demTs: "Технічне обстеження", demMc: "Розмінування в ручну",
-            demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
+            optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне", ntsRe: "Первинне НТО", ntsDemarc: "НТО З метою встановлення маркування", ntsTarget: "Цільове НТО",
+            demTs: "Технічне обстеження", demMc: "Розмінування в ручну", demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
             orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID",
             addOrderBtn: "Зберегти розпорядження", actualOrdersTitle: "Актуальні розпорядження", 
-            thNum: "Номер (TO)", thReg: "Область", thPol: "Полігон", thType: "Тип та Деталі",
-            thPeriod: "Період", thAction: "Дія", deleteBtn: "Видалити",
+            thNum: "ТО / Регіон", thPeriod: "Період", thPolDetails: "Полігони та їх деталі", thAction: "Дія", deleteBtn: "Видалити",
             statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження...", statusSaved: "✅ Збережено",
-            lblImsma: "IMSMA ID", lblType: "Тип", lblSubtype: "Підтип",
-            dateWarning: "УВАГА: Наступний місяць має іншу кількість днів (наприклад, 31-ше число перескочило). Кінцева дата була автоматично встановлена на останній день місяця. Будь ласка, перевірте її та за потреби виправте вручну!"
+            lblImsma: "IMSMA ID", lblType: "Методи", lblSubtype: "Підтип",
+            dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена на останній день місяця. Перевірте її!"
         },
         en: {
-            mainTitle: "Task Orders Dashboard", addPolygonTitle: "Add New Polygon",
-            polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add Polygon",
+            mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base",
+            polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
+            addMethodTitle: "Demining Methods Base", methodPlaceholder: "Custom method", addMethodBtn: "Add",
             newOrderTitle: "New Task Order", optRegion: "Select Region...", 
             regKh: "Kharkiv Region", regMyk: "Mykolaiv Region",
-            optType: "Select Order Type...", selectDefault: "Select Polygon...",
+            optType: "Select Type...", selectDefault: "Select Polygon...",
+            lblPolygonsInTO: "Polygons in this Task Order:", btnAddPolygonToTO: "+ Add Polygon to TO",
+            lblSelectMethods: "Demining Types (multiple allowed):",
             typeDemining: "Demining", typeNts: "NTS", typeEore: "EORE",
-            optSubNts: "Select NTS Subtype...", ntsIn: "In-NTS", ntsRe: "Re-NTS", 
-            ntsDemarc: "Demarcation NTS", ntsTarget: "Targeted NTS",
-            optDemType: "Select Demining Type...", demTs: "Technical survey", demMc: "Manual clearance",
-            demBac: "BAC", demMdd: "MDD", demMech: "Mechanical clearance",
+            optSubNts: "Select NTS Subtype...", ntsIn: "In-NTS", ntsRe: "Re-NTS", ntsDemarc: "Demarcation NTS", ntsTarget: "Targeted NTS",
+            demTs: "Technical survey", demMc: "Manual clearance", demBac: "BAC", demMdd: "MDD", demMech: "Mechanical clearance",
             orderNumberPlaceholder: "Task Order Number", imsmaPlaceholder: "IMSMA ID",
             addOrderBtn: "Save Task Order", actualOrdersTitle: "Current Task Orders", 
-            thNum: "TO Number", thReg: "Region", thPol: "Polygon", thType: "Type & Details",
-            thPeriod: "Period", thAction: "Action", deleteBtn: "Delete",
+            thNum: "TO / Region", thPeriod: "Period", thPolDetails: "Polygons & Details", thAction: "Action", deleteBtn: "Delete",
             statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving...", statusSaved: "✅ Saved",
-            lblImsma: "IMSMA ID", lblType: "Type", lblSubtype: "Subtype",
-            dateWarning: "WARNING: The next month has a different number of days. The end date was automatically adjusted to the last day of the month. Please verify and correct it manually if necessary!"
+            lblImsma: "IMSMA ID", lblType: "Methods", lblSubtype: "Subtype",
+            dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted. Please verify!"
         }
     };
 
@@ -196,43 +202,30 @@
         document.getElementById('t_addPolygonTitle').innerText = t.addPolygonTitle;
         document.getElementById('newPolygonInput').placeholder = t.polygonPlaceholder;
         document.getElementById('t_addPolygonBtn').innerText = t.addPolygonBtn;
-        document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle;
         
+        document.getElementById('t_addMethodTitle').innerText = t.addMethodTitle;
+        document.getElementById('newMethodInput').placeholder = t.methodPlaceholder;
+        document.getElementById('t_addMethodBtn').innerText = t.addMethodBtn;
+
+        document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle;
         document.getElementById('t_optRegion').innerText = t.optRegion;
         document.getElementById('t_regKh').innerText = t.regKh;
         document.getElementById('t_regMyk').innerText = t.regMyk;
         
-        document.getElementById('t_optType').innerText = t.optType;
-        document.getElementById('t_typeDemining').innerText = t.typeDemining;
-        document.getElementById('t_typeNts').innerText = t.typeNts;
-        document.getElementById('t_typeEore').innerText = t.typeEore;
-        
-        document.getElementById('t_optSubNts').innerText = t.optSubNts;
-        document.getElementById('t_ntsIn').innerText = t.ntsIn;
-        document.getElementById('t_ntsRe').innerText = t.ntsRe;
-        document.getElementById('t_ntsDemarc').innerText = t.ntsDemarc;
-        document.getElementById('t_ntsTarget').innerText = t.ntsTarget;
-
-        document.getElementById('t_optDemType').innerText = t.optDemType;
-        document.getElementById('t_demTs').innerText = t.demTs;
-        document.getElementById('t_demMc').innerText = t.demMc;
-        document.getElementById('t_demBac').innerText = t.demBac;
-        document.getElementById('t_demMdd').innerText = t.demMdd;
-        document.getElementById('t_demMech').innerText = t.demMech;
-
+        document.getElementById('t_lblPolygonsInTO').innerText = t.lblPolygonsInTO;
+        document.getElementById('t_btnAddPolygonToTO').innerText = t.btnAddPolygonToTO;
         document.getElementById('orderNumber').placeholder = t.orderNumberPlaceholder;
-        document.getElementById('imsmaId').placeholder = t.imsmaPlaceholder;
-        
         document.getElementById('t_addOrderBtn').innerText = t.addOrderBtn;
+        
         document.getElementById('t_actualOrdersTitle').innerText = t.actualOrdersTitle;
         document.getElementById('t_thNum').innerText = t.thNum;
-        document.getElementById('t_thReg').innerText = t.thReg;
-        document.getElementById('t_thPol').innerText = t.thPol;
-        document.getElementById('t_thType').innerText = t.thType;
         document.getElementById('t_thPeriod').innerText = t.thPeriod;
+        document.getElementById('t_thPolDetails').innerText = t.thPolDetails;
         document.getElementById('t_thAction').innerText = t.thAction;
         
-        renderPolygons(); renderOrders();
+        // Оновлюємо вже відкриті блоки полігонів (якщо змінили мову під час заповнення)
+        document.getElementById('polygonItemsContainer').innerHTML = ''; 
+        renderOrders();
     }
 
     async function loadData() {
@@ -241,13 +234,12 @@
             if (response.ok) {
                 const data = await response.json();
                 polygons = data.polygons || [];
+                customMethods = data.customMethods || [];
                 orders = data.orders || [];
                 document.getElementById('syncStatus').innerText = translations[currentLang].statusLoaded;
-            } else {
-                document.getElementById('syncStatus').innerText = "База порожня";
-            }
+            } else { document.getElementById('syncStatus').innerText = "База порожня"; }
         } catch (e) { console.error(e); }
-        renderPolygons(); renderOrders(); updateAdminUI();
+        renderOrders(); updateAdminUI();
     }
 
     function utf8_to_b64(str) { return window.btoa(unescape(encodeURIComponent(str))); }
@@ -257,7 +249,7 @@
         if (!token) return;
 
         document.getElementById('syncStatus').innerText = translations[currentLang].statusSaving;
-        const contentBase64 = utf8_to_b64(JSON.stringify({ polygons, orders }, null, 2));
+        const contentBase64 = utf8_to_b64(JSON.stringify({ polygons, customMethods, orders }, null, 2));
         const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
 
         try {
@@ -265,20 +257,12 @@
             const getRes = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
             if (getRes.ok) { const fileData = await getRes.json(); sha = fileData.sha; }
 
-            const body = { message: "Оновлення бази розпоряджень", content: contentBase64 };
+            const body = { message: "Оновлення бази дашборду", content: contentBase64 };
             if (sha) body.sha = sha;
 
-            const putRes = await fetch(apiUrl, {
-                method: 'PUT',
-                headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-
+            const putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
             if (putRes.ok) { document.getElementById('syncStatus').innerText = translations[currentLang].statusSaved; } 
-            else { 
-                alert("Помилка збереження. Перевірте токен."); 
-                localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI(); 
-            }
+            else { alert("Помилка збереження. Перевірте токен."); localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI(); }
         } catch (e) { console.error(e); }
     }
 
@@ -298,95 +282,199 @@
         renderOrders();
     }
 
-    function toggleTypeFields() {
-        const type = document.getElementById('orderType').value;
-        document.getElementById('deminingFields').classList.toggle('active', type === 'demining');
-        document.getElementById('ntsFields').classList.toggle('active', type === 'nts');
+    function addPolygon() {
+        const name = document.getElementById('newPolygonInput').value.trim();
+        if (name && !polygons.includes(name)) { polygons.push(name); document.getElementById('newPolygonInput').value = ''; saveToGitHub(); }
     }
 
-    function renderPolygons() {
-        const select = document.getElementById('polygonSelect');
-        const currentVal = select.value;
-        select.innerHTML = `<option value="" disabled selected>${translations[currentLang].selectDefault}</option>`;
-        polygons.forEach(p => {
-            const opt = document.createElement('option'); opt.value = p; opt.textContent = p; select.appendChild(opt);
-        });
-        if(currentVal) select.value = currentVal;
+    function addCustomMethod() {
+        const name = document.getElementById('newMethodInput').value.trim();
+        if (name && !customMethods.includes(name)) { customMethods.push(name); document.getElementById('newMethodInput').value = ''; saveToGitHub(); }
     }
 
-    // Автоматичний розрахунок кінцевої дати з перевіркою переходу місяця
     function calculateEndDate() {
         const startInput = document.getElementById('startDate').value;
         if (!startInput) return;
-
         let start = new Date(startInput);
         let expectedMonth = (start.getMonth() + 1) % 12;
-        
-        let end = new Date(start);
-        end.setMonth(end.getMonth() + 1);
+        let end = new Date(start); end.setMonth(end.getMonth() + 1);
 
-        // Перевірка, чи не перескочило через дні (наприклад, з 31 серпня на 1 жовтня замість вересня)
         if (end.getMonth() !== expectedMonth) {
-            end = new Date(start.getFullYear(), start.getMonth() + 2, 0); // Останній день попереднього місяця
+            end = new Date(start.getFullYear(), start.getMonth() + 2, 0); 
             alert(translations[currentLang].dateWarning);
         }
-
-        let y = end.getFullYear();
-        let m = String(end.getMonth() + 1).padStart(2, '0');
-        let d = String(end.getDate()).padStart(2, '0');
+        let y = end.getFullYear(); let m = String(end.getMonth() + 1).padStart(2, '0'); let d = String(end.getDate()).padStart(2, '0');
         document.getElementById('endDate').value = `${y}-${m}-${d}`;
     }
 
-    // Форматування дати з YYYY-MM-DD у DD.MM.YYYY
+    // ==========================================
+    // ЛОГІКА ДИНАМІЧНИХ БЛОКІВ ПОЛІГОНІВ
+    // ==========================================
+    function addPolygonItemBlock() {
+        const t = translations[currentLang];
+        const blockId = 'poly_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+        
+        let polOpts = `<option value="" disabled selected>${t.selectDefault}</option>`;
+        polygons.forEach(p => polOpts += `<option value="${p}">${p}</option>`);
+
+        let methodOpts = '';
+        const baseMethods = [ {id:'ts', l:t.demTs}, {id:'mc', l:t.demMc}, {id:'bac', l:t.demBac}, {id:'mdd', l:t.demMdd}, {id:'mech', l:t.demMech} ];
+        baseMethods.forEach(m => methodOpts += `<label class="checkbox-item"><input type="checkbox" value="${m.id}"> ${m.l}</label>`);
+        customMethods.forEach(m => methodOpts += `<label class="checkbox-item"><input type="checkbox" value="${m}"> ${m}</label>`);
+
+        const html = `
+            <div class="polygon-block" id="${blockId}">
+                <button type="button" class="btn-remove" onclick="document.getElementById('${blockId}').remove()">X</button>
+                <div class="form-grid">
+                    <select class="item-poly-select">${polOpts}</select>
+                    <select class="item-type-select" onchange="toggleItemFields('${blockId}')">
+                        <option value="" disabled selected>${t.optType}</option>
+                        <option value="demining">${t.typeDemining}</option>
+                        <option value="nts">${t.typeNts}</option>
+                        <option value="eore">${t.typeEore}</option>
+                    </select>
+                </div>
+                
+                <div class="item-demining-fields dynamic-fields">
+                    <input type="text" class="item-imsma" placeholder="${t.imsmaPlaceholder}">
+                    <div>
+                        <label class="lbl-bold">${t.lblSelectMethods}</label>
+                        <div class="checkbox-group item-methods-group">${methodOpts}</div>
+                    </div>
+                </div>
+                
+                <div class="item-nts-fields dynamic-fields">
+                    <select class="item-nts-sub full-width">
+                        <option value="" disabled selected>${t.optSubNts}</option>
+                        <option value="in_nts">${t.ntsIn}</option>
+                        <option value="re_nts">${t.ntsRe}</option>
+                        <option value="demarcation">${t.ntsDemarc}</option>
+                        <option value="targeted">${t.ntsTarget}</option>
+                    </select>
+                </div>
+            </div>
+        `;
+        document.getElementById('polygonItemsContainer').insertAdjacentHTML('beforeend', html);
+    }
+
+    function toggleItemFields(blockId) {
+        const block = document.getElementById(blockId);
+        const type = block.querySelector('.item-type-select').value;
+        const demFields = block.querySelector('.item-demining-fields');
+        const ntsFields = block.querySelector('.item-nts-fields');
+        
+        demFields.classList.remove('active');
+        ntsFields.classList.remove('active');
+        
+        if(type === 'demining') demFields.classList.add('active');
+        if(type === 'nts') ntsFields.classList.add('active');
+    }
+
+    function addOrder() {
+        const number = document.getElementById('orderNumber').value.trim();
+        const region = document.getElementById('orderRegion').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        
+        const blocks = document.querySelectorAll('.polygon-block');
+        if (!number || !region || !startDate || !endDate) { alert("Заповніть номер ТО, область та дати!"); return; }
+        if (blocks.length === 0) { alert("Додайте хоча б один полігон до розпорядження!"); return; }
+
+        let items = [];
+        let validationError = false;
+
+        blocks.forEach(block => {
+            const poly = block.querySelector('.item-poly-select').value;
+            const type = block.querySelector('.item-type-select').value;
+            if (!poly || !type) { validationError = true; return; }
+
+            let item = { polygon: poly, type: type };
+            if (type === 'demining') {
+                item.imsma = block.querySelector('.item-imsma').value.trim();
+                item.deminingTypes = Array.from(block.querySelectorAll('.item-methods-group input:checked')).map(cb => cb.value);
+            } else if (type === 'nts') {
+                item.ntsSubType = block.querySelector('.item-nts-sub').value;
+            }
+            items.push(item);
+        });
+
+        if (validationError) { alert("В усіх блоках полігонів мають бути обрані назва полігону та тип!"); return; }
+
+        orders.push({ number, region, startDate, endDate, items });
+        
+        // Очищення форми
+        document.getElementById('orderNumber').value = '';
+        document.getElementById('orderRegion').value = '';
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+        document.getElementById('polygonItemsContainer').innerHTML = '';
+        
+        renderOrders(); saveToGitHub();
+    }
+
     function formatD(dStr) {
         if(!dStr) return '';
-        const p = dStr.split('-');
-        return `${p[2]}.${p[1]}.${p[0]}`;
+        const p = dStr.split('-'); return `${p[2]}.${p[1]}.${p[0]}`;
     }
 
     function renderOrders() {
         const tbody = document.getElementById('tableBody'); tbody.innerHTML = '';
-        // Сортуємо по даті початку
         const sorted = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
         const t = translations[currentLang];
         
         sorted.forEach((order) => {
             const tr = document.createElement('tr');
-            let detailsHtml = "";
-            let typeTag = "";
-            let regionName = order.region === 'kharkiv' ? t.regKh : t.regMyk;
+            let regionName = order.region === 'kharkiv' ? t.regKh : (order.region === 'mykolaiv' ? t.regMyk : order.region);
+            let periodHtml = order.startDate ? `<div class="date-cell">${formatD(order.startDate)}<br>${formatD(order.endDate)}</div>` : (order.date || '-');
             
-            if (order.type === 'demining') {
-                typeTag = `<span class="tag demining">${t.typeDemining}</span><br>`;
-                let demName = order.deminingType || '-';
-                if (order.deminingType === 'ts') demName = t.demTs;
-                if (order.deminingType === 'mc') demName = t.demMc;
-                if (order.deminingType === 'bac') demName = t.demBac;
-                if (order.deminingType === 'mdd') demName = t.demMdd;
-                if (order.deminingType === 'mech') demName = t.demMech;
-                detailsHtml = `<small><b>${t.lblImsma}:</b> ${order.imsma || '-'}<br><b>${t.lblType}:</b> ${demName}</small>`;
-            } else if (order.type === 'nts') {
-                typeTag = `<span class="tag nts">${t.typeNts}</span><br>`;
-                let ntsName = t.ntsIn;
-                if(order.ntsSubType === 're_nts') ntsName = t.ntsRe;
-                if(order.ntsSubType === 'demarcation') ntsName = t.ntsDemarc;
-                if(order.ntsSubType === 'targeted') ntsName = t.ntsTarget;
-                detailsHtml = `<small><b>${t.lblSubtype}:</b> ${ntsName}</small>`;
-            } else if (order.type === 'eore') {
-                typeTag = `<span class="tag eore">${t.typeEore}</span>`;
+            // Генерація списку полігонів всередині ТО
+            let itemsHtml = "";
+            let itemsArr = order.items || [];
+            
+            // Підтримка старих записів бази, якщо вони були збережені до цього оновлення
+            if (itemsArr.length === 0 && order.type) {
+                let oldPolys = Array.isArray(order.polygons) ? order.polygons : [order.polygon];
+                oldPolys.forEach(p => {
+                    itemsArr.push({ polygon: p, type: order.type, imsma: order.imsma, deminingTypes: order.deminingTypes, deminingType: order.deminingType, ntsSubType: order.ntsSubType });
+                });
             }
 
-            // Сумісність зі старими даними (якщо вони були збережені просто як місяць)
-            let periodHtml = order.startDate ? 
-                `<div class="date-cell">${formatD(order.startDate)}<br>${formatD(order.endDate)}</div>` : 
-                order.date;
+            itemsArr.forEach(item => {
+                let typeTag = ""; let detailsStr = "";
+                if (item.type === 'demining') {
+                    typeTag = `<span class="tag demining">${t.typeDemining}</span>`;
+                    let demTypesArr = item.deminingTypes || [];
+                    if (item.deminingType && demTypesArr.length === 0) demTypesArr.push(item.deminingType);
+                    let translatedTypes = demTypesArr.map(typeId => {
+                        if (typeId === 'ts') return t.demTs; if (typeId === 'mc') return t.demMc;
+                        if (typeId === 'bac') return t.demBac; if (typeId === 'mdd') return t.demMdd;
+                        if (typeId === 'mech') return t.demMech; return typeId; 
+                    });
+                    let typesStr = translatedTypes.length > 0 ? translatedTypes.join(', ') : '-';
+                    detailsStr = `<small style="color:#586069;"><b>${t.lblImsma}:</b> ${item.imsma || '-'} | <b>${t.lblType}:</b> ${typesStr}</small>`;
+                } else if (item.type === 'nts') {
+                    typeTag = `<span class="tag nts">${t.typeNts}</span>`;
+                    let ntsName = t.ntsIn;
+                    if(item.ntsSubType === 're_nts') ntsName = t.ntsRe;
+                    if(item.ntsSubType === 'demarcation') ntsName = t.ntsDemarc;
+                    if(item.ntsSubType === 'targeted') ntsName = t.ntsTarget;
+                    detailsStr = `<small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small>`;
+                } else if (item.type === 'eore') {
+                    typeTag = `<span class="tag eore">${t.typeEore}</span>`;
+                }
+
+                itemsHtml += `
+                    <div class="poly-list-item">
+                        <strong>${item.polygon || '-'}</strong> ${typeTag}<br>
+                        ${detailsStr}
+                    </div>
+                `;
+            });
 
             let html = `
-                <td><strong>${order.number}</strong></td>
-                <td>${regionName}</td>
-                <td>${order.polygon}</td>
-                <td>${typeTag}${detailsHtml}</td>
+                <td><strong>#${order.number}</strong><br><small style="color:#586069;">${regionName}</small></td>
                 <td>${periodHtml}</td>
+                <td>${itemsHtml}</td>
             `;
             
             if (isAdmin) {
@@ -398,52 +486,8 @@
         });
     }
 
-    function addPolygon() {
-        const name = document.getElementById('newPolygonInput').value.trim();
-        if (name && !polygons.includes(name)) {
-            polygons.push(name);
-            document.getElementById('newPolygonInput').value = '';
-            renderPolygons(); saveToGitHub();
-        }
-    }
-
-    function addOrder() {
-        const number = document.getElementById('orderNumber').value.trim();
-        const region = document.getElementById('orderRegion').value;
-        const polygon = document.getElementById('polygonSelect').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-        const type = document.getElementById('orderType').value;
-        
-        if (!number || !region || !polygon || !startDate || !endDate || !type) {
-            alert("Будь ласка, заповніть всі основні поля!"); return;
-        }
-
-        const newOrder = { number, region, polygon, startDate, endDate, type };
-
-        if (type === 'demining') {
-            newOrder.imsma = document.getElementById('imsmaId').value.trim();
-            newOrder.deminingType = document.getElementById('deminingType').value;
-        } else if (type === 'nts') {
-            newOrder.ntsSubType = document.getElementById('ntsSubType').value;
-        }
-
-        orders.push(newOrder);
-        
-        document.getElementById('orderNumber').value = '';
-        document.getElementById('orderType').value = '';
-        document.getElementById('imsmaId').value = '';
-        document.getElementById('deminingType').value = '';
-        document.getElementById('ntsSubType').value = '';
-        document.getElementById('startDate').value = '';
-        document.getElementById('endDate').value = '';
-        toggleTypeFields();
-        
-        renderOrders(); saveToGitHub();
-    }
-
     function deleteOrder(index) {
-        if(confirm("Видалити це розпорядження?")) { orders.splice(index, 1); renderOrders(); saveToGitHub(); }
+        if(confirm("Видалити це розпорядження повністю?")) { orders.splice(index, 1); renderOrders(); saveToGitHub(); }
     }
 
     setLanguage(currentLang);
