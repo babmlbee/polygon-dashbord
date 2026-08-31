@@ -42,10 +42,10 @@
       "endDate": "2026-10-07",
       "items": [
         {
-          "polygon": "Гусарівське-16",
+          "polygon": "",
           "type": "nts",
           "ntsSubType": "targeted",
-          "ntsReportSent": true,
+          "ntsReportSent": false,
           "cadastres": [
             "6322882200:04:000:0091",
             "6322882200:04:000:0157",
