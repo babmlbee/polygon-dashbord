@@ -37,7 +37,6 @@
         .select-btn { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
         .select-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid var(--border); border-radius: 4px; z-index: 100; max-height: 200px; overflow-y: auto; display: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 4px; }
         .select-dropdown.open { display: block; }
-        .checkbox-group { display: flex; flex-direction: column; gap: 6px; max-height: 160px; overflow-y: auto; border: 1px solid var(--border); padding: 10px; border-radius: 4px; background: #fff; }
         .checkbox-item { padding: 8px 12px; border-bottom: 1px solid #eee; margin: 0; display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
         .checkbox-item:hover { background: #f6f8fa; }
         .checkbox-item:last-child { border-bottom: none; }
@@ -56,6 +55,7 @@
         .tag.nts { background: #dbedff; color: #0366d6; }
         .tag.eore { background: #dcffe4; color: #176f2c; }
         
+        /* Індикатори термінів */
         .date-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 13px; font-weight: bold; }
         .date-green { background: #dcffe4; color: #176f2c; border: 1px solid #aceeaf; }
         .date-yellow { background: #fff5b1; color: #b08800; border: 1px solid #f9e2af; }
@@ -88,25 +88,21 @@
     </div>
 
     <div id="adminForms" class="admin-panel">
-        <div class="card" style="margin-bottom: 15px;">
-            <h3 id="t_addPolygonTitle">База полігонів</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px;">
-                <input type="text" id="newPolygonInput" placeholder="Назва полігону">
-                <input type="text" id="newPolyImsma" placeholder="IMSMA ID (необов'язково)">
-                <select id="newPolyRegion">
-                    <option value="" disabled selected id="t_polyOptRegion">Оберіть область...</option>
-                    <option value="kharkiv" id="t_polyRegKh">Харківська область</option>
-                    <option value="mykolaiv" id="t_polyRegMyk">Миколаївська область</option>
-                </select>
-                <button id="t_addPolygonBtn" onclick="addPolygon()">Додати</button>
+        <div class="form-grid">
+            <div class="card" style="margin-bottom: 0;">
+                <h3 id="t_addPolygonTitle">База полігонів</h3>
+                <div class="form-group">
+                    <input type="text" id="newPolygonInput" placeholder="Назва полігону">
+                    <button id="t_addPolygonBtn" onclick="addPolygon()">Додати</button>
+                </div>
             </div>
-        </div>
-        
-        <div class="card" style="margin-bottom: 15px;">
-            <h3 id="t_addMethodTitle">База методів розмінування</h3>
-            <div class="form-group">
-                <input type="text" id="newMethodInput" placeholder="Власний тип розмінування">
-                <button id="t_addMethodBtn" onclick="addCustomMethod()">Додати</button>
+            
+            <div class="card" style="margin-bottom: 0;">
+                <h3 id="t_addMethodTitle">База методів розмінування</h3>
+                <div class="form-group">
+                    <input type="text" id="newMethodInput" placeholder="Власний тип розмінування">
+                    <button id="t_addMethodBtn" onclick="addCustomMethod()">Додати</button>
+                </div>
             </div>
         </div>
 
@@ -140,7 +136,7 @@
         </div>
     </div>
 
-    <!-- Актуальні розпорядження -->
+    <!-- Актуальні (активні) розпорядження -->
     <div class="card">
         <h3 id="t_actualOrdersTitle">Актуальні розпорядження</h3>
         <table id="ordersTable">
@@ -174,6 +170,7 @@
     </div>
 </div>
 
+<!-- Підключення зовнішнього JS файлу -->
 <script src="script.js"></script>
 </body>
 </html>
