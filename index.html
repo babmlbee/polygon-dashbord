@@ -24,7 +24,7 @@
         input[type="text"], input[type="date"], select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box; }
         button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; padding: 8px 12px; border-radius: 4px; }
         button:hover { background-color: #005cc5; }
-        .btn-outline { background-color: white; color: var(--primary); border: 1px solid var(--primary); }
+        .btn-outline { background-color: white; color: var(--primary); border: 1px solid var(--primary); display: inline-block;}
         .btn-outline:hover { background-color: #f0f8ff; }
         .btn-remove { background-color: #d73a49; color: white; padding: 4px 8px; font-size: 12px; float: right; }
         .btn-remove:hover { background-color: #cb2431; }
@@ -88,25 +88,34 @@
     </div>
 
     <div id="adminForms" class="admin-panel">
-        <div class="card" style="margin-bottom: 15px;">
-            <h3 id="t_addPolygonTitle">База полігонів</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px;">
-                <input type="text" id="newPolygonInput" placeholder="Назва полігону">
-                <input type="text" id="newPolyImsma" placeholder="IMSMA ID (необов'язково)">
-                <select id="newPolyRegion">
-                    <option value="" disabled selected id="t_polyOptRegion">Оберіть область...</option>
-                    <option value="kharkiv" id="t_polyRegKh">Харківська область</option>
-                    <option value="mykolaiv" id="t_polyRegMyk">Миколаївська область</option>
-                </select>
-                <button id="t_addPolygonBtn" onclick="addPolygon()">Додати</button>
-            </div>
-        </div>
         
-        <div class="card" style="margin-bottom: 15px;">
-            <h3 id="t_addMethodTitle">База методів розмінування</h3>
-            <div class="form-group">
-                <input type="text" id="newMethodInput" placeholder="Власний тип розмінування">
-                <button id="t_addMethodBtn" onclick="addCustomMethod()">Додати</button>
+        <!-- Кнопка розгортання баз -->
+        <button id="t_btnToggleBases" class="btn-outline" onclick="toggleBases()" style="margin-bottom: 15px; width: 100%; padding: 10px;">+ Відкрити налаштування баз (Полігони / Методи)</button>
+        
+        <!-- Прихований контейнер баз -->
+        <div id="basesContainer" style="display: none;">
+            <div class="form-grid">
+                <div class="card" style="margin-bottom: 15px;">
+                    <h3 id="t_addPolygonTitle">База полігонів</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px;">
+                        <input type="text" id="newPolygonInput" placeholder="Назва полігону">
+                        <input type="text" id="newPolyImsma" placeholder="IMSMA ID (необов'язково)">
+                        <select id="newPolyRegion">
+                            <option value="" disabled selected id="t_polyOptRegion">Оберіть область...</option>
+                            <option value="kharkiv" id="t_polyRegKh">Харківська область</option>
+                            <option value="mykolaiv" id="t_polyRegMyk">Миколаївська область</option>
+                        </select>
+                        <button id="t_addPolygonBtn" onclick="addPolygon()">Додати</button>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-bottom: 15px;">
+                    <h3 id="t_addMethodTitle">База методів розмінування</h3>
+                    <div class="form-group">
+                        <input type="text" id="newMethodInput" placeholder="Власний тип розмінування">
+                        <button id="t_addMethodBtn" onclick="addCustomMethod()">Додати</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -115,11 +124,6 @@
             
             <div class="form-grid">
                 <input type="text" id="orderNumber" placeholder="Номер розпорядження" required>
-                <select id="orderRegion">
-                    <option value="" disabled selected id="t_optRegion">Оберіть область...</option>
-                    <option value="kharkiv" id="t_regKh">Харківська область</option>
-                    <option value="mykolaiv" id="t_regMyk">Миколаївська область</option>
-                </select>
                 
                 <div class="form-group full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <input type="date" id="startDate" required onchange="calculateEndDate()" title="Дата початку">
@@ -140,6 +144,7 @@
         </div>
     </div>
 
+    <!-- Актуальні розпорядження -->
     <div class="card">
         <h3 id="t_actualOrdersTitle">Актуальні розпорядження</h3>
         <table id="ordersTable">
@@ -156,6 +161,7 @@
         <div class="status" id="syncStatus">Завантаження даних...</div>
     </div>
 
+    <!-- Неактивні / минулі розпорядження -->
     <div class="card inactive-section" id="inactiveCard" style="display: none;">
         <h3 id="t_inactiveOrdersTitle" style="color: #d73a49;">Неактивні / Завершені розпорядження</h3>
         <table id="inactiveOrdersTable">
@@ -172,7 +178,6 @@
     </div>
 </div>
 
-<!-- Важливо: ?v=2 змусить браузер завантажити свіжий файл -->
-<script src="script.js?v=2"></script> 
+<script src="script.js"></script>
 </body>
 </html>
