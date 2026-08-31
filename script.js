@@ -11,13 +11,13 @@ let isAdmin = !!localStorage.getItem('gh_token');
 const translations = {
     uk: {
         mainTitle: "Дашборд розпоряджень", addPolygonTitle: "База полігонів", polygonPlaceholder: "Назва полігону", addPolygonBtn: "Додати",
-        polyImsmaPlaceholder: "IMSMA ID (необов'язково)", addMethodTitle: "База методів", methodPlaceholder: "Власний тип", addMethodBtn: "Додати",
+        addMethodTitle: "База методів", methodPlaceholder: "Власний тип", addMethodBtn: "Додати",
         newOrderTitle: "Нове розпорядження (ТО)", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область",
         optType: "Оберіть тип...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт до ТО",
         lblSelectMethods: "Оберіть методи розмінування...", lblSelected: "Обрано:",
         lblCadsSpace: "Кадастри (через пробіл):", cadastreInputPlaceholder: "Наприклад: 1234567800:01:001:0001",
         typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
-        optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне НТО", ntsRe: "Повторне НТО", ntsDemarc: "НТО З метою встановлення маркування", ntsTarget: "Цільове НТО",
+        optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне НТО", ntsRe: "Повторне НТО", ntsDemarc: "НТО з метою встановлення маркування", ntsTarget: "Цільове НТО",
         demTs: "Технічне обстеження", demMc: "Розмінування в ручну", demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
         orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID", addOrderBtn: "Зберегти розпорядження", 
         actualOrdersTitle: "Актуальні розпорядження", inactiveOrdersTitle: "Неактивні / Завершені розпорядження",
@@ -32,7 +32,7 @@ const translations = {
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
-        polyImsmaPlaceholder: "IMSMA ID (optional)", addMethodTitle: "Methods Base", methodPlaceholder: "Custom method", addMethodBtn: "Add",
+        addMethodTitle: "Methods Base", methodPlaceholder: "Custom method", addMethodBtn: "Add",
         newOrderTitle: "New Task Order", optRegion: "Select Region...", regKh: "Kharkiv Region", regMyk: "Mykolaiv Region",
         optType: "Select Type...", selectDefault: "Select Polygon...", lblPolygonsInTO: "Items in this TO:", btnAddPolygonToTO: "+ Add Item to TO",
         lblSelectMethods: "Select demining methods...", lblSelected: "Selected:",
@@ -44,7 +44,7 @@ const translations = {
         actualOrdersTitle: "Current Task Orders", inactiveOrdersTitle: "Inactive / Completed Task Orders",
         thNum: "TO / Region", thPeriod: "Period", thPolDetails: "Items, Polygons & Details", thAction: "Action", deleteBtn: "Delete",
         statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving...", statusSaved: "✅ Saved",
-        lblImsma: "IMSMA ID", lblType: "Methods", lblSubtype: "Subtype", lblStatus: "Report Status",
+        lblImsma: "IMSMA ID", lblType: "Methods", lblSubtype: "Subtype", lblStatus: "Completion Report Status",
         reportYes: "✅ Sent", reportNo: "⏳ Pending", lblCads: "Cadastres",
         colPolygon: "Polygon", colImsma: "IMSMA ID", colMethods: "Demining Methods",
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
@@ -63,12 +63,7 @@ function setLanguage(lang) {
     document.getElementById('t_mainTitle').innerText = t.mainTitle;
     document.getElementById('t_addPolygonTitle').innerText = t.addPolygonTitle; 
     document.getElementById('newPolygonInput').placeholder = t.polygonPlaceholder; 
-    document.getElementById('newPolyImsma').placeholder = t.polyImsmaPlaceholder;
-    document.getElementById('t_polyOptRegion').innerText = t.optRegion;
-    document.getElementById('t_polyRegKh').innerText = t.regKh;
-    document.getElementById('t_polyRegMyk').innerText = t.regMyk;
     document.getElementById('t_addPolygonBtn').innerText = t.addPolygonBtn;
-    
     document.getElementById('t_addMethodTitle').innerText = t.addMethodTitle; 
     document.getElementById('newMethodInput').placeholder = t.methodPlaceholder; 
     document.getElementById('t_addMethodBtn').innerText = t.addMethodBtn;
@@ -96,13 +91,7 @@ async function loadData() {
         const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}?t=${Date.now()}`);
         if (response.ok) {
             const data = await response.json();
-            
-            // Сумісність: перетворення старих рядків на об'єкти
-            polygons = (data.polygons || []).map(p => {
-                if (typeof p === 'string') return { name: p, imsma: "", region: "" };
-                return p;
-            });
-            
+            polygons = data.polygons || []; 
             customMethods = data.customMethods || []; 
             orders = data.orders || [];
             document.getElementById('syncStatus').innerText = translations[currentLang].statusLoaded;
@@ -150,16 +139,9 @@ function updateAdminUI() {
 
 function addPolygon() {
     const name = document.getElementById('newPolygonInput').value.trim();
-    const imsma = document.getElementById('newPolyImsma').value.trim();
-    const region = document.getElementById('newPolyRegion').value;
-    
-    if (name && !polygons.some(p => p.name === name)) { 
-        polygons.push({ name, imsma, region }); 
-        
+    if (name && !polygons.includes(name)) { 
+        polygons.push(name); 
         document.getElementById('newPolygonInput').value = ''; 
-        document.getElementById('newPolyImsma').value = '';
-        document.getElementById('newPolyRegion').value = '';
-        
         document.querySelectorAll('.item-poly-select').forEach(select => {
             select.insertAdjacentHTML('beforeend', `<option value="${name}">${name}</option>`);
         });
@@ -172,16 +154,6 @@ function addCustomMethod() {
     if (name && !customMethods.includes(name)) { 
         customMethods.push(name); 
         document.getElementById('newMethodInput').value = ''; 
-        
-        const blocks = document.querySelectorAll('.polygon-block');
-        blocks.forEach(block => {
-            const blockId = block.id;
-            const dropdown = document.getElementById('dd_' + blockId);
-            if (dropdown) {
-                const html = `<label class="checkbox-item"><input type="checkbox" value="${name}" onchange="updateMethodLabel('${blockId}')"> <span style="margin:0">${name}</span></label>`;
-                dropdown.insertAdjacentHTML('beforeend', html);
-            }
-        });
         saveToGitHub(); 
     }
 }
@@ -218,78 +190,20 @@ function toggleNtsSub(blockId) {
 function toggleItemFields(blockId) {
     const block = document.getElementById(blockId);
     const type = block.querySelector('.item-type-select').value;
+    const polySelect = block.querySelector('.item-poly-select');
     const demFields = block.querySelector('.item-demining-fields');
     const ntsFields = block.querySelector('.item-nts-fields');
     
     demFields.classList.remove('active'); ntsFields.classList.remove('active');
+    if(type) { polySelect.style.display = 'block'; }
     
     if(type === 'demining') demFields.classList.add('active');
     if(type === 'nts') { ntsFields.classList.add('active'); toggleNtsSub(blockId); }
 }
 
-// Функція, яка спрацьовує при виборі полігону і підтягує всі його дані
-function onPolygonSelect(blockId) {
-    const block = document.getElementById(blockId);
-    const polyName = block.querySelector('.item-poly-select').value;
-    if (!polyName) return;
-
-    // 1. Отримуємо базові налаштування полігону
-    const polyData = polygons.find(p => p.name === polyName);
-    if (polyData) {
-        if (polyData.imsma) block.querySelector('.item-imsma').value = polyData.imsma;
-        if (polyData.region) {
-            const globReg = document.getElementById('orderRegion');
-            if (!globReg.value) globReg.value = polyData.region;
-        }
-    }
-
-    // 2. Шукаємо останнє використання полігону в історії розпоряджень
-    let foundHistory = false;
-    const sortedOrders = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
-    
-    for (let order of sortedOrders) {
-        const item = (order.items || []).find(i => i.polygon === polyName);
-        if (item) {
-            foundHistory = true;
-            
-            // Відновлюємо Тип
-            block.querySelector('.item-type-select').value = item.type;
-            toggleItemFields(blockId);
-
-            // Якщо глобальний регіон ще не встановлено, беремо з історії
-            const globReg = document.getElementById('orderRegion');
-            if (!globReg.value && order.region) globReg.value = order.region;
-
-            // Відновлюємо специфічні поля
-            if (item.type === 'demining') {
-                if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
-                
-                const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
-                checkboxes.forEach(cb => {
-                    cb.checked = (item.deminingTypes || []).includes(cb.value);
-                });
-                updateMethodLabel(blockId);
-                
-            } else if (item.type === 'nts') {
-                block.querySelector('.item-nts-sub').value = item.ntsSubType;
-                toggleNtsSub(blockId);
-                // Кадастри НЕ переносяться за вимогою
-            }
-            break; // Знайшли найсвіжіше — зупиняємось
-        }
-    }
-
-    if (!foundHistory) {
-        toggleItemFields(blockId);
-    }
-}
-
 function addPolygonItemBlock() {
     const t = translations[currentLang]; const blockId = 'poly_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
-    
-    let polOpts = `<option value="" disabled selected>${t.selectDefault}</option>`; 
-    polygons.forEach(p => polOpts += `<option value="${p.name}">${p.name}</option>`);
-    
+    let polOpts = `<option value="" disabled selected>${t.selectDefault}</option>`; polygons.forEach(p => polOpts += `<option value="${p}">${p}</option>`);
     let methodOpts = '';
     const baseMethods = [ {id:'ts', l:t.demTs}, {id:'mc', l:t.demMc}, {id:'bac', l:t.demBac}, {id:'mdd', l:t.demMdd}, {id:'mech', l:t.demMech} ];
     baseMethods.forEach(m => methodOpts += `<label class="checkbox-item"><input type="checkbox" value="${m.id}" onchange="updateMethodLabel('${blockId}')"> <span style="margin:0">${m.l}</span></label>`);
@@ -299,15 +213,13 @@ function addPolygonItemBlock() {
         <div class="polygon-block" id="${blockId}">
             <button type="button" class="btn-remove" onclick="document.getElementById('${blockId}').remove()">X</button>
             <div class="form-grid">
-                <select class="item-poly-select" onchange="onPolygonSelect('${blockId}')">
-                    ${polOpts}
-                </select>
                 <select class="item-type-select" onchange="toggleItemFields('${blockId}')">
                     <option value="" disabled selected>${t.optType}</option>
                     <option value="demining">${t.typeDemining}</option>
                     <option value="nts">${t.typeNts}</option>
                     <option value="eore">${t.typeEore}</option>
                 </select>
+                <select class="item-poly-select" style="display:none;">${polOpts}</select>
             </div>
             
             <div class="item-demining-fields dynamic-fields">
@@ -398,30 +310,50 @@ function toggleReportStatus(orderIdx, itemIdx) {
 
 function formatD(dStr) { if(!dStr) return ''; const p = dStr.split('-'); return `${p[2]}.${p[1]}.${p[0]}`; }
 
+// Логіка обчислення кольору та статусу дати
 function getDateStatus(endDateStr) {
     if (!endDateStr) return { class: 'date-green', text: endDateStr };
-    const today = new Date(); today.setHours(0,0,0,0);
-    const endDate = new Date(endDateStr); endDate.setHours(0,0,0,0);
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    const endDate = new Date(endDateStr);
+    endDate.setHours(0,0,0,0);
+    
     const diffTime = endDate - today;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
-    if (diffDays < 0) return { class: 'date-red', isInactive: true };
-    else if (diffDays <= 10) return { class: 'date-yellow', isInactive: false };
-    else return { class: 'date-green', isInactive: false };
+    // Якщо дата вийшла (вчора і раніше) -> Червоний (Неактивне)
+    if (diffDays < 0) {
+        return { class: 'date-red', isInactive: true };
+    } 
+    // Якщо до 10 днів включно -> Жовтий (Закінчується)
+    else if (diffDays <= 10) {
+        return { class: 'date-yellow', isInactive: false };
+    } 
+    // Більше 10 днів -> Зелений (Активне)
+    else {
+        return { class: 'date-green', isInactive: false };
+    }
 }
 
+// Головна функція рендерингу (розділена для майбутніх фільтрів/сортувань)
 function renderOrders() {
     const tbody = document.getElementById('tableBody'); 
     const inactiveTbody = document.getElementById('inactiveTableBody');
-    tbody.innerHTML = ''; inactiveTbody.innerHTML = '';
+    tbody.innerHTML = ''; 
+    inactiveTbody.innerHTML = '';
     
     const sorted = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
     const t = translations[currentLang];
     
-    let activeCount = 0; let inactiveCount = 0;
+    let activeCount = 0;
+    let inactiveCount = 0;
     
     sorted.forEach((order) => {
         const originalOrderIndex = orders.indexOf(order);
+        
+        // Визначаємо статус активності за кінцевою датою
         const dateStatus = getDateStatus(order.endDate);
         const isInactive = dateStatus.isInactive;
         
@@ -430,6 +362,7 @@ function renderOrders() {
         const tr = document.createElement('tr');
         let regionName = order.region === 'kharkiv' ? t.regKh : (order.region === 'mykolaiv' ? t.regMyk : order.region);
         
+        // Форматування періоду з кольоровим бейджем
         let periodHtml = order.startDate ? 
             `<div class="date-cell"><span class="date-badge ${dateStatus.class}">${formatD(order.startDate)} — ${formatD(order.endDate)}</span></div>` : 
             (order.date || '-');
@@ -438,28 +371,38 @@ function renderOrders() {
         let itemsArr = order.items || [];
         
         itemsArr.forEach((item, itemIdx) => {
-            let typeTag = ""; let detailsStr = "";
+            let typeTag = ""; 
+            let detailsStr = "";
             let polyName = item.polygon ? item.polygon : t.lblTargetedCadsOnly;
 
             if (item.type === 'demining') {
                 typeTag = `<span class="tag demining">${t.typeDemining}</span>`;
                 let demTypesArr = item.deminingTypes || [];
                 let translatedTypes = demTypesArr.map(typeId => {
-                    if (typeId === 'ts') return t.demTs; if (typeId === 'mc') return t.demMc; if (typeId === 'bac') return t.demBac; if (typeId === 'mdd') return t.demMdd; if (typeId === 'mech') return t.demMech; return typeId; 
+                    if (typeId === 'ts') return t.demTs; 
+                    if (typeId === 'mc') return t.demMc; 
+                    if (typeId === 'bac') return t.demBac; 
+                    if (typeId === 'mdd') return t.demMdd; 
+                    if (typeId === 'mech') return t.demMech; 
+                    return typeId; 
                 });
                 
+                // Табличне оформлення для Розмінування (як і для НТО)
                 let methodsTableHtml = '';
                 if (translatedTypes.length > 0) {
                     methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th><th>${t.colMethods}</th></tr></thead><tbody><tr><td><code>${item.imsma || '-'}</code></td><td>${translatedTypes.join(', ')}</td></tr></tbody></table>`;
                 } else {
                     methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th></tr></thead><tbody><tr><td><code>${item.imsma || '-'}</code></td></tr></tbody></table>`;
                 }
+                
                 detailsStr = methodsTableHtml;
 
             } else if (item.type === 'nts') {
                 typeTag = `<span class="tag nts">${t.typeNts}</span>`;
                 let ntsName = t.ntsIn;
-                if(item.ntsSubType === 're_nts') ntsName = t.ntsRe; if(item.ntsSubType === 'demarcation') ntsName = t.ntsDemarc; if(item.ntsSubType === 'targeted') ntsName = t.ntsTarget;
+                if(item.ntsSubType === 're_nts') ntsName = t.ntsRe; 
+                if(item.ntsSubType === 'demarcation') ntsName = t.ntsDemarc; 
+                if(item.ntsSubType === 'targeted') ntsName = t.ntsTarget;
                 
                 let reportStatusHtml = '';
                 if (isAdmin) {
@@ -489,15 +432,23 @@ function renderOrders() {
         }
         tr.innerHTML = html;
         
-        if (isInactive) { inactiveTbody.appendChild(tr); } else { tbody.appendChild(tr); }
+        // Розподіляємо на активну таблицю або блок неактивних
+        if (isInactive) {
+            inactiveTbody.appendChild(tr);
+        } else {
+            tbody.appendChild(tr);
+        }
     });
 
+    // Показуємо або ховаємо блок неактивних розпоряджень залежно від їх наявності
     document.getElementById('inactiveCard').style.display = inactiveCount > 0 ? 'block' : 'none';
 }
 
 function deleteOrder(index) { 
     if(confirm("Видалити це розпорядження повністю?")) { 
-        orders.splice(index, 1); renderOrders(); saveToGitHub(); 
+        orders.splice(index, 1); 
+        renderOrders(); 
+        saveToGitHub(); 
     } 
 }
 
