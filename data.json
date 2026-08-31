@@ -4,5 +4,36 @@
     "Гусарівське-21"
   ],
   "customMethods": [],
-  "orders": []
+  "orders": [
+    {
+      "number": "2438",
+      "region": "kharkiv",
+      "startDate": "2026-08-11",
+      "endDate": "2026-09-11",
+      "items": [
+        {
+          "polygon": "Гусарівське-16",
+          "type": "demining",
+          "imsma": "HAUA63HS20250628-111754/1223",
+          "deminingTypes": [
+            "ts",
+            "bac",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Гусарівське-21",
+          "type": "demining",
+          "imsma": "HAUA63HS20250628-142557/1223",
+          "deminingTypes": [
+            "ts",
+            "bac",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
+    }
+  ]
 }
