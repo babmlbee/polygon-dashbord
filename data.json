@@ -1,9 +1,25 @@
 {
   "polygons": [
-    "Гусарівське-16",
-    "Гусарівське-21",
-    "Савинці-4S",
-    "Савинці-7S"
+    {
+      "name": "Гусарівське-16",
+      "imsma": "",
+      "region": ""
+    },
+    {
+      "name": "Гусарівське-21",
+      "imsma": "",
+      "region": ""
+    },
+    {
+      "name": "Савинці-4S",
+      "imsma": "",
+      "region": ""
+    },
+    {
+      "name": "Савинці-7S",
+      "imsma": "",
+      "region": ""
+    }
   ],
   "customMethods": [],
   "orders": [
@@ -47,7 +63,7 @@
           "polygon": "",
           "type": "nts",
           "ntsSubType": "targeted",
-          "ntsReportSent": false,
+          "ntsReportSent": true,
           "cadastres": [
             "6322882200:04:000:0091",
             "6322882200:04:000:0157",
