@@ -62,6 +62,36 @@
           ]
         }
       ]
+    },
+    {
+      "number": "2574",
+      "region": "kharkiv",
+      "startDate": "2026-08-28",
+      "endDate": "2026-09-28",
+      "items": [
+        {
+          "polygon": "Савинці-4S",
+          "type": "demining",
+          "imsma": "HAUA63FSD20240920-001290",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Савинці-7S",
+          "type": "demining",
+          "imsma": "HAUA63FSD20241025-001341",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
