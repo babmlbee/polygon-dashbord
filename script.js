@@ -12,27 +12,30 @@ const translations = {
     uk: {
         mainTitle: "Дашборд розпоряджень", addPolygonTitle: "База полігонів", polygonPlaceholder: "Назва полігону", addPolygonBtn: "Додати",
         polyImsmaPlaceholder: "IMSMA ID (необов'язково)", addMethodTitle: "База методів", methodPlaceholder: "Власний тип", addMethodBtn: "Додати",
+        btnToggleBasesShow: "+ Відкрити налаштування баз (Полігони / Методи)", btnToggleBasesHide: "- Сховати налаштування баз",
         newOrderTitle: "Нове розпорядження (ТО)", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область",
         optType: "Оберіть тип...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт до ТО",
         lblSelectMethods: "Оберіть методи розмінування...", lblSelected: "Обрано:",
         lblCadsSpace: "Кадастри (через пробіл):", cadastreInputPlaceholder: "Наприклад: 1234567800:01:001:0001",
         typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
-        optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне НТО", ntsRe: "Повторне НТО", ntsDemarc: "НТО З метою встановлення маркування", ntsTarget: "Цільове НТО",
+        optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне НТО", ntsRe: "Повторне НТО", ntsDemarc: "НТО з метою встановлення маркування", ntsTarget: "Цільове НТО",
         demTs: "Технічне обстеження", demMc: "Розмінування в ручну", demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
         orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID", addOrderBtn: "Зберегти розпорядження", 
         actualOrdersTitle: "Актуальні розпорядження", inactiveOrdersTitle: "Неактивні / Завершені розпорядження",
         thNum: "ТО / Регіон", thPeriod: "Період", thPolDetails: "Об'єкти, Полігони та Деталі", thAction: "Дія", deleteBtn: "Видалити",
         statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження...", statusSaved: "✅ Збережено",
-        lblImsma: "IMSMA ID", lblType: "Методи", lblSubtype: "Підтип", lblStatus: "Статус звіту",
+        lblImsma: "IMSMA ID", lblType: "Методи", lblSubtype: "Підтип", lblStatus: "Completion Report Status",
         reportYes: "✅ Надіслано", reportNo: "⏳ Очікується", lblCads: "Кадастри",
         colPolygon: "Полігон", colImsma: "IMSMA ID", colMethods: "Методи розмінування",
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
         lblTargetedCadsOnly: "Цільове НТО (тільки кадастри)",
-        errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", errCadsOrPoly: "Для Цільового НТО потрібно вказати кадастри або обрати полігон!"
+        errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", errCadsOrPoly: "Для Цільового НТО потрібно вказати кадастри або обрати полігон!",
+        errNoRegion: "Оберіть область хоча б для одного об'єкта (або впишіть кадастри)!"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
         polyImsmaPlaceholder: "IMSMA ID (optional)", addMethodTitle: "Methods Base", methodPlaceholder: "Custom method", addMethodBtn: "Add",
+        btnToggleBasesShow: "+ Open Base Settings (Polygons / Methods)", btnToggleBasesHide: "- Hide Base Settings",
         newOrderTitle: "New Task Order", optRegion: "Select Region...", regKh: "Kharkiv Region", regMyk: "Mykolaiv Region",
         optType: "Select Type...", selectDefault: "Select Polygon...", lblPolygonsInTO: "Items in this TO:", btnAddPolygonToTO: "+ Add Item to TO",
         lblSelectMethods: "Select demining methods...", lblSelected: "Selected:",
@@ -49,7 +52,8 @@ const translations = {
         colPolygon: "Polygon", colImsma: "IMSMA ID", colMethods: "Demining Methods",
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
         lblTargetedCadsOnly: "Targeted NTS (cadastres only)",
-        errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", errCadsOrPoly: "For Targeted NTS, provide cadastres or select a polygon!"
+        errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", errCadsOrPoly: "For Targeted NTS, provide cadastres or select a polygon!",
+        errNoRegion: "Select a region for at least one item!"
     }
 };
 
@@ -72,10 +76,17 @@ function setLanguage(lang) {
     document.getElementById('t_addMethodTitle').innerText = t.addMethodTitle; 
     document.getElementById('newMethodInput').placeholder = t.methodPlaceholder; 
     document.getElementById('t_addMethodBtn').innerText = t.addMethodBtn;
+    
+    // Оновлення тексту кнопки баз
+    const basesContainer = document.getElementById('basesContainer');
+    const btnBases = document.getElementById('t_btnToggleBases');
+    if (basesContainer.style.display === 'none' || !basesContainer.style.display) {
+        btnBases.innerText = t.btnToggleBasesShow;
+    } else {
+        btnBases.innerText = t.btnToggleBasesHide;
+    }
+
     document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle; 
-    document.getElementById('t_optRegion').innerText = t.optRegion; 
-    document.getElementById('t_regKh').innerText = t.regKh; 
-    document.getElementById('t_regMyk').innerText = t.regMyk;
     document.getElementById('t_lblPolygonsInTO').innerText = t.lblPolygonsInTO; 
     document.getElementById('t_btnAddPolygonToTO').innerText = t.btnAddPolygonToTO; 
     document.getElementById('orderNumber').placeholder = t.orderNumberPlaceholder; 
@@ -91,18 +102,29 @@ function setLanguage(lang) {
     renderOrders();
 }
 
+function toggleBases() {
+    const container = document.getElementById('basesContainer');
+    const btn = document.getElementById('t_btnToggleBases');
+    const t = translations[currentLang];
+    
+    if (container.style.display === 'none' || !container.style.display) {
+        container.style.display = 'block';
+        btn.innerText = t.btnToggleBasesHide;
+    } else {
+        container.style.display = 'none';
+        btn.innerText = t.btnToggleBasesShow;
+    }
+}
+
 async function loadData() {
     try {
         const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}?t=${Date.now()}`);
         if (response.ok) {
             const data = await response.json();
-            
-            // Сумісність: перетворення старих рядків на об'єкти
             polygons = (data.polygons || []).map(p => {
                 if (typeof p === 'string') return { name: p, imsma: "", region: "" };
                 return p;
             });
-            
             customMethods = data.customMethods || []; 
             orders = data.orders || [];
             document.getElementById('syncStatus').innerText = translations[currentLang].statusLoaded;
@@ -218,16 +240,23 @@ function toggleNtsSub(blockId) {
 function toggleItemFields(blockId) {
     const block = document.getElementById(blockId);
     const type = block.querySelector('.item-type-select').value;
+    const polySelect = block.querySelector('.item-poly-select');
+    const polyRegion = block.querySelector('.item-poly-region');
     const demFields = block.querySelector('.item-demining-fields');
     const ntsFields = block.querySelector('.item-nts-fields');
     
     demFields.classList.remove('active'); ntsFields.classList.remove('active');
     
+    // Показуємо вибір полігону та області лише після вибору типу
+    if(type) { 
+        polySelect.style.display = 'block'; 
+        polyRegion.style.display = 'block';
+    }
+    
     if(type === 'demining') demFields.classList.add('active');
     if(type === 'nts') { ntsFields.classList.add('active'); toggleNtsSub(blockId); }
 }
 
-// Функція, яка спрацьовує при виборі полігону і підтягує всі його дані
 function onPolygonSelect(blockId) {
     const block = document.getElementById(blockId);
     const polyName = block.querySelector('.item-poly-select').value;
@@ -237,10 +266,7 @@ function onPolygonSelect(blockId) {
     const polyData = polygons.find(p => p.name === polyName);
     if (polyData) {
         if (polyData.imsma) block.querySelector('.item-imsma').value = polyData.imsma;
-        if (polyData.region) {
-            const globReg = document.getElementById('orderRegion');
-            if (!globReg.value) globReg.value = polyData.region;
-        }
+        if (polyData.region) block.querySelector('.item-poly-region').value = polyData.region;
     }
 
     // 2. Шукаємо останнє використання полігону в історії розпоряджень
@@ -252,35 +278,24 @@ function onPolygonSelect(blockId) {
         if (item) {
             foundHistory = true;
             
-            // Відновлюємо Тип
-            block.querySelector('.item-type-select').value = item.type;
-            toggleItemFields(blockId);
+            // Якщо полігон з історії не мав збереженого регіону в базі, але мав у розпорядженні
+            if ((!polyData || !polyData.region) && order.region) {
+                block.querySelector('.item-poly-region').value = order.region;
+            }
 
-            // Якщо глобальний регіон ще не встановлено, беремо з історії
-            const globReg = document.getElementById('orderRegion');
-            if (!globReg.value && order.region) globReg.value = order.region;
-
-            // Відновлюємо специфічні поля
             if (item.type === 'demining') {
                 if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
-                
                 const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
                 checkboxes.forEach(cb => {
                     cb.checked = (item.deminingTypes || []).includes(cb.value);
                 });
                 updateMethodLabel(blockId);
-                
             } else if (item.type === 'nts') {
                 block.querySelector('.item-nts-sub').value = item.ntsSubType;
                 toggleNtsSub(blockId);
-                // Кадастри НЕ переносяться за вимогою
             }
-            break; // Знайшли найсвіжіше — зупиняємось
+            break;
         }
-    }
-
-    if (!foundHistory) {
-        toggleItemFields(blockId);
     }
 }
 
@@ -299,14 +314,19 @@ function addPolygonItemBlock() {
         <div class="polygon-block" id="${blockId}">
             <button type="button" class="btn-remove" onclick="document.getElementById('${blockId}').remove()">X</button>
             <div class="form-grid">
-                <select class="item-poly-select" onchange="onPolygonSelect('${blockId}')">
-                    ${polOpts}
-                </select>
                 <select class="item-type-select" onchange="toggleItemFields('${blockId}')">
                     <option value="" disabled selected>${t.optType}</option>
                     <option value="demining">${t.typeDemining}</option>
                     <option value="nts">${t.typeNts}</option>
                     <option value="eore">${t.typeEore}</option>
+                </select>
+                <select class="item-poly-select" style="display:none;" onchange="onPolygonSelect('${blockId}')">
+                    ${polOpts}
+                </select>
+                <select class="item-poly-region" style="display:none;">
+                    <option value="" disabled selected>${t.optRegion}</option>
+                    <option value="kharkiv">${t.regKh}</option>
+                    <option value="mykolaiv">${t.regMyk}</option>
                 </select>
             </div>
             
@@ -339,24 +359,28 @@ function addPolygonItemBlock() {
 
 function addOrder() {
     const number = document.getElementById('orderNumber').value.trim(); 
-    const region = document.getElementById('orderRegion').value;
     const startDate = document.getElementById('startDate').value; 
     const endDate = document.getElementById('endDate').value;
     const blocks = document.querySelectorAll('.polygon-block');
     const t = translations[currentLang];
     
-    if (!number || !region || !startDate || !endDate) { alert("Заповніть номер ТО, область та дати!"); return; }
+    if (!number || !startDate || !endDate) { alert("Заповніть номер ТО та дати!"); return; }
     if (blocks.length === 0) { alert("Додайте хоча б один об'єкт до розпорядження!"); return; }
 
-    let items = []; let validationError = false; let errMsg = "";
+    let items = []; 
+    let validationError = false; 
+    let errMsg = "";
+    let globalRegion = ""; // Головний регіон ТО (береться з першого об'єкта)
     
     blocks.forEach(block => {
         const type = block.querySelector('.item-type-select').value; 
         const poly = block.querySelector('.item-poly-select').value; 
+        const region = block.querySelector('.item-poly-region').value;
         
         if (!type) { validationError = true; errMsg = t.errNoType; return; }
+        if (!globalRegion && region) globalRegion = region;
         
-        let item = { polygon: poly, type: type };
+        let item = { polygon: poly, type: type, region: region };
         
         if (type === 'demining') {
             if (!poly) { validationError = true; errMsg = t.errNoPoly; return; }
@@ -380,9 +404,12 @@ function addOrder() {
     });
 
     if (validationError) { alert(errMsg); return; }
+    if (!globalRegion) { alert(t.errNoRegion); return; }
 
-    orders.push({ number, region, startDate, endDate, items });
-    document.getElementById('orderNumber').value = ''; document.getElementById('orderRegion').value = ''; 
+    // Зберігаємо замовлення з глобальним регіоном
+    orders.push({ number, region: globalRegion, startDate, endDate, items });
+    
+    document.getElementById('orderNumber').value = ''; 
     document.getElementById('startDate').value = ''; document.getElementById('endDate').value = ''; 
     document.getElementById('polygonItemsContainer').innerHTML = '';
     renderOrders(); 
