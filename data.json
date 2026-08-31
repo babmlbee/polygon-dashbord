@@ -60,6 +60,20 @@
           ]
         }
       ]
+    },
+    {
+      "number": "2557",
+      "region": "kharkiv",
+      "startDate": "2026-06-25",
+      "endDate": "2026-07-25",
+      "items": [
+        {
+          "polygon": "Гусарівське-16",
+          "type": "nts",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        }
+      ]
     }
   ]
 }
