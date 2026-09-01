@@ -54,6 +54,11 @@
       "name": "Поле №1 ТОВ СВП Снігурівське-3",
       "imsma": "HAUA48HDR20240715-1943",
       "region": "mykolaiv"
+    },
+    {
+      "name": "Novokondakove – 1",
+      "imsma": "HAUA48HALO20230801-5659506",
+      "region": "mykolaiv"
     }
   ],
   "customMethods": [],
