@@ -71,6 +71,7 @@
         .info-table tr:hover td { background: #f6f8fa; }
         
         .inactive-section { margin-top: 30px; opacity: 0.85; border-top: 2px dashed #d73a49; padding-top: 20px; }
+        .filter-panel { background: #eef3f8; border: 1px solid #d1d5da; }
     </style>
 </head>
 <body>
@@ -87,12 +88,10 @@
         </div>
     </div>
 
+    <!-- Адмін панель -->
     <div id="adminForms" class="admin-panel">
-        
-        <!-- Кнопка розгортання баз -->
         <button id="t_btnToggleBases" class="btn-outline" onclick="toggleBases()" style="margin-bottom: 15px; width: 100%; padding: 10px;">+ Відкрити налаштування баз (Полігони / Методи)</button>
         
-        <!-- Прихований контейнер баз -->
         <div id="basesContainer" style="display: none;">
             <div class="form-grid">
                 <div class="card" style="margin-bottom: 15px;">
@@ -142,6 +141,40 @@
             <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
             <button id="t_addOrderBtn" onclick="addOrder()" style="width: 100%;">Зберегти розпорядження</button>
         </div>
+    </div>
+
+    <!-- Панель фільтрів (Видима для всіх) -->
+    <div class="card filter-panel">
+        <h3 id="t_filterTitle" style="margin-bottom: 10px;">Фільтри та Пошук</h3>
+        <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px;">
+            <input type="text" id="filterText" placeholder="Пошук (ТО, Полігон, IMSMA, Кадастр)..." oninput="renderOrders()" style="grid-column: span 2;">
+            
+            <select id="filterRegion" onchange="renderOrders()">
+                <option value="all" id="t_fltAllReg">Всі області</option>
+                <option value="kharkiv" id="t_fltKh">Харківська</option>
+                <option value="mykolaiv" id="t_fltMyk">Миколаївська</option>
+            </select>
+            
+            <select id="filterType" onchange="renderOrders()">
+                <option value="all" id="t_fltAllTypes">Всі типи робіт</option>
+                <option value="demining" id="t_fltDem">Розмінування</option>
+                <option value="nts" id="t_fltNts">НТО</option>
+                <option value="eore" id="t_fltEore">ІНРМ</option>
+            </select>
+            
+            <div class="form-group" style="grid-column: span 2; display: flex; gap: 5px;">
+                <label id="t_lblFilterDate" style="white-space: nowrap; font-size: 14px; font-weight: 600;">Період (з - по):</label>
+                <input type="date" id="filterDateFrom" onchange="renderOrders()">
+                <input type="date" id="filterDateTo" onchange="renderOrders()">
+            </div>
+
+            <select id="filterNtsStatus" onchange="renderOrders()" style="grid-column: span 2;">
+                <option value="all" id="t_fltAllStatus">Всі статуси звітів (тільки для НТО)</option>
+                <option value="pending" id="t_fltPending">⏳ Очікується звіт</option>
+                <option value="sent" id="t_fltSent">✅ Звіт надіслано</option>
+            </select>
+        </div>
+        <button class="btn-outline" onclick="resetFilters()" id="t_btnResetFilters" style="margin-top: 10px;">Скинути фільтри</button>
     </div>
 
     <!-- Актуальні розпорядження -->
