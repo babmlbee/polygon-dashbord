@@ -44,6 +44,11 @@
       "name": "Поле №1 ТОВ СВП Снігурівське-1",
       "imsma": "HAUA48HDR 20240716-1627",
       "region": "mykolaiv"
+    },
+    {
+      "name": "Максимівка 45",
+      "imsma": "HAUA48NPA20250814-152700",
+      "region": "mykolaiv"
     }
   ],
   "customMethods": [],
