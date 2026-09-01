@@ -30,7 +30,13 @@ const translations = {
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
         lblTargetedCadsOnly: "Цільове НТО (тільки кадастри)",
         errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", errCadsOrPoly: "Для Цільового НТО потрібно вказати кадастри або обрати полігон!",
-        errNoRegion: "Оберіть область хоча б для одного об'єкта (або впишіть кадастри)!"
+        errNoRegion: "Оберіть область хоча б для одного об'єкта (або впишіть кадастри)!",
+        // Фільтри
+        filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, IMSMA, Кадастр)...",
+        fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
+        fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
+        fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
+        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -53,7 +59,13 @@ const translations = {
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
         lblTargetedCadsOnly: "Targeted NTS (cadastres only)",
         errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", errCadsOrPoly: "For Targeted NTS, provide cadastres or select a polygon!",
-        errNoRegion: "Select a region for at least one item!"
+        errNoRegion: "Select a region for at least one item!",
+        // Filters
+        filterTitle: "Filters & Search", fltSearchPlaceholder: "Search (TO, Polygon, IMSMA, Cadastre)...",
+        fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
+        fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
+        fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
+        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters"
     }
 };
 
@@ -77,7 +89,6 @@ function setLanguage(lang) {
     document.getElementById('newMethodInput').placeholder = t.methodPlaceholder; 
     document.getElementById('t_addMethodBtn').innerText = t.addMethodBtn;
     
-    // Оновлення тексту кнопки баз
     const basesContainer = document.getElementById('basesContainer');
     const btnBases = document.getElementById('t_btnToggleBases');
     if (basesContainer.style.display === 'none' || !basesContainer.style.display) {
@@ -97,6 +108,22 @@ function setLanguage(lang) {
     document.getElementById('t_thPeriod').innerText = t.thPeriod; 
     document.getElementById('t_thPolDetails').innerText = t.thPolDetails; 
     document.getElementById('t_thAction').innerText = t.thAction;
+
+    // Filters
+    document.getElementById('t_filterTitle').innerText = t.filterTitle;
+    document.getElementById('filterText').placeholder = t.fltSearchPlaceholder;
+    document.getElementById('t_fltAllReg').innerText = t.fltAllReg;
+    document.getElementById('t_fltKh').innerText = t.fltKh;
+    document.getElementById('t_fltMyk').innerText = t.fltMyk;
+    document.getElementById('t_fltAllTypes').innerText = t.fltAllTypes;
+    document.getElementById('t_fltDem').innerText = t.fltDem;
+    document.getElementById('t_fltNts').innerText = t.fltNts;
+    document.getElementById('t_fltEore').innerText = t.fltEore;
+    document.getElementById('t_fltAllStatus').innerText = t.fltAllStatus;
+    document.getElementById('t_fltPending').innerText = t.fltPending;
+    document.getElementById('t_fltSent').innerText = t.fltSent;
+    document.getElementById('t_lblFilterDate').innerText = t.lblFilterDate;
+    document.getElementById('t_btnResetFilters').innerText = t.btnResetFilters;
     
     document.getElementById('polygonItemsContainer').innerHTML = ''; 
     renderOrders();
@@ -247,7 +274,6 @@ function toggleItemFields(blockId) {
     
     demFields.classList.remove('active'); ntsFields.classList.remove('active');
     
-    // Показуємо вибір полігону та області лише після вибору типу
     if(type) { 
         polySelect.style.display = 'block'; 
         polyRegion.style.display = 'block';
@@ -262,14 +288,12 @@ function onPolygonSelect(blockId) {
     const polyName = block.querySelector('.item-poly-select').value;
     if (!polyName) return;
 
-    // 1. Отримуємо базові налаштування полігону
     const polyData = polygons.find(p => p.name === polyName);
     if (polyData) {
         if (polyData.imsma) block.querySelector('.item-imsma').value = polyData.imsma;
         if (polyData.region) block.querySelector('.item-poly-region').value = polyData.region;
     }
 
-    // 2. Шукаємо останнє використання полігону в історії розпоряджень
     let foundHistory = false;
     const sortedOrders = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
     
@@ -277,8 +301,6 @@ function onPolygonSelect(blockId) {
         const item = (order.items || []).find(i => i.polygon === polyName);
         if (item) {
             foundHistory = true;
-            
-            // Якщо полігон з історії не мав збереженого регіону в базі, але мав у розпорядженні
             if ((!polyData || !polyData.region) && order.region) {
                 block.querySelector('.item-poly-region').value = order.region;
             }
@@ -286,9 +308,7 @@ function onPolygonSelect(blockId) {
             if (item.type === 'demining') {
                 if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
                 const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
-                checkboxes.forEach(cb => {
-                    cb.checked = (item.deminingTypes || []).includes(cb.value);
-                });
+                checkboxes.forEach(cb => { cb.checked = (item.deminingTypes || []).includes(cb.value); });
                 updateMethodLabel(blockId);
             } else if (item.type === 'nts') {
                 block.querySelector('.item-nts-sub').value = item.ntsSubType;
@@ -370,7 +390,7 @@ function addOrder() {
     let items = []; 
     let validationError = false; 
     let errMsg = "";
-    let globalRegion = ""; // Головний регіон ТО (береться з першого об'єкта)
+    let globalRegion = ""; 
     
     blocks.forEach(block => {
         const type = block.querySelector('.item-type-select').value; 
@@ -406,7 +426,6 @@ function addOrder() {
     if (validationError) { alert(errMsg); return; }
     if (!globalRegion) { alert(t.errNoRegion); return; }
 
-    // Зберігаємо замовлення з глобальним регіоном
     orders.push({ number, region: globalRegion, startDate, endDate, items });
     
     document.getElementById('orderNumber').value = ''; 
@@ -437,12 +456,90 @@ function getDateStatus(endDateStr) {
     else return { class: 'date-green', isInactive: false };
 }
 
+// Функції фільтрів
+function resetFilters() {
+    document.getElementById('filterText').value = '';
+    document.getElementById('filterRegion').value = 'all';
+    document.getElementById('filterType').value = 'all';
+    document.getElementById('filterNtsStatus').value = 'all';
+    document.getElementById('filterDateFrom').value = '';
+    document.getElementById('filterDateTo').value = '';
+    renderOrders();
+}
+
+function getFilteredOrders() {
+    const fText = document.getElementById('filterText').value.toLowerCase().trim();
+    const fReg = document.getElementById('filterRegion').value;
+    const fType = document.getElementById('filterType').value;
+    const fNtsStat = document.getElementById('filterNtsStatus').value;
+    const fDateFrom = document.getElementById('filterDateFrom').value;
+    const fDateTo = document.getElementById('filterDateTo').value;
+
+    return orders.filter(order => {
+        // 1. Фільтр по регіону
+        if (fReg !== 'all' && order.region !== fReg) return false;
+        
+        // 2. Фільтр по датах
+        if (fDateFrom && order.startDate < fDateFrom) return false;
+        if (fDateTo && order.endDate > fDateTo) return false;
+        
+        // 3. Фільтр по тексту та типах/статусах (шукаємо хоча б один збіг всередині об'єктів ТО)
+        let hasMatch = false;
+        
+        // Якщо фільтрів по об'єктам немає, перевіряємо тільки загальний номер ТО
+        if (!fText && fType === 'all' && fNtsStat === 'all') {
+            return true;
+        }
+
+        // Перевіряємо об'єкти
+        if (order.items && order.items.length > 0) {
+            hasMatch = order.items.some(item => {
+                let match = true;
+                
+                // Перевірка Типу
+                if (fType !== 'all' && item.type !== fType) match = false;
+                
+                // Перевірка Статусу Звіту НТО
+                if (fNtsStat !== 'all') {
+                    if (item.type !== 'nts') match = false;
+                    else {
+                        if (fNtsStat === 'sent' && !item.ntsReportSent) match = false;
+                        if (fNtsStat === 'pending' && item.ntsReportSent) match = false;
+                    }
+                }
+
+                // Перевірка Тексту (полігон, IMSMA, номер ТО, кадастр)
+                if (fText) {
+                    const toNum = (order.number || '').toLowerCase();
+                    const pName = (item.polygon || '').toLowerCase();
+                    const iName = (item.imsma || '').toLowerCase();
+                    const cads = (item.cadastres || []).join(' ').toLowerCase();
+                    
+                    if (!toNum.includes(fText) && !pName.includes(fText) && !iName.includes(fText) && !cads.includes(fText)) {
+                        match = false;
+                    }
+                }
+                
+                return match;
+            });
+        } else {
+            // Якщо об'єктів немає (для старих даних), але є пошук по номеру ТО
+            if (fText && (order.number || '').toLowerCase().includes(fText) && fType === 'all' && fNtsStat === 'all') {
+                hasMatch = true;
+            }
+        }
+
+        return hasMatch;
+    });
+}
+
 function renderOrders() {
     const tbody = document.getElementById('tableBody'); 
     const inactiveTbody = document.getElementById('inactiveTableBody');
     tbody.innerHTML = ''; inactiveTbody.innerHTML = '';
     
-    const sorted = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
+    let filteredOrders = getFilteredOrders();
+    const sorted = [...filteredOrders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
     const t = translations[currentLang];
     
     let activeCount = 0; let inactiveCount = 0;
