@@ -118,6 +118,38 @@
           ]
         }
       ]
+    },
+    {
+      "number": "2370",
+      "region": "mykolaiv",
+      "startDate": "2026-08-05",
+      "endDate": "2026-09-05",
+      "items": [
+        {
+          "polygon": "Любине-1",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20231106-6615106",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Любине-4",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20260225-12253406",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
