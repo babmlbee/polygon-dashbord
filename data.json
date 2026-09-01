@@ -19,6 +19,11 @@
       "name": "Савинці-7S",
       "imsma": "",
       "region": ""
+    },
+    {
+      "name": "Любине-1",
+      "imsma": "HAUA48HALO20231106-6615106",
+      "region": "mykolaiv"
     }
   ],
   "customMethods": [],
@@ -63,7 +68,7 @@
           "polygon": "",
           "type": "nts",
           "ntsSubType": "targeted",
-          "ntsReportSent": true,
+          "ntsReportSent": false,
           "cadastres": [
             "6322882200:04:000:0091",
             "6322882200:04:000:0157",
