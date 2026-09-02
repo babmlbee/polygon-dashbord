@@ -283,6 +283,19 @@
           ]
         }
       ]
+    },
+    {
+      "number": "2546",
+      "region": "mykolaiv",
+      "startDate": "2026-08-25",
+      "endDate": "2026-09-25",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "mykolaiv"
+        }
+      ]
     }
   ]
 }
