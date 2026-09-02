@@ -29,9 +29,9 @@ const translations = {
         colPolygon: "Полігон", colImsma: "IMSMA ID", colMethods: "Методи розмінування",
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
         lblTargetedCadsOnly: "Цільове НТО (тільки кадастри)",
+        lblEoreArea: "В межах області (без полігону)", lblEoreRegion: "Регіон виконання:",
         errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", errCadsOrPoly: "Для Цільового НТО потрібно вказати кадастри або обрати полігон!",
         errNoRegion: "Оберіть область хоча б для одного об'єкта (або впишіть кадастри)!",
-        // Фільтри
         filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, IMSMA, Кадастр)...",
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
@@ -58,9 +58,9 @@ const translations = {
         colPolygon: "Polygon", colImsma: "IMSMA ID", colMethods: "Demining Methods",
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
         lblTargetedCadsOnly: "Targeted NTS (cadastres only)",
+        lblEoreArea: "Within region (no polygon)", lblEoreRegion: "Operating Region:",
         errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", errCadsOrPoly: "For Targeted NTS, provide cadastres or select a polygon!",
         errNoRegion: "Select a region for at least one item!",
-        // Filters
         filterTitle: "Filters & Search", fltSearchPlaceholder: "Search (TO, Polygon, IMSMA, Cadastre)...",
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
@@ -109,7 +109,6 @@ function setLanguage(lang) {
     document.getElementById('t_thPolDetails').innerText = t.thPolDetails; 
     document.getElementById('t_thAction').innerText = t.thAction;
 
-    // Filters
     document.getElementById('t_filterTitle').innerText = t.filterTitle;
     document.getElementById('filterText').placeholder = t.fltSearchPlaceholder;
     document.getElementById('t_fltAllReg').innerText = t.fltAllReg;
@@ -274,9 +273,15 @@ function toggleItemFields(blockId) {
     
     demFields.classList.remove('active'); ntsFields.classList.remove('active');
     
-    if(type) { 
+    if(type === 'eore') { 
+        polySelect.style.display = 'none'; // ІНРМ не потребує полігону
+        polyRegion.style.display = 'block';
+    } else if(type) { 
         polySelect.style.display = 'block'; 
         polyRegion.style.display = 'block';
+    } else {
+        polySelect.style.display = 'none'; 
+        polyRegion.style.display = 'none';
     }
     
     if(type === 'demining') demFields.classList.add('active');
@@ -394,11 +399,15 @@ function addOrder() {
     
     blocks.forEach(block => {
         const type = block.querySelector('.item-type-select').value; 
-        const poly = block.querySelector('.item-poly-select').value; 
+        let poly = block.querySelector('.item-poly-select').value; 
         const region = block.querySelector('.item-poly-region').value;
         
         if (!type) { validationError = true; errMsg = t.errNoType; return; }
         if (!globalRegion && region) globalRegion = region;
+        
+        if (type === 'eore') {
+            poly = ""; // Для ІНРМ полігон не потрібен
+        }
         
         let item = { polygon: poly, type: type, region: region };
         
@@ -418,13 +427,12 @@ function addOrder() {
                 if (!poly) { validationError = true; errMsg = t.errNoPoly; return; }
             }
         } else if (type === 'eore') {
-            if (!poly) { validationError = true; errMsg = t.errNoPoly; return; }
+            if (!region && !globalRegion) { validationError = true; errMsg = t.errNoRegion; return; }
         }
         items.push(item);
     });
 
     if (validationError) { alert(errMsg); return; }
-    if (!globalRegion) { alert(t.errNoRegion); return; }
 
     orders.push({ number, region: globalRegion, startDate, endDate, items });
     
@@ -456,7 +464,6 @@ function getDateStatus(endDateStr) {
     else return { class: 'date-green', isInactive: false };
 }
 
-// Функції фільтрів
 function resetFilters() {
     document.getElementById('filterText').value = '';
     document.getElementById('filterRegion').value = 'all';
@@ -476,30 +483,21 @@ function getFilteredOrders() {
     const fDateTo = document.getElementById('filterDateTo').value;
 
     return orders.filter(order => {
-        // 1. Фільтр по регіону
         if (fReg !== 'all' && order.region !== fReg) return false;
-        
-        // 2. Фільтр по датах
         if (fDateFrom && order.startDate < fDateFrom) return false;
         if (fDateTo && order.endDate > fDateTo) return false;
         
-        // 3. Фільтр по тексту та типах/статусах (шукаємо хоча б один збіг всередині об'єктів ТО)
         let hasMatch = false;
-        
-        // Якщо фільтрів по об'єктам немає, перевіряємо тільки загальний номер ТО
         if (!fText && fType === 'all' && fNtsStat === 'all') {
             return true;
         }
 
-        // Перевіряємо об'єкти
         if (order.items && order.items.length > 0) {
             hasMatch = order.items.some(item => {
                 let match = true;
                 
-                // Перевірка Типу
                 if (fType !== 'all' && item.type !== fType) match = false;
                 
-                // Перевірка Статусу Звіту НТО
                 if (fNtsStat !== 'all') {
                     if (item.type !== 'nts') match = false;
                     else {
@@ -508,7 +506,6 @@ function getFilteredOrders() {
                     }
                 }
 
-                // Перевірка Тексту (полігон, IMSMA, номер ТО, кадастр)
                 if (fText) {
                     const toNum = (order.number || '').toLowerCase();
                     const pName = (item.polygon || '').toLowerCase();
@@ -519,16 +516,13 @@ function getFilteredOrders() {
                         match = false;
                     }
                 }
-                
                 return match;
             });
         } else {
-            // Якщо об'єктів немає (для старих даних), але є пошук по номеру ТО
             if (fText && (order.number || '').toLowerCase().includes(fText) && fType === 'all' && fNtsStat === 'all') {
                 hasMatch = true;
             }
         }
-
         return hasMatch;
     });
 }
@@ -565,7 +559,14 @@ function renderOrders() {
             let typeTag = ""; let detailsStr = "";
             let polyName = item.polygon ? item.polygon : t.lblTargetedCadsOnly;
 
-            if (item.type === 'demining') {
+            if (item.type === 'eore') {
+                typeTag = `<span class="tag eore">${t.typeEore}</span>`;
+                polyName = t.lblEoreArea;
+                if(item.region) {
+                    let rName = item.region === 'kharkiv' ? t.regKh : (item.region === 'mykolaiv' ? t.regMyk : item.region);
+                    detailsStr = `<small style="color:#586069;"><b>${t.lblEoreRegion}</b> ${rName}</small>`;
+                }
+            } else if (item.type === 'demining') {
                 typeTag = `<span class="tag demining">${t.typeDemining}</span>`;
                 let demTypesArr = item.deminingTypes || [];
                 let translatedTypes = demTypesArr.map(typeId => {
@@ -600,9 +601,7 @@ function renderOrders() {
                 }
 
                 detailsStr = `<small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}<br><div style="margin-top:5px;"><b>${t.lblStatus}:</b> ${reportStatusHtml}</div>${cadastreHtml}</small>`;
-            } else if (item.type === 'eore') {
-                typeTag = `<span class="tag eore">${t.typeEore}</span>`;
-            }
+            } 
             
             itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         });
