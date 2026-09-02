@@ -200,6 +200,19 @@
           ]
         }
       ]
+    },
+    {
+      "number": "2527",
+      "region": "kharkiv",
+      "startDate": "2026-08-21",
+      "endDate": "2026-09-21",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "kharkiv"
+        }
+      ]
     }
   ]
 }
