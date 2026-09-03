@@ -36,7 +36,8 @@ const translations = {
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
-        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри"
+        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри",
+        btnOpenPdf: "📄 Відкрити PDF"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -65,7 +66,8 @@ const translations = {
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
-        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters"
+        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters",
+        btnOpenPdf: "📄 Open PDF"
     }
 };
 
@@ -432,6 +434,7 @@ function addOrder() {
 
     if (validationError) { alert(errMsg); return; }
 
+    // Збереження нового замовлення (без PDF лінка для ручного додавання)
     orders.push({ number, region: globalRegion, startDate, endDate, items });
     
     document.getElementById('orderNumber').value = ''; 
@@ -546,6 +549,12 @@ function renderOrders() {
         const tr = document.createElement('tr');
         let regionName = order.region === 'kharkiv' ? t.regKh : (order.region === 'mykolaiv' ? t.regMyk : order.region);
         
+        // Кнопка PDF, якщо є посилання (додане через email скрипт)
+        let pdfHtml = '';
+        if (order.pdfLink) {
+            pdfHtml = `<div style="margin-top: 10px;"><a href="${order.pdfLink}" target="_blank" style="display: inline-block; background-color: #f1f8ff; color: #0366d6; border: 1px solid #c8e1ff; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 600;">${t.btnOpenPdf}</a></div>`;
+        }
+
         let periodHtml = order.startDate ? 
             `<div class="date-cell"><span class="date-badge ${dateStatus.class}">${formatD(order.startDate)}<br>${formatD(order.endDate)}</span></div>` : 
             (order.date || '-');
@@ -604,7 +613,7 @@ function renderOrders() {
             itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         });
 
-        let html = `<td><strong>#${order.number}</strong><br><small style="color:#586069;">${regionName}</small></td><td>${periodHtml}</td><td>${itemsHtml}</td>`;
+        let html = `<td><strong>#${order.number}</strong><br><small style="color:#586069;">${regionName}</small>${pdfHtml}</td><td>${periodHtml}</td><td>${itemsHtml}</td>`;
         if (isAdmin) {
             html += `<td class="admin-only"><button class="delete-btn" onclick="deleteOrder(${originalOrderIndex})">${t.deleteBtn}</button></td>`;
         }
