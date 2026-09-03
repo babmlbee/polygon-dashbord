@@ -388,7 +388,7 @@
           "region": "mykolaiv",
           "imsma": "HAUA48UDS20250821-162333",
           "ntsSubType": "targeted",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "type": "nts",
