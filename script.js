@@ -274,7 +274,7 @@ function toggleItemFields(blockId) {
     demFields.classList.remove('active'); ntsFields.classList.remove('active');
     
     if(type === 'eore') { 
-        polySelect.style.display = 'none'; // ІНРМ не потребує полігону
+        polySelect.style.display = 'none';
         polyRegion.style.display = 'block';
     } else if(type) { 
         polySelect.style.display = 'block'; 
@@ -348,7 +348,7 @@ function addPolygonItemBlock() {
                 <select class="item-poly-select" style="display:none;" onchange="onPolygonSelect('${blockId}')">
                     ${polOpts}
                 </select>
-                <select class="item-poly-region" style="display:none;">
+                <select class="item-poly-region full-width" style="display:none;">
                     <option value="" disabled selected>${t.optRegion}</option>
                     <option value="kharkiv">${t.regKh}</option>
                     <option value="mykolaiv">${t.regMyk}</option>
@@ -405,9 +405,7 @@ function addOrder() {
         if (!type) { validationError = true; errMsg = t.errNoType; return; }
         if (!globalRegion && region) globalRegion = region;
         
-        if (type === 'eore') {
-            poly = ""; // Для ІНРМ полігон не потрібен
-        }
+        if (type === 'eore') { poly = ""; }
         
         let item = { polygon: poly, type: type, region: region };
         
@@ -549,7 +547,7 @@ function renderOrders() {
         let regionName = order.region === 'kharkiv' ? t.regKh : (order.region === 'mykolaiv' ? t.regMyk : order.region);
         
         let periodHtml = order.startDate ? 
-            `<div class="date-cell"><span class="date-badge ${dateStatus.class}">${formatD(order.startDate)} — ${formatD(order.endDate)}</span></div>` : 
+            `<div class="date-cell"><span class="date-badge ${dateStatus.class}">${formatD(order.startDate)}<br>${formatD(order.endDate)}</span></div>` : 
             (order.date || '-');
             
         let itemsHtml = ""; 
