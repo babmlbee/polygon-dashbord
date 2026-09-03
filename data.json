@@ -296,29 +296,6 @@
           "region": "mykolaiv"
         }
       ]
-    },
-    {
-      "number": "3850",
-      "region": "mykolaiv",
-      "startDate": "2026-09-25",
-      "endDate": "2026-10-25",
-      "pdfLink": "https://drive.google.com/file/d/1bLrFHVYo9BEeo2N7FbgnqYLR3-y_VOQc/view?usp=drivesdk",
-      "items": [
-        {
-          "type": "demining",
-          "polygon": "Novokondakove – 1",
-          "region": "mykolaiv",
-          "imsma": "HAUA48HALO20230801-5659506",
-          "deminingTypes": []
-        },
-        {
-          "type": "demining",
-          "polygon": "Савинці-4S",
-          "region": "mykolaiv",
-          "imsma": "HAUA63FSD20240920-001290",
-          "deminingTypes": []
-        }
-      ]
     }
   ]
 }
