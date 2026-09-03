@@ -405,6 +405,37 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1771",
+      "region": "kharkiv",
+      "startDate": "2026-06-15",
+      "endDate": "2026-07-15",
+      "items": [
+        {
+          "polygon": "Волохів Яр-17",
+          "type": "demining",
+          "region": "kharkiv",
+          "imsma": "HAUA63HALO20240716-8337706",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Бражківка-1",
+          "type": "demining",
+          "region": "kharkiv",
+          "imsma": "HAUA63FSD20231003-832",
+          "deminingTypes": [
+            "ts",
+            "bac",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
