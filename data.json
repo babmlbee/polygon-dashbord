@@ -64,6 +64,66 @@
       "name": "Волохів Яр-17",
       "imsma": "HAUA63HALO20240716-8337706",
       "region": "kharkiv"
+    },
+    {
+      "name": "Українка -02",
+      "imsma": "HAUA48DS20230215-2159",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Авангард-1",
+      "imsma": "HAUA48UDS20250821-162333",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Галицинове-6",
+      "imsma": "HAUA48MOV20251022-105945",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "МГЗ – 02",
+      "imsma": "HAUA48uda20240320-1135",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Шевченківська канал Р-10 01",
+      "imsma": "HAUA48DS20230606-1030",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Шевченківська Канал Р-10.18",
+      "imsma": "HAUA48DS20230814-1459",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Свобода-1",
+      "imsma": "HAUA48HALO20240521-8073406",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Баштанка-5",
+      "imsma": "HAUA48HALO20250827-11002106",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Березнегуватська Ш",
+      "imsma": "02",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Березнегуватська Ш",
+      "imsma": "1",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Партизанське -06 (Амбулаторія)",
+      "imsma": "HAUA48DS20230409-1306",
+      "region": "mykolaiv"
+    },
+    {
+      "name": "Партизанське -05 (Пошта)",
+      "imsma": "HAUA48DS20230327-1922",
+      "region": "mykolaiv"
     }
   ],
   "customMethods": [],
@@ -294,6 +354,122 @@
           "polygon": "",
           "type": "eore",
           "region": "mykolaiv"
+        }
+      ]
+    },
+    {
+      "number": "3855",
+      "region": "mykolaiv",
+      "startDate": "2026-09-25",
+      "endDate": "2026-10-25",
+      "pdfLink": "https://drive.google.com/file/d/1ALgWMRi4TuQJA27EMoDbmh83JSYhcZKH/view?usp=drivesdk",
+      "items": [
+        {
+          "type": "nts",
+          "polygon": "Українка -02",
+          "region": "mykolaiv",
+          "imsma": "HAUA48DS20230215-2159",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Авангард-1",
+          "region": "mykolaiv",
+          "imsma": "HAUA48UDS20250821-162333",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Галицинове-6",
+          "region": "mykolaiv",
+          "imsma": "HAUA48MOV20251022-105945",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "МГЗ – 02",
+          "region": "mykolaiv",
+          "imsma": "HAUA48uda20240320-1135",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Шевченківська канал Р-10 01",
+          "region": "mykolaiv",
+          "imsma": "HAUA48DS20230606-1030",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Шевченківська Канал Р-10.18",
+          "region": "mykolaiv",
+          "imsma": "HAUA48DS20230814-1459",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Свобода-1",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20240521-8073406",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Баштанка-5",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20250827-11002106",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Березнегуватська Ш",
+          "region": "mykolaiv",
+          "imsma": "02",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Березнегуватська Ш",
+          "region": "mykolaiv",
+          "imsma": "1",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Партизанське -06 (Амбулаторія)",
+          "region": "mykolaiv",
+          "imsma": "HAUA48DS20230409-1306",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "Партизанське -05 (Пошта)",
+          "region": "mykolaiv",
+          "imsma": "HAUA48DS20230327-1922",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false
+        },
+        {
+          "type": "nts",
+          "polygon": "",
+          "region": "mykolaiv",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false,
+          "cadastres": [
+            "6322882200:04:000:0091",
+            "6322882200:04:000:0157"
+          ]
         }
       ]
     }
