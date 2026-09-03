@@ -302,29 +302,6 @@
       "region": "mykolaiv",
       "startDate": "2026-09-25",
       "endDate": "2026-10-25",
-      "pdfLink": "",
-      "items": [
-        {
-          "type": "demining",
-          "polygon": "Невідомий об'єкт",
-          "region": "mykolaiv",
-          "imsma": "HAUA48HAL020230801-5659506",
-          "deminingTypes": []
-        },
-        {
-          "type": "demining",
-          "polygon": "Савинці-4S",
-          "region": "mykolaiv",
-          "imsma": "HAUA63FSD20240920-001290",
-          "deminingTypes": []
-        }
-      ]
-    },
-    {
-      "number": "3850",
-      "region": "mykolaiv",
-      "startDate": "2026-09-25",
-      "endDate": "2026-10-25",
       "pdfLink": "https://drive.google.com/file/d/1bLrFHVYo9BEeo2N7FbgnqYLR3-y_VOQc/view?usp=drivesdk",
       "items": [
         {
