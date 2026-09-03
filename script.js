@@ -146,9 +146,31 @@ function toggleBases() {
 
 async function loadData() {
     try {
-        const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}?t=${Date.now()}`);
-        if (response.ok) {
-            const data = await response.json();
+        let data = null;
+        const token = localStorage.getItem('gh_token');
+        
+        // Якщо є токен адміна, тягнемо минаючи кеш, напряму з API GitHub
+        if (token) {
+            const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}?t=${Date.now()}`;
+            const response = await fetch(apiUrl, { 
+                headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } 
+            });
+            if (response.ok) {
+                const fileData = await response.json();
+                // Декодуємо Base64 (безпечно для кирилиці)
+                data = JSON.parse(decodeURIComponent(escape(window.atob(fileData.content))));
+            }
+        }
+
+        // Якщо токена немає, або сталась помилка, тягнемо звичайним методом
+        if (!data) {
+            const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}?t=${Date.now()}`);
+            if (response.ok) {
+                data = await response.json();
+            }
+        }
+
+        if (data) {
             polygons = (data.polygons || []).map(p => {
                 if (typeof p === 'string') return { name: p, imsma: "", region: "" };
                 return p;
@@ -159,7 +181,8 @@ async function loadData() {
         } else { 
             document.getElementById('syncStatus').innerText = "База порожня"; 
         }
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error("Load Error:", e); }
+    
     renderOrders(); 
     updateAdminUI();
 }
@@ -173,12 +196,35 @@ async function saveToGitHub() {
     const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}`;
 
     try {
-        let sha = null; const getRes = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
+        let sha = null; 
+        // Додаємо ?t=Date.now() щоб браузер не підсунув стару кешовану версію SHA
+        const getRes = await fetch(apiUrl + `?t=${Date.now()}`, { headers: { 'Authorization': `token ${token}` } });
         if (getRes.ok) { const fileData = await getRes.json(); sha = fileData.sha; }
-        const body = { message: "Оновлення бази дашборду", content: contentBase64 }; if (sha) body.sha = sha;
-        const putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-        if (putRes.ok) { document.getElementById('syncStatus').innerText = translations[currentLang].statusSaved; } 
-        else { alert("Помилка збереження. Перевірте токен."); localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI(); }
+        
+        const putBody = { message: "Оновлення бази дашборду", content: contentBase64 }; 
+        if (sha) putBody.sha = sha;
+        
+        const putRes = await fetch(apiUrl, { 
+            method: 'PUT', 
+            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(putBody) 
+        });
+        
+        if (putRes.ok) { 
+            document.getElementById('syncStatus').innerText = translations[currentLang].statusSaved; 
+        } else { 
+            // Розумна обробка помилок (щоб не "вилітало" без причини)
+            if (putRes.status === 401) {
+                alert("Помилка авторизації. Токен недійсний. Введіть його знову.");
+                localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI();
+            } else if (putRes.status === 409) {
+                alert("Конфлікт версій (Можливо кеш сервера або хтось інший зараз зберіг файл). Оновіть сторінку і спробуйте ще раз.");
+                document.getElementById('syncStatus').innerText = "❌ Помилка збереження";
+            } else {
+                alert("Сталась помилка при збереженні. Код: " + putRes.status);
+                document.getElementById('syncStatus').innerText = "❌ Помилка збереження";
+            }
+        }
     } catch (e) { console.error(e); }
 }
 
@@ -434,7 +480,6 @@ function addOrder() {
 
     if (validationError) { alert(errMsg); return; }
 
-    // Збереження нового замовлення (без PDF лінка для ручного додавання)
     orders.push({ number, region: globalRegion, startDate, endDate, items });
     
     document.getElementById('orderNumber').value = ''; 
@@ -549,7 +594,6 @@ function renderOrders() {
         const tr = document.createElement('tr');
         let regionName = order.region === 'kharkiv' ? t.regKh : (order.region === 'mykolaiv' ? t.regMyk : order.region);
         
-        // Кнопка PDF, якщо є посилання (додане через email скрипт)
         let pdfHtml = '';
         if (order.pdfLink) {
             pdfHtml = `<div style="margin-top: 10px;"><a href="${order.pdfLink}" target="_blank" style="display: inline-block; background-color: #f1f8ff; color: #0366d6; border: 1px solid #c8e1ff; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 600;">${t.btnOpenPdf}</a></div>`;
