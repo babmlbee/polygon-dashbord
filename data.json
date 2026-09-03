@@ -319,6 +319,29 @@
           "deminingTypes": []
         }
       ]
+    },
+    {
+      "number": "3850",
+      "region": "mykolaiv",
+      "startDate": "2026-09-25",
+      "endDate": "2026-10-25",
+      "pdfLink": "https://drive.google.com/file/d/1ROwlB2b-bIch-QLKH4vwxCQBAHrnwjZl/view?usp=drivesdk",
+      "items": [
+        {
+          "type": "demining",
+          "polygon": "Невідомий об'єкт",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HAL020230801-5659506\r\n\r\n\r\n\r\nBest regards",
+          "deminingTypes": []
+        },
+        {
+          "type": "demining",
+          "polygon": "Невідомий об'єкт",
+          "region": "mykolaiv",
+          "imsma": "Vitaliy Byblyk\r\nField Support Officer",
+          "deminingTypes": []
+        }
+      ]
     }
   ]
 }
