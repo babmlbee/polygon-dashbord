@@ -189,6 +189,11 @@
       "name": "Степова Долина-15",
       "imsma": "HAUA48DRC20241105-141030",
       "region": "mykolaiv"
+    },
+    {
+      "name": "Степова Долина 20",
+      "imsma": "HAUA48NPA20240321-1151",
+      "region": "mykolaiv"
     }
   ],
   "customMethods": [],
