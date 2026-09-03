@@ -6,32 +6,50 @@
     <title>Дашборд розпоряджень / Task Orders Dashboard</title>
     <style>
         :root { --primary: #0366d6; --bg: #f6f8fa; --border: #e1e4e8; --text: #24292e; }
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 10px; }
+        @media (min-width: 768px) { body { padding: 20px; } }
+        
         .container { max-width: 1250px; margin: 0 auto; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
         .controls { display: flex; align-items: center; gap: 15px; }
         .lang-switcher span { font-size: 24px; cursor: pointer; opacity: 0.5; transition: 0.2s; }
         .lang-switcher span.active { opacity: 1; }
         
-        .card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(27,31,35,0.04); }
+        .card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 15px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(27,31,35,0.04); }
+        @media (min-width: 768px) { .card { padding: 20px; } }
         .admin-panel { display: none; border-left: 4px solid #2ea44f; } 
         
         h2, h3 { margin-top: 0; margin-bottom: 15px; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        .form-group { display: flex; gap: 10px; align-items: center; }
-        .full-width { grid-column: span 2; }
+        
+        /* Адаптивні сітки */
+        .form-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px; }
+        .filter-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .date-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .dynamic-fields.active { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .bases-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        
+        @media (min-width: 768px) {
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            .filter-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+            .date-grid { grid-template-columns: 1fr 1fr; }
+            .bases-grid { grid-template-columns: 1fr 1fr 1fr auto; }
+            .full-width { grid-column: span 2; }
+            .filter-span-2 { grid-column: span 2; }
+            .dynamic-fields.active { grid-template-columns: 1fr 1fr; }
+        }
 
+        .form-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
         input[type="text"], input[type="date"], select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box; }
-        button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; padding: 8px 12px; border-radius: 4px; }
+        button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; padding: 10px 12px; border-radius: 4px; font-size: 14px; }
         button:hover { background-color: #005cc5; }
-        .btn-outline { background-color: white; color: var(--primary); border: 1px solid var(--primary); display: inline-block;}
+        .btn-outline { background-color: white; color: var(--primary); border: 1px solid var(--primary); display: inline-block; width: 100%; text-align: center; box-sizing: border-box; }
+        @media (min-width: 768px) { .btn-outline { width: auto; text-align: left; } }
         .btn-outline:hover { background-color: #f0f8ff; }
-        .btn-remove { background-color: #d73a49; color: white; padding: 4px 8px; font-size: 12px; float: right; }
+        .btn-remove { background-color: #d73a49; color: white; padding: 6px 10px; font-size: 12px; float: right; width: auto; margin-bottom: 10px; }
         .btn-remove:hover { background-color: #cb2431; }
         
         .polygon-block { background: #fafbfc; border: 1px solid #e1e4e8; border-left: 4px solid var(--primary); padding: 15px; border-radius: 4px; margin-bottom: 15px; }
         .dynamic-fields { display: none; background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #e1e4e8; margin-top: 15px; }
-        .dynamic-fields.active { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
         .multi-select { position: relative; width: 100%; user-select: none; }
         .select-btn { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
@@ -41,13 +59,15 @@
         .checkbox-item { padding: 8px 12px; border-bottom: 1px solid #eee; margin: 0; display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
         .checkbox-item:hover { background: #f6f8fa; }
         .checkbox-item:last-child { border-bottom: none; }
-        .checkbox-item input { margin: 0; cursor: pointer; }
+        .checkbox-item input { margin: 0; cursor: pointer; width: auto; }
         .lbl-bold { font-weight: 600; font-size: 14px; margin-bottom: 6px; display: block; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        /* Адаптивні таблиці */
+        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 10px; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
         th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
         th { background-color: var(--bg); font-weight: 600; }
-        .delete-btn { background-color: #d73a49; padding: 4px 8px; font-size: 12px; }
+        .delete-btn { background-color: #d73a49; padding: 6px 10px; font-size: 12px; width: auto; }
         
         .admin-lock { cursor: pointer; font-size: 20px; opacity: 0.7; }
         .status { font-size: 12px; color: #6a737d; margin-top: 10px; }
@@ -56,7 +76,7 @@
         .tag.nts { background: #dbedff; color: #0366d6; }
         .tag.eore { background: #dcffe4; color: #176f2c; }
         
-        .date-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 13px; font-weight: bold; }
+        .date-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 13px; font-weight: bold; white-space: nowrap; margin-bottom: 4px; }
         .date-green { background: #dcffe4; color: #176f2c; border: 1px solid #aceeaf; }
         .date-yellow { background: #fff5b1; color: #b08800; border: 1px solid #f9e2af; }
         .date-red { background: #ffdce0; color: #86181d; border: 1px solid #f9c6cb; }
@@ -64,11 +84,12 @@
         .poly-list-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed var(--border); }
         .poly-list-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
         
-        .info-table { width: 100%; margin-top: 6px; font-size: 13px; background: #fff; border-collapse: collapse; border: 1px solid #e1e4e8; }
-        .info-table th { background: #f6f8fa; padding: 6px 8px; border-bottom: 1px solid #e1e4e8; font-size: 12px; }
-        .info-table td { padding: 6px 8px; border-bottom: 1px solid #e1e4e8; vertical-align: middle; }
+        .info-table { width: 100%; min-width: 100%; margin-top: 6px; font-size: 13px; background: #fff; border-collapse: collapse; border: 1px solid #e1e4e8; table-layout: fixed; }
+        .info-table th { background: #f6f8fa; padding: 6px 8px; border-bottom: 1px solid #e1e4e8; font-size: 12px; width: 50%; }
+        .info-table td { padding: 6px 8px; border-bottom: 1px solid #e1e4e8; vertical-align: middle; word-wrap: break-word; }
         .info-table tr:last-child td { border-bottom: none; }
         .info-table tr:hover td { background: #f6f8fa; }
+        code { word-break: break-all; white-space: normal; }
         
         .inactive-section { margin-top: 30px; opacity: 0.85; border-top: 2px dashed #d73a49; padding-top: 20px; }
         .filter-panel { background: #eef3f8; border: 1px solid #d1d5da; }
@@ -78,7 +99,7 @@
 
 <div class="container">
     <div class="header">
-        <h2 id="t_mainTitle">Дашборд розпоряджень</h2>
+        <h2 id="t_mainTitle" style="margin:0;">Дашборд розпоряджень</h2>
         <div class="controls">
             <span class="admin-lock" onclick="toggleAdmin()" title="Увійти як Адмін">🔒</span>
             <div class="lang-switcher">
@@ -90,13 +111,13 @@
 
     <!-- Адмін панель -->
     <div id="adminForms" class="admin-panel">
-        <button id="t_btnToggleBases" class="btn-outline" onclick="toggleBases()" style="margin-bottom: 15px; width: 100%; padding: 10px;">+ Відкрити налаштування баз (Полігони / Методи)</button>
+        <button id="t_btnToggleBases" class="btn-outline" onclick="toggleBases()" style="margin-bottom: 15px; width: 100%;">+ Відкрити налаштування баз (Полігони / Методи)</button>
         
         <div id="basesContainer" style="display: none;">
             <div class="form-grid">
                 <div class="card" style="margin-bottom: 15px;">
                     <h3 id="t_addPolygonTitle">База полігонів</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 10px;">
+                    <div class="bases-grid">
                         <input type="text" id="newPolygonInput" placeholder="Назва полігону">
                         <input type="text" id="newPolyImsma" placeholder="IMSMA ID (необов'язково)">
                         <select id="newPolyRegion">
@@ -110,7 +131,7 @@
                 
                 <div class="card" style="margin-bottom: 15px;">
                     <h3 id="t_addMethodTitle">База методів розмінування</h3>
-                    <div class="form-group">
+                    <div class="bases-grid" style="grid-template-columns: 1fr auto;">
                         <input type="text" id="newMethodInput" placeholder="Власний тип розмінування">
                         <button id="t_addMethodBtn" onclick="addCustomMethod()">Додати</button>
                     </div>
@@ -124,16 +145,16 @@
             <div class="form-grid">
                 <input type="text" id="orderNumber" placeholder="Номер розпорядження" required>
                 
-                <div class="form-group full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="date-grid full-width">
                     <input type="date" id="startDate" required onchange="calculateEndDate()" title="Дата початку">
                     <input type="date" id="endDate" required title="Кінцева дата">
                 </div>
             </div>
 
             <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
                 <h4 style="margin: 0;" id="t_lblPolygonsInTO">Об'єкти в цьому розпорядженні:</h4>
-                <button type="button" class="btn-outline" onclick="addPolygonItemBlock()" id="t_btnAddPolygonToTO">+ Додати об'єкт до ТО</button>
+                <button type="button" class="btn-outline" onclick="addPolygonItemBlock()" id="t_btnAddPolygonToTO" style="width: auto;">+ Додати об'єкт</button>
             </div>
 
             <div id="polygonItemsContainer"></div>
@@ -143,11 +164,11 @@
         </div>
     </div>
 
-    <!-- Панель фільтрів (Видима для всіх) -->
+    <!-- Панель фільтрів -->
     <div class="card filter-panel">
         <h3 id="t_filterTitle" style="margin-bottom: 10px;">Фільтри та Пошук</h3>
-        <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px;">
-            <input type="text" id="filterText" placeholder="Пошук (ТО, Полігон, IMSMA, Кадастр)..." oninput="renderOrders()" style="grid-column: span 2;">
+        <div class="filter-grid">
+            <input type="text" id="filterText" class="filter-span-2" placeholder="Пошук (ТО, Полігон, IMSMA, Кадастр)..." oninput="renderOrders()">
             
             <select id="filterRegion" onchange="renderOrders()">
                 <option value="all" id="t_fltAllReg">Всі області</option>
@@ -162,52 +183,56 @@
                 <option value="eore" id="t_fltEore">ІНРМ</option>
             </select>
             
-            <div class="form-group" style="grid-column: span 2; display: flex; gap: 5px;">
-                <label id="t_lblFilterDate" style="white-space: nowrap; font-size: 14px; font-weight: 600;">Період (з - по):</label>
-                <input type="date" id="filterDateFrom" onchange="renderOrders()">
-                <input type="date" id="filterDateTo" onchange="renderOrders()">
+            <div class="form-group filter-span-2" style="display: flex; gap: 5px; flex-wrap: wrap;">
+                <label id="t_lblFilterDate" style="white-space: nowrap; font-size: 14px; font-weight: 600; width: 100%;">Період (з - по):</label>
+                <input type="date" id="filterDateFrom" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
+                <input type="date" id="filterDateTo" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
             </div>
 
-            <select id="filterNtsStatus" onchange="renderOrders()" style="grid-column: span 2;">
+            <select id="filterNtsStatus" onchange="renderOrders()" class="filter-span-2">
                 <option value="all" id="t_fltAllStatus">Всі статуси звітів (тільки для НТО)</option>
                 <option value="pending" id="t_fltPending">⏳ Очікується звіт</option>
                 <option value="sent" id="t_fltSent">✅ Звіт надіслано</option>
             </select>
         </div>
-        <button class="btn-outline" onclick="resetFilters()" id="t_btnResetFilters" style="margin-top: 10px;">Скинути фільтри</button>
+        <button class="btn-outline" onclick="resetFilters()" id="t_btnResetFilters" style="margin-top: 15px; width: 100%;">Скинути фільтри</button>
     </div>
 
     <!-- Актуальні розпорядження -->
     <div class="card">
         <h3 id="t_actualOrdersTitle">Актуальні розпорядження</h3>
-        <table id="ordersTable">
-            <thead>
-                <tr>
-                    <th id="t_thNum">ТО / Регіон</th>
-                    <th id="t_thPeriod">Період</th>
-                    <th id="t_thPolDetails">Об'єкти, Полігони та Деталі</th>
-                    <th id="t_thAction" class="admin-only" style="display:none;">Дія</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th id="t_thNum" style="min-width: 120px;">ТО / Регіон</th>
+                        <th id="t_thPeriod" style="min-width: 120px;">Період</th>
+                        <th id="t_thPolDetails">Об'єкти, Полігони та Деталі</th>
+                        <th id="t_thAction" class="admin-only" style="display:none; min-width: 80px;">Дія</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
         <div class="status" id="syncStatus">Завантаження даних...</div>
     </div>
 
-    <!-- Неактивні / минулі розпорядження -->
+    <!-- Неактивні розпорядження -->
     <div class="card inactive-section" id="inactiveCard" style="display: none;">
         <h3 id="t_inactiveOrdersTitle" style="color: #d73a49;">Неактивні / Завершені розпорядження</h3>
-        <table id="inactiveOrdersTable">
-            <thead>
-                <tr>
-                    <th>ТО / Регіон</th>
-                    <th>Період</th>
-                    <th>Об'єкти, Полігони та Деталі</th>
-                    <th class="admin-only" style="display:none;">Дія</th>
-                </tr>
-            </thead>
-            <tbody id="inactiveTableBody"></tbody>
-        </table>
+        <div class="table-responsive">
+            <table id="inactiveOrdersTable">
+                <thead>
+                    <tr>
+                        <th style="min-width: 120px;">ТО / Регіон</th>
+                        <th style="min-width: 120px;">Період</th>
+                        <th>Об'єкти, Полігони та Деталі</th>
+                        <th class="admin-only" style="display:none; min-width: 80px;">Дія</th>
+                    </tr>
+                </thead>
+                <tbody id="inactiveTableBody"></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
