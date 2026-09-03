@@ -154,6 +154,11 @@
       "name": "Бражківка-1",
       "imsma": "HAUA63FSD20231003-832",
       "region": "kharkiv"
+    },
+    {
+      "name": "Явірське-1W",
+      "imsma": "HAUA63FSD20250505-001525",
+      "region": "kharkiv"
     }
   ],
   "customMethods": [],
