@@ -8,21 +8,24 @@ let customMethods = [];
 let orders = [];
 let isAdmin = !!localStorage.getItem('gh_token');
 
+// Змінна для відстеження, чи ми редагуємо, чи створюємо нове ТО
+let editingOrderIndex = -1;
+
 const translations = {
     uk: {
         mainTitle: "Дашборд розпоряджень", addPolygonTitle: "База полігонів", polygonPlaceholder: "Назва полігону", addPolygonBtn: "Додати",
         polyImsmaPlaceholder: "IMSMA ID (необов'язково)", addMethodTitle: "База методів", methodPlaceholder: "Власний тип", addMethodBtn: "Додати",
         btnToggleBasesShow: "+ Відкрити налаштування баз (Полігони / Методи)", btnToggleBasesHide: "- Сховати налаштування баз",
-        newOrderTitle: "Нове розпорядження (ТО)", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область",
+        newOrderTitle: "Нове розпорядження (ТО)", editOrderTitle: "Редагування ТО", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область",
         optType: "Оберіть тип...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт до ТО",
         lblSelectMethods: "Оберіть методи розмінування...", lblSelected: "Обрано:",
-        lblCadsSpace: "Кадастри (через пробіл):", cadastreInputPlaceholder: "Наприклад: 1234567800:01:001:0001",
+        lblCadsSpace: "Кадастри (через пробіл/кому):", cadastreInputPlaceholder: "Наприклад: 1234567800:01:001:0001",
         typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
         optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне НТО", ntsRe: "Повторне НТО", ntsDemarc: "НТО з метою встановлення маркування", ntsTarget: "Цільове НТО",
         demTs: "Технічне обстеження", demMc: "Розмінування в ручну", demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
-        orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID", addOrderBtn: "Зберегти розпорядження", 
+        orderNumberPlaceholder: "Номер розпорядження", imsmaPlaceholder: "IMSMA ID", addOrderBtn: "Зберегти розпорядження", btnUpdateOrder: "Оновити розпорядження", btnCancel: "Скасувати",
         actualOrdersTitle: "Актуальні розпорядження", inactiveOrdersTitle: "Неактивні / Завершені розпорядження",
-        thNum: "ТО / Регіон", thPeriod: "Період", thPolDetails: "Об'єкти, Полігони та Деталі", thAction: "Дія", deleteBtn: "Видалити",
+        thNum: "ТО / Регіон", thPeriod: "Період", thPolDetails: "Об'єкти, Полігони та Деталі", thAction: "Дія", deleteBtn: "Видалити", editBtn: "Редагувати",
         statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження...", statusSaved: "✅ Збережено",
         lblImsma: "IMSMA ID", lblType: "Методи", lblSubtype: "Підтип", lblStatus: "Completion Report Status",
         reportYes: "✅ Надіслано", reportNo: "⏳ Очікується", lblCads: "Кадастри",
@@ -36,23 +39,22 @@ const translations = {
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
-        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри",
-        btnOpenPdf: "📄 Відкрити PDF"
+        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
         polyImsmaPlaceholder: "IMSMA ID (optional)", addMethodTitle: "Methods Base", methodPlaceholder: "Custom method", addMethodBtn: "Add",
         btnToggleBasesShow: "+ Open Base Settings (Polygons / Methods)", btnToggleBasesHide: "- Hide Base Settings",
-        newOrderTitle: "New Task Order", optRegion: "Select Region...", regKh: "Kharkiv Region", regMyk: "Mykolaiv Region",
+        newOrderTitle: "New Task Order", editOrderTitle: "Edit Task Order", optRegion: "Select Region...", regKh: "Kharkiv Region", regMyk: "Mykolaiv Region",
         optType: "Select Type...", selectDefault: "Select Polygon...", lblPolygonsInTO: "Items in this TO:", btnAddPolygonToTO: "+ Add Item to TO",
         lblSelectMethods: "Select demining methods...", lblSelected: "Selected:",
-        lblCadsSpace: "Cadastres (space-separated):", cadastreInputPlaceholder: "Example: 1234567800:01:001:0001",
+        lblCadsSpace: "Cadastres (space/comma separated):", cadastreInputPlaceholder: "Example: 1234567800:01:001:0001",
         typeDemining: "Demining", typeNts: "NTS", typeEore: "EORE",
         optSubNts: "Select NTS Subtype...", ntsIn: "In-NTS", ntsRe: "Re-NTS", ntsDemarc: "Demarcation NTS", ntsTarget: "Targeted NTS",
         demTs: "Technical survey", demMc: "Manual clearance", demBac: "BAC", demMdd: "MDD", demMech: "Mechanical clearance",
-        orderNumberPlaceholder: "Task Order Number", imsmaPlaceholder: "IMSMA ID", addOrderBtn: "Save Task Order", 
+        orderNumberPlaceholder: "Task Order Number", imsmaPlaceholder: "IMSMA ID", addOrderBtn: "Save Task Order", btnUpdateOrder: "Update Task Order", btnCancel: "Cancel",
         actualOrdersTitle: "Current Task Orders", inactiveOrdersTitle: "Inactive / Completed Task Orders",
-        thNum: "TO / Region", thPeriod: "Period", thPolDetails: "Items, Polygons & Details", thAction: "Action", deleteBtn: "Delete",
+        thNum: "TO / Region", thPeriod: "Period", thPolDetails: "Items, Polygons & Details", thAction: "Action", deleteBtn: "Delete", editBtn: "Edit",
         statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving...", statusSaved: "✅ Saved",
         lblImsma: "IMSMA ID", lblType: "Methods", lblSubtype: "Subtype", lblStatus: "Completion Report Status",
         reportYes: "✅ Sent", reportNo: "⏳ Pending", lblCads: "Cadastres",
@@ -66,8 +68,7 @@ const translations = {
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
-        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters",
-        btnOpenPdf: "📄 Open PDF"
+        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF"
     }
 };
 
@@ -99,11 +100,19 @@ function setLanguage(lang) {
         btnBases.innerText = t.btnToggleBasesHide;
     }
 
-    document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle; 
+    if(editingOrderIndex >= 0) {
+        document.getElementById('t_newOrderTitle').innerText = t.editOrderTitle + " #" + orders[editingOrderIndex].number;
+        document.getElementById('t_addOrderBtn').innerText = t.btnUpdateOrder;
+    } else {
+        document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle; 
+        document.getElementById('t_addOrderBtn').innerText = t.addOrderBtn;
+    }
+    
     document.getElementById('t_lblPolygonsInTO').innerText = t.lblPolygonsInTO; 
     document.getElementById('t_btnAddPolygonToTO').innerText = t.btnAddPolygonToTO; 
     document.getElementById('orderNumber').placeholder = t.orderNumberPlaceholder; 
-    document.getElementById('t_addOrderBtn').innerText = t.addOrderBtn;
+    document.getElementById('cancelEditBtn').innerText = t.btnCancel;
+    
     document.getElementById('t_actualOrdersTitle').innerText = t.actualOrdersTitle; 
     document.getElementById('t_inactiveOrdersTitle').innerText = t.inactiveOrdersTitle;
     document.getElementById('t_thNum').innerText = t.thNum; 
@@ -126,7 +135,6 @@ function setLanguage(lang) {
     document.getElementById('t_lblFilterDate').innerText = t.lblFilterDate;
     document.getElementById('t_btnResetFilters').innerText = t.btnResetFilters;
     
-    document.getElementById('polygonItemsContainer').innerHTML = ''; 
     renderOrders();
 }
 
@@ -342,32 +350,36 @@ function onPolygonSelect(blockId) {
         if (polyData.region) block.querySelector('.item-poly-region').value = polyData.region;
     }
 
-    let foundHistory = false;
-    const sortedOrders = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
-    
-    for (let order of sortedOrders) {
-        const item = (order.items || []).find(i => i.polygon === polyName);
-        if (item) {
-            foundHistory = true;
-            if ((!polyData || !polyData.region) && order.region) {
-                block.querySelector('.item-poly-region').value = order.region;
-            }
+    // Якщо це створення нового, а не редагування, намагаємось підтягнути історію методів
+    if (editingOrderIndex === -1) {
+        let foundHistory = false;
+        const sortedOrders = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
+        
+        for (let order of sortedOrders) {
+            const item = (order.items || []).find(i => i.polygon === polyName);
+            if (item) {
+                foundHistory = true;
+                if ((!polyData || !polyData.region) && order.region) {
+                    block.querySelector('.item-poly-region').value = order.region;
+                }
 
-            if (item.type === 'demining') {
-                if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
-                const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
-                checkboxes.forEach(cb => { cb.checked = (item.deminingTypes || []).includes(cb.value); });
-                updateMethodLabel(blockId);
-            } else if (item.type === 'nts') {
-                block.querySelector('.item-nts-sub').value = item.ntsSubType;
-                toggleNtsSub(blockId);
+                if (item.type === 'demining') {
+                    if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
+                    const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
+                    checkboxes.forEach(cb => { cb.checked = (item.deminingTypes || []).includes(cb.value); });
+                    updateMethodLabel(blockId);
+                } else if (item.type === 'nts') {
+                    block.querySelector('.item-nts-sub').value = item.ntsSubType;
+                    toggleNtsSub(blockId);
+                }
+                break;
             }
-            break;
         }
     }
 }
 
-function addPolygonItemBlock() {
+// Перероблена функція для прийому існуючих даних полігону (при редагуванні)
+function addPolygonItemBlock(itemData = null) {
     const t = translations[currentLang]; const blockId = 'poly_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
     
     let polOpts = `<option value="" disabled selected>${t.selectDefault}</option>`; 
@@ -423,6 +435,87 @@ function addPolygonItemBlock() {
         </div>
     `;
     document.getElementById('polygonItemsContainer').insertAdjacentHTML('beforeend', html);
+    
+    // Якщо передано дані - заповнюємо форму (Режим Редагування)
+    if (itemData) {
+        const block = document.getElementById(blockId);
+        
+        block.querySelector('.item-type-select').value = itemData.type;
+        toggleItemFields(blockId); // Активуємо потрібні блоки
+        
+        // Якщо полігон нестандартний (його немає в селекті), але збережений в базі
+        if (itemData.polygon) {
+            const select = block.querySelector('.item-poly-select');
+            if(!Array.from(select.options).some(opt => opt.value === itemData.polygon)) {
+                select.insertAdjacentHTML('beforeend', `<option value="${itemData.polygon}">${itemData.polygon}</option>`);
+            }
+            select.value = itemData.polygon;
+        }
+        
+        if (itemData.region) block.querySelector('.item-poly-region').value = itemData.region;
+        
+        if (itemData.type === 'demining') {
+            if (itemData.imsma) block.querySelector('.item-imsma').value = itemData.imsma;
+            if (itemData.deminingTypes) {
+                const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
+                checkboxes.forEach(cb => { cb.checked = itemData.deminingTypes.includes(cb.value); });
+                updateMethodLabel(blockId);
+            }
+        } else if (itemData.type === 'nts') {
+            if (itemData.ntsSubType) {
+                block.querySelector('.item-nts-sub').value = itemData.ntsSubType;
+                toggleNtsSub(blockId);
+            }
+            if (itemData.imsma) block.querySelector('.item-imsma').value = itemData.imsma;
+            if (itemData.cadastres && itemData.cadastres.length > 0) {
+                block.querySelector('.item-cadastres-input').value = itemData.cadastres.join(', ');
+            }
+            // Зберігаємо статус відправки звіту НТО, щоб не загубити його при збереженні
+            block.dataset.reportSent = itemData.ntsReportSent ? 'true' : 'false';
+        }
+    }
+}
+
+// Нова функція: Завантаження розпорядження у форму для редагування
+function editOrder(globalIndex) {
+    if (!isAdmin) return;
+    editingOrderIndex = globalIndex;
+    const order = orders[globalIndex];
+    const t = translations[currentLang];
+    
+    document.getElementById('orderNumber').value = order.number || '';
+    document.getElementById('startDate').value = order.startDate || '';
+    document.getElementById('endDate').value = order.endDate || '';
+    
+    document.getElementById('polygonItemsContainer').innerHTML = ''; // Очищаємо старі блоки
+    
+    // Створюємо блок для кожного полігону в цьому розпорядженні
+    if (order.items && order.items.length > 0) {
+        order.items.forEach(item => addPolygonItemBlock(item));
+    }
+    
+    // Змінюємо UI на режим редагування
+    document.getElementById('t_newOrderTitle').innerText = t.editOrderTitle + " #" + order.number;
+    document.getElementById('t_addOrderBtn').innerText = t.btnUpdateOrder;
+    document.getElementById('cancelEditBtn').style.display = 'inline-block';
+    
+    // Скролимо до форми
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Нова функція: Скасування редагування
+function cancelEdit() {
+    editingOrderIndex = -1;
+    const t = translations[currentLang];
+    
+    document.getElementById('orderNumber').value = '';
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    document.getElementById('polygonItemsContainer').innerHTML = '';
+    
+    document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle;
+    document.getElementById('t_addOrderBtn').innerText = t.addOrderBtn;
+    document.getElementById('cancelEditBtn').style.display = 'none';
 }
 
 function addOrder() {
@@ -458,13 +551,15 @@ function addOrder() {
             item.deminingTypes = Array.from(block.querySelectorAll('.item-methods-group input:checked')).map(cb => cb.value);
         } else if (type === 'nts') {
             item.ntsSubType = block.querySelector('.item-nts-sub').value;
-            item.ntsReportSent = false;
+            // Відновлюємо статус звіту, якщо він був (при редагуванні)
+            item.ntsReportSent = block.dataset.reportSent === 'true';
             
             if(item.ntsSubType === 'targeted') {
                 const cadStr = block.querySelector('.item-cadastres-input').value.trim();
-                item.cadastres = cadStr ? cadStr.split(/\s+/) : [];
+                item.cadastres = cadStr ? cadStr.split(/[,;]+/).map(c => c.trim()) : [];
                 if (!poly && item.cadastres.length === 0) { validationError = true; errMsg = t.errCadsOrPoly; return; }
             } else {
+                item.imsma = block.querySelector('.item-imsma').value.trim();
                 if (!poly) { validationError = true; errMsg = t.errNoPoly; return; }
             }
         } else if (type === 'eore') {
@@ -475,11 +570,16 @@ function addOrder() {
 
     if (validationError) { alert(errMsg); return; }
 
-    orders.push({ number, region: globalRegion, startDate, endDate, items });
+    if (editingOrderIndex >= 0) {
+        // Якщо ми редагуємо існуюче розпорядження, зберігаємо старий pdfLink
+        const oldPdf = orders[editingOrderIndex].pdfLink;
+        orders[editingOrderIndex] = { number, region: globalRegion, startDate, endDate, items, pdfLink: oldPdf };
+    } else {
+        // Якщо це нове розпорядження
+        orders.push({ number, region: globalRegion, startDate, endDate, items });
+    }
     
-    document.getElementById('orderNumber').value = ''; 
-    document.getElementById('startDate').value = ''; document.getElementById('endDate').value = ''; 
-    document.getElementById('polygonItemsContainer').innerHTML = '';
+    cancelEdit(); // Очищає форму та скидає стан редагування
     renderOrders(); 
     saveToGitHub();
 }
@@ -659,7 +759,7 @@ function renderOrders() {
 
         let html = `<td><strong>#${order.number}</strong><br><small style="color:#586069;">${regionName}</small>${pdfHtml}</td><td>${periodHtml}</td><td>${itemsHtml}</td>`;
         if (isAdmin) {
-            html += `<td class="admin-only"><button class="delete-btn" onclick="deleteOrder(${originalOrderIndex})">${t.deleteBtn}</button></td>`;
+            html += `<td class="admin-only" style="vertical-align: middle;"><div class="action-buttons"><button class="edit-btn" onclick="editOrder(${originalOrderIndex})">${t.editBtn}</button><button class="delete-btn" onclick="deleteOrder(${originalOrderIndex})">${t.deleteBtn}</button></div></td>`;
         }
         tr.innerHTML = html;
         
