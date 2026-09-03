@@ -149,7 +149,6 @@ async function loadData() {
         let data = null;
         const token = localStorage.getItem('gh_token');
         
-        // Якщо є токен адміна, тягнемо минаючи кеш, напряму з API GitHub
         if (token) {
             const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}?t=${Date.now()}`;
             const response = await fetch(apiUrl, { 
@@ -157,12 +156,10 @@ async function loadData() {
             });
             if (response.ok) {
                 const fileData = await response.json();
-                // Декодуємо Base64 (безпечно для кирилиці)
                 data = JSON.parse(decodeURIComponent(escape(window.atob(fileData.content))));
             }
         }
 
-        // Якщо токена немає, або сталась помилка, тягнемо звичайним методом
         if (!data) {
             const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}?t=${Date.now()}`);
             if (response.ok) {
@@ -197,7 +194,6 @@ async function saveToGitHub() {
 
     try {
         let sha = null; 
-        // Додаємо ?t=Date.now() щоб браузер не підсунув стару кешовану версію SHA
         const getRes = await fetch(apiUrl + `?t=${Date.now()}`, { headers: { 'Authorization': `token ${token}` } });
         if (getRes.ok) { const fileData = await getRes.json(); sha = fileData.sha; }
         
@@ -213,7 +209,6 @@ async function saveToGitHub() {
         if (putRes.ok) { 
             document.getElementById('syncStatus').innerText = translations[currentLang].statusSaved; 
         } else { 
-            // Розумна обробка помилок (щоб не "вилітало" без причини)
             if (putRes.status === 401) {
                 alert("Помилка авторизації. Токен недійсний. Введіть його знову.");
                 localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI();
@@ -645,13 +640,18 @@ function renderOrders() {
                 }
 
                 let cadastreHtml = '';
-                if (item.ntsSubType === 'targeted' && item.cadastres && item.cadastres.length > 0) {
+                if (item.cadastres && item.cadastres.length > 0) {
                     cadastreHtml = `<div style="margin-top:5px;"><b>${t.lblCads}:</b><table class="info-table"><thead><tr><th>Кадастрові номери</th></tr></thead><tbody>`;
                     item.cadastres.forEach(cad => { cadastreHtml += `<tr><td><code>${cad}</code></td></tr>`; });
                     cadastreHtml += `</tbody></table></div>`;
                 }
+                
+                let imsmaHtml = '';
+                if (item.imsma) {
+                    imsmaHtml = `<div style="margin-top:5px;"><b>${t.lblImsma}:</b> <code style="font-size: 13px;">${item.imsma}</code></div>`;
+                }
 
-                detailsStr = `<small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}<br><div style="margin-top:5px;"><b>${t.lblStatus}:</b> ${reportStatusHtml}</div>${cadastreHtml}</small>`;
+                detailsStr = `<div style="margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small></div>${imsmaHtml}<div style="margin-top:5px; margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblStatus}:</b> ${reportStatusHtml}</small></div>${cadastreHtml}`;
             } 
             
             itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
