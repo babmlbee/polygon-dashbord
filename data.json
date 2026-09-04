@@ -752,6 +752,26 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1835",
+      "region": "mykolaiv",
+      "startDate": "2026-06-22",
+      "endDate": "2026-07-22",
+      "items": [
+        {
+          "polygon": "Novokondakove – 1",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20230801-5659506",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
