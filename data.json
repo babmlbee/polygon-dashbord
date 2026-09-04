@@ -1185,7 +1185,6 @@
           "deminingTypes": [
             "ts",
             "mc",
-            "mdd",
             "mech"
           ]
         }
