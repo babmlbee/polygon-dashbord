@@ -871,6 +871,26 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1331",
+      "region": "mykolaiv",
+      "startDate": "2026-05-11",
+      "endDate": "2026-06-11",
+      "items": [
+        {
+          "polygon": "Поле №69 ТОВ СВП Снігурівське",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HDR20240714-1425",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
