@@ -1478,6 +1478,19 @@
           "region": "kharkiv"
         }
       ]
+    },
+    {
+      "number": "1823",
+      "region": "kharkiv",
+      "startDate": "2026-06-19",
+      "endDate": "2026-07-19",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "kharkiv"
+        }
+      ]
     }
   ]
 }
