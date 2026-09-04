@@ -1361,6 +1361,19 @@
           "region": "mykolaiv"
         }
       ]
+    },
+    {
+      "number": "548",
+      "region": "mykolaiv",
+      "startDate": "2026-03-06",
+      "endDate": "2026-03-17",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "mykolaiv"
+        }
+      ]
     }
   ]
 }
