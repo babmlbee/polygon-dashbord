@@ -338,9 +338,7 @@
           "imsma": "HAUA48HALO20231106-6615106",
           "deminingTypes": [
             "ts",
-            "mc",
-            "mdd",
-            "mech"
+            "mc"
           ]
         },
         {
@@ -350,9 +348,7 @@
           "imsma": "HAUA48HALO20260225-12253406",
           "deminingTypes": [
             "ts",
-            "mc",
-            "mdd",
-            "mech"
+            "mc"
           ]
         }
       ]
