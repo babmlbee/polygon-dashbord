@@ -772,6 +772,65 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1979",
+      "region": "mykolaiv",
+      "startDate": "2026-07-03",
+      "endDate": "2026-08-03",
+      "items": [
+        {
+          "polygon": "Любине-1",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20231106-6615106",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Любине-4",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20260225-12253406",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Галаганівка-3",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20251211-11744306",
+          "deminingTypes": [
+            "bac"
+          ]
+        },
+        {
+          "polygon": "Галаганівка-4",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20260112-11953806",
+          "deminingTypes": [
+            "bac"
+          ]
+        },
+        {
+          "polygon": "Галаганівка-5",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HALO20260321-12448406",
+          "deminingTypes": [
+            "bac"
+          ]
+        }
+      ]
     }
   ]
 }
