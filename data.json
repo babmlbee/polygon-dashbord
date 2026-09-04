@@ -1017,6 +1017,60 @@
           ]
         }
       ]
+    },
+    {
+      "number": "2120",
+      "region": "mykolaiv",
+      "startDate": "2026-07-09",
+      "endDate": "2026-08-09",
+      "items": [
+        {
+          "polygon": "Поле №69 ТОВ СВП Снігурівське",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HDR20240714-1425",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Поле №1 ТОВ СВП Снігурівське-3",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HDR20240715-1943",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Поле №1 ТОВ СВП Снігурівське-1",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HDR 20240716-1627",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        },
+        {
+          "polygon": "Максимівка 45",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48NPA20250814-152700",
+          "deminingTypes": [
+            "ts",
+            "mc"
+          ]
+        }
+      ]
     }
   ]
 }
