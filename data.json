@@ -278,7 +278,7 @@
           "polygon": "",
           "type": "nts",
           "ntsSubType": "targeted",
-          "ntsReportSent": true,
+          "ntsReportSent": false,
           "cadastres": [
             "6322882200:04:000:0091",
             "6322882200:04:000:0157",
