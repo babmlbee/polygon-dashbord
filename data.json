@@ -1400,6 +1400,19 @@
           "region": "mykolaiv"
         }
       ]
+    },
+    {
+      "number": "1420",
+      "region": "mykolaiv",
+      "startDate": "2026-05-21",
+      "endDate": "2026-06-21",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "mykolaiv"
+        }
+      ]
     }
   ]
 }
