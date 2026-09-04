@@ -1491,6 +1491,19 @@
           "region": "kharkiv"
         }
       ]
+    },
+    {
+      "number": "2168",
+      "region": "kharkiv",
+      "startDate": "2026-07-13",
+      "endDate": "2026-08-13",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "kharkiv"
+        }
+      ]
     }
   ]
 }
