@@ -1189,6 +1189,26 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1077",
+      "region": "mykolaiv",
+      "startDate": "2026-04-17",
+      "endDate": "2026-05-17",
+      "items": [
+        {
+          "polygon": "Поле №1 ТОВ СВП Снігурівське-3",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HDR20240715-1943",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
