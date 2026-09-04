@@ -1530,19 +1530,6 @@
           "region": "kharkiv"
         }
       ]
-    },
-    {
-      "number": "2527",
-      "region": "kharkiv",
-      "startDate": "2026-09-04",
-      "endDate": "2026-10-04",
-      "items": [
-        {
-          "polygon": "",
-          "type": "eore",
-          "region": "kharkiv"
-        }
-      ]
     }
   ]
 }
