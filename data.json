@@ -909,6 +909,24 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1330",
+      "region": "mykolaiv",
+      "startDate": "2026-05-07",
+      "endDate": "2026-06-07",
+      "items": [
+        {
+          "polygon": "Максимівка 45",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48NPA20250814-152700",
+          "deminingTypes": [
+            "ts",
+            "mc"
+          ]
+        }
+      ]
     }
   ]
 }
