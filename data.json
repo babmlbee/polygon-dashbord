@@ -1209,6 +1209,54 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1432",
+      "region": "mykolaiv",
+      "startDate": "2026-05-18",
+      "endDate": "2026-06-18",
+      "items": [
+        {
+          "polygon": "Степова Долина-21",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48NPA20230802-1043",
+          "deminingTypes": [
+            "bac",
+            "mdd"
+          ]
+        },
+        {
+          "polygon": "Степова Долина-1",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48NPA20230624-1311",
+          "deminingTypes": [
+            "bac"
+          ]
+        },
+        {
+          "polygon": "Степова Долина 4",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48NPA20230624-1521",
+          "deminingTypes": [
+            "bac"
+          ]
+        },
+        {
+          "polygon": "Поле №1 ТОВ СВП Снігурівське-3",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48HDR20240715-1943",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
