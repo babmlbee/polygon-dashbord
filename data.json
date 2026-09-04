@@ -556,6 +556,32 @@
           ]
         }
       ]
+    },
+    {
+      "number": "704",
+      "region": "kharkiv",
+      "startDate": "2026-03-16",
+      "endDate": "2026-04-16",
+      "items": [
+        {
+          "polygon": "Бражківка-18",
+          "type": "demining",
+          "region": "kharkiv",
+          "imsma": "HAUA63FSD20240318-000870",
+          "deminingTypes": [
+            "bac"
+          ]
+        },
+        {
+          "polygon": "Бражківка-19",
+          "type": "demining",
+          "region": "kharkiv",
+          "imsma": "HAUA63FSD20240326-000885",
+          "deminingTypes": [
+            "bac"
+          ]
+        }
+      ]
     }
   ]
 }
