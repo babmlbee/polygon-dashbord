@@ -1413,6 +1413,19 @@
           "region": "mykolaiv"
         }
       ]
+    },
+    {
+      "number": "1822",
+      "region": "mykolaiv",
+      "startDate": "2026-06-22",
+      "endDate": "2026-07-22",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "mykolaiv"
+        }
+      ]
     }
   ]
 }
