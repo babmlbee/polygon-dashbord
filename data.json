@@ -1439,6 +1439,19 @@
           "region": "mykolaiv"
         }
       ]
+    },
+    {
+      "number": "3681",
+      "region": "kharkiv",
+      "startDate": "2026-01-12",
+      "endDate": "2026-02-12",
+      "items": [
+        {
+          "polygon": "",
+          "type": "eore",
+          "region": "kharkiv"
+        }
+      ]
     }
   ]
 }
