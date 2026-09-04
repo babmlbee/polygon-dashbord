@@ -987,6 +987,36 @@
           ]
         }
       ]
+    },
+    {
+      "number": "1329",
+      "region": "mykolaiv",
+      "startDate": "2026-05-07",
+      "endDate": "2026-06-07",
+      "items": [
+        {
+          "polygon": "Степова Долина-14",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48DRC20241105-104216",
+          "deminingTypes": [
+            "ts",
+            "bac",
+            "mdd"
+          ]
+        },
+        {
+          "polygon": "Степова Долина-15",
+          "type": "demining",
+          "region": "mykolaiv",
+          "imsma": "HAUA48DRC20241105-141030",
+          "deminingTypes": [
+            "ts",
+            "bac",
+            "mdd"
+          ]
+        }
+      ]
     }
   ]
 }
