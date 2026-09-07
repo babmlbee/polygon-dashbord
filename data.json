@@ -1538,6 +1538,225 @@
         }
       ],
       "ntsReportSent": true
+    },
+    {
+      "number": "1096",
+      "region": "kharkiv",
+      "startDate": "2026-04-23",
+      "endDate": "2026-05-23",
+      "items": [
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Вільхівка-5",
+          "imsma": "HAUA63DRC20241125-112111",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Вільхівка-16",
+          "imsma": "HAUA63DRC20250124-144444",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Вільхівка-17",
+          "imsma": "HAUA63DRC20250319-90111",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Вільхівка-18",
+          "imsma": "HAUA63DRC20250506-93222",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Вільхівка-9",
+          "imsma": "HAUA63DRC20241115-114555",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Покровське-1",
+          "imsma": "HAUA63HS20241223-124936",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Благодатне-1",
+          "imsma": "HAUA63HS20250204-110935",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-12",
+          "imsma": "HAUA63PSM20251007-150908",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-59",
+          "imsma": "HAUA63PSM20251008-115055",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-4",
+          "imsma": "HAUA63PSM20251006-133401",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-120",
+          "imsma": "HAUA63PSM20251008-135859",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-121",
+          "imsma": "HAUA63PSM20251008-142343",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-51",
+          "imsma": "HAUA63PSM20251008-104613",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-52",
+          "imsma": "HAUA63PSM20251008-110535",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Велика Комишуваха-53",
+          "imsma": "HAUA63PSM20251008-112036",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Довгалівка-31S",
+          "imsma": "HAUA63FSD20251020-001717",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Довгалівка-32S",
+          "imsma": "HAUA63FSD20251020-001721",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Довгалівка-36S",
+          "imsma": "HAUA63FSD20251021-001728",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Довгалівка-35S",
+          "imsma": "HAUA63FSD20251021-001727",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Довгалівка-34S",
+          "imsma": "HAUA63FSD20251020-001725",
+          "cadastres": [],
+          "hromada": ""
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "re_nts",
+          "ntsReportSent": false,
+          "polygon": "Довгалівка-33S",
+          "imsma": "HAUA63FSD20251020-001724",
+          "cadastres": [],
+          "hromada": ""
+        }
+      ],
+      "ntsReportSent": false
     }
   ]
 }
