@@ -1501,6 +1501,24 @@
         }
       ],
       "ntsReportSent": true
+    },
+    {
+      "number": "1762",
+      "region": "",
+      "startDate": "2026-06-11",
+      "endDate": "2026-07-11",
+      "items": [
+        {
+          "type": "nts",
+          "region": "",
+          "ntsSubType": "demarcation",
+          "ntsReportSent": false,
+          "polygon": "Воскресенське Н-11",
+          "imsma": "HAUA48MAG20260506-101000",
+          "cadastres": []
+        }
+      ],
+      "ntsReportSent": false
     }
   ]
 }
