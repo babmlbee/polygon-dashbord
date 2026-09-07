@@ -1519,6 +1519,25 @@
         }
       ],
       "ntsReportSent": false
+    },
+    {
+      "number": "1164",
+      "region": "",
+      "startDate": "2026-04-28",
+      "endDate": "2026-05-28",
+      "items": [
+        {
+          "type": "nts",
+          "region": "",
+          "ntsSubType": "in_nts",
+          "ntsReportSent": false,
+          "hromada": "Воскресенська",
+          "polygon": "",
+          "imsma": "",
+          "cadastres": []
+        }
+      ],
+      "ntsReportSent": false
     }
   ]
 }
