@@ -756,7 +756,6 @@ function renderOrders() {
         let otherItems = [];
         let ntsGroups = {};
 
-        // Розділяємо об'єкти: НТО групуємо, інші лишаємо як є
         itemsArr.forEach((item, itemIdx) => {
             if (item.type === 'nts') {
                 orderHasNts = true;
@@ -776,7 +775,6 @@ function renderOrders() {
             }
         });
 
-        // Малюємо звичайні об'єкти (Розмінування, ІНРМ)
         otherItems.forEach((item, itemIdx) => {
             let typeTag = ""; let detailsStr = "";
             let polyName = item.polygon ? item.polygon : "-";
@@ -806,7 +804,6 @@ function renderOrders() {
             itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         });
 
-        // Малюємо згруповані об'єкти НТО
         for (let sub in ntsGroups) {
             let group = ntsGroups[sub];
             let typeTag = `<span class="tag nts">${t.typeNts}</span>`;
@@ -829,14 +826,13 @@ function renderOrders() {
 
             let cadHtml = '';
             if (group.cadastres.length > 0) {
-                // Видаляємо можливі дублікати кадастрів
                 let uniqueCads = [...new Set(group.cadastres)];
-                cadHtml = `<div style="margin-top:5px;"><b>${t.lblCads}:</b><table class="info-table"><thead><tr><th>Кадастрові номери</th></tr></thead><tbody>`;
+                cadHtml = `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>Кадастрові номери</th></tr></thead><tbody>`;
                 uniqueCads.forEach(cad => { cadHtml += `<tr><td><code style="font-size: 13px;">${cad}</code></td></tr>`; });
                 cadHtml += `</tbody></table></div>`;
             }
 
-            let detailsStr = `<div style="margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small></div>${polyHtml}${cadHtml}`;
+            let detailsStr = `${polyHtml}${cadHtml}`;
             
             itemsHtml += `<div class="poly-list-item"><strong>${ntsName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         }
