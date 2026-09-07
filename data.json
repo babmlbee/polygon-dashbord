@@ -1466,13 +1466,13 @@
           "type": "nts",
           "region": "kharkiv",
           "ntsSubType": "demarcation",
-          "ntsReportSent": false,
+          "ntsReportSent": true,
           "polygon": "Фруктова компанія – 2",
           "imsma": "HAUA63MAG20260324-164524",
           "cadastres": []
         }
       ],
-      "ntsReportSent": false
+      "ntsReportSent": true
     }
   ]
 }
