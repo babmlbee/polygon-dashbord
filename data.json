@@ -1530,14 +1530,14 @@
           "type": "nts",
           "region": "",
           "ntsSubType": "in_nts",
-          "ntsReportSent": false,
+          "ntsReportSent": true,
           "hromada": "Воскресенська",
           "polygon": "",
           "imsma": "",
           "cadastres": []
         }
       ],
-      "ntsReportSent": false
+      "ntsReportSent": true
     }
   ]
 }
