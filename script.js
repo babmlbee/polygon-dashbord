@@ -16,7 +16,7 @@ const translations = {
         polyImsmaPlaceholder: "IMSMA ID (необов'язково)", addMethodTitle: "База методів", methodPlaceholder: "Власний тип", addMethodBtn: "Додати",
         btnToggleBasesShow: "+ Відкрити налаштування баз (Полігони / Методи)", btnToggleBasesHide: "- Сховати налаштування баз",
         newOrderTitle: "Нове розпорядження (ТО)", editOrderTitle: "Редагування ТО", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область",
-        optType: "Оберіть тип...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт до ТО",
+        optType: "Оберіть тип робіт...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт",
         lblSelectMethods: "Оберіть методи розмінування...", lblSelected: "Обрано:",
         lblCadsSpace: "Кадастри (через пробіл/кому/новий рядок):", cadastreInputPlaceholder: "Наприклад: 6322882200:04:000:0091",
         typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
@@ -31,18 +31,18 @@ const translations = {
         colPolygon: "Полігон", colImsma: "IMSMA ID", colMethods: "Методи розмінування",
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
         lblTargetedCadsOnly: "Цільове НТО (тільки кадастри)",
-        lblEoreArea: "В межах області (без полігону)", lblEoreRegion: "Регіон виконання:",
-        errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", 
+        lblEoreArea: "В межах області (без полігонів)", lblEoreRegion: "Регіон виконання:",
+        errNoType: "Оберіть тип робіт та область!", errNoPoly: "Оберіть полігон!", 
         errNtsFields: "Вкажіть Назву та IMSMA для даного виду НТО!",
         errNtsIn: "Вкажіть Громаду для Первинного НТО!",
         errNtsTarget: "Вкажіть кадастри для Цільового НТО!",
-        errNoRegion: "Оберіть область хоча б для одного об'єкта!",
+        errNoRegion: "Оберіть область!",
         filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, Громада, IMSMA, Кадастр)...",
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
         lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF",
-        lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону (не зберігається в базу)",
+        lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону",
         lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада"
     },
     en: {
@@ -50,7 +50,7 @@ const translations = {
         polyImsmaPlaceholder: "IMSMA ID (optional)", addMethodTitle: "Methods Base", methodPlaceholder: "Custom method", addMethodBtn: "Add",
         btnToggleBasesShow: "+ Open Base Settings (Polygons / Methods)", btnToggleBasesHide: "- Hide Base Settings",
         newOrderTitle: "New Task Order", editOrderTitle: "Edit Task Order", optRegion: "Select Region...", regKh: "Kharkiv Region", regMyk: "Mykolaiv Region",
-        optType: "Select Type...", selectDefault: "Select Polygon...", lblPolygonsInTO: "Items in this TO:", btnAddPolygonToTO: "+ Add Item to TO",
+        optType: "Select Type...", selectDefault: "Select Polygon...", lblPolygonsInTO: "Items in this TO:", btnAddPolygonToTO: "+ Add Item",
         lblSelectMethods: "Select demining methods...", lblSelected: "Selected:",
         lblCadsSpace: "Cadastres (space/comma separated):", cadastreInputPlaceholder: "Example: 1234567800:01:001:0001",
         typeDemining: "Demining", typeNts: "NTS", typeEore: "EORE",
@@ -65,18 +65,18 @@ const translations = {
         colPolygon: "Polygon", colImsma: "IMSMA ID", colMethods: "Demining Methods",
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
         lblTargetedCadsOnly: "Targeted NTS (cadastres only)",
-        lblEoreArea: "Within region (no polygon)", lblEoreRegion: "Operating Region:",
-        errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", 
+        lblEoreArea: "Within region (no polygons)", lblEoreRegion: "Operating Region:",
+        errNoType: "Select type and region!", errNoPoly: "Select a polygon!", 
         errNtsFields: "Provide Name and IMSMA for this NTS type!",
         errNtsIn: "Provide Hromada for In-NTS!",
         errNtsTarget: "Provide cadastres for Targeted NTS!",
-        errNoRegion: "Select a region for at least one item!",
+        errNoRegion: "Select a region!",
         filterTitle: "Filters & Search", fltSearchPlaceholder: "Search (TO, Polygon, Hromada, IMSMA, Cadastre)...",
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
         lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF",
-        lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name (not saved to base)",
+        lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name",
         lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada"
     }
 };
@@ -92,9 +92,9 @@ function setLanguage(lang) {
     document.getElementById('t_addPolygonTitle').innerText = t.addPolygonTitle; 
     document.getElementById('newPolygonInput').placeholder = t.polygonPlaceholder; 
     document.getElementById('newPolyImsma').placeholder = t.polyImsmaPlaceholder;
-    document.getElementById('t_polyOptRegion').innerText = t.optRegion;
-    document.getElementById('t_polyRegKh').innerText = t.regKh;
-    document.getElementById('t_polyRegMyk').innerText = t.regMyk;
+    document.getElementById('t_optRegion').innerText = t.optRegion;
+    document.getElementById('t_regKh').innerText = t.regKh;
+    document.getElementById('t_regMyk').innerText = t.regMyk;
     document.getElementById('t_addPolygonBtn').innerText = t.addPolygonBtn;
     
     document.getElementById('t_addMethodTitle').innerText = t.addMethodTitle; 
@@ -117,6 +117,17 @@ function setLanguage(lang) {
         document.getElementById('t_addOrderBtn').innerText = t.addOrderBtn;
     }
     
+    document.getElementById('t_optType').innerText = t.optType;
+    document.getElementById('t_typeDemining').innerText = t.typeDemining;
+    document.getElementById('t_typeNts').innerText = t.typeNts;
+    document.getElementById('t_typeEore').innerText = t.typeEore;
+    
+    document.getElementById('t_optSubNts').innerText = t.optSubNts;
+    document.getElementById('t_ntsIn').innerText = t.ntsIn;
+    document.getElementById('t_ntsRe').innerText = t.ntsRe;
+    document.getElementById('t_ntsDemarc').innerText = t.ntsDemarc;
+    document.getElementById('t_ntsTarget').innerText = t.ntsTarget;
+
     document.getElementById('t_lblPolygonsInTO').innerText = t.lblPolygonsInTO; 
     document.getElementById('t_btnAddPolygonToTO').innerText = t.btnAddPolygonToTO; 
     document.getElementById('orderNumber').placeholder = t.orderNumberPlaceholder; 
@@ -168,27 +179,18 @@ async function loadData() {
         
         if (token) {
             const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${FILE_PATH}?t=${Date.now()}`;
-            const response = await fetch(apiUrl, { 
-                headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } 
-            });
+            const response = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' } });
             if (response.ok) {
                 const fileData = await response.json();
                 data = JSON.parse(decodeURIComponent(escape(window.atob(fileData.content))));
             }
         }
-
         if (!data) {
             const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${FILE_PATH}?t=${Date.now()}`);
-            if (response.ok) {
-                data = await response.json();
-            }
+            if (response.ok) data = await response.json();
         }
-
         if (data) {
-            polygons = (data.polygons || []).map(p => {
-                if (typeof p === 'string') return { name: p, imsma: "", region: "" };
-                return p;
-            });
+            polygons = (data.polygons || []).map(p => (typeof p === 'string' ? { name: p, imsma: "", region: "" } : p));
             customMethods = data.customMethods || []; 
             orders = data.orders || [];
             document.getElementById('syncStatus').innerText = translations[currentLang].statusLoaded;
@@ -217,21 +219,13 @@ async function saveToGitHub() {
         const putBody = { message: "Оновлення бази дашборду", content: contentBase64 }; 
         if (sha) putBody.sha = sha;
         
-        const putRes = await fetch(apiUrl, { 
-            method: 'PUT', 
-            headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, 
-            body: JSON.stringify(putBody) 
-        });
-        
+        const putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
         if (putRes.ok) { 
             document.getElementById('syncStatus').innerText = translations[currentLang].statusSaved; 
         } else { 
             if (putRes.status === 401) {
                 alert("Помилка авторизації. Токен недійсний. Введіть його знову.");
                 localStorage.removeItem('gh_token'); isAdmin = false; updateAdminUI();
-            } else if (putRes.status === 409) {
-                alert("Конфлікт версій (Можливо кеш сервера або хтось інший зараз зберіг файл). Оновіть сторінку і спробуйте ще раз.");
-                document.getElementById('syncStatus').innerText = "❌ Помилка збереження";
             } else {
                 alert("Сталась помилка при збереженні. Код: " + putRes.status);
                 document.getElementById('syncStatus').innerText = "❌ Помилка збереження";
@@ -259,18 +253,10 @@ function updateAdminUI() {
 function addPolygon() {
     const name = document.getElementById('newPolygonInput').value.trim();
     const imsma = document.getElementById('newPolyImsma').value.trim();
-    const region = document.getElementById('newPolyRegion').value;
-    
     if (name && !polygons.some(p => p.name === name)) { 
-        polygons.push({ name, imsma, region }); 
-        
+        polygons.push({ name, imsma, region: "" }); 
         document.getElementById('newPolygonInput').value = ''; 
         document.getElementById('newPolyImsma').value = '';
-        document.getElementById('newPolyRegion').value = '';
-        
-        document.querySelectorAll('.item-poly-select').forEach(select => {
-            select.insertAdjacentHTML('beforeend', `<option value="${name}">${name}</option>`);
-        });
         saveToGitHub(); 
     }
 }
@@ -280,17 +266,8 @@ function addCustomMethod() {
     if (name && !customMethods.includes(name)) { 
         customMethods.push(name); 
         document.getElementById('newMethodInput').value = ''; 
-        
-        const blocks = document.querySelectorAll('.polygon-block');
-        blocks.forEach(block => {
-            const blockId = block.id;
-            const dropdown = document.getElementById('dd_' + blockId);
-            if (dropdown) {
-                const html = `<label class="checkbox-item"><input type="checkbox" value="${name}" onchange="updateMethodLabel('${blockId}')"> <span style="margin:0">${name}</span></label>`;
-                dropdown.insertAdjacentHTML('beforeend', html);
-            }
-        });
         saveToGitHub(); 
+        // Need to re-render form dropdowns if any exist, but they are dynamically generated so it's fine for next blocks
     }
 }
 
@@ -316,53 +293,23 @@ function updateMethodLabel(blockId) {
     else label.innerText = `${t.lblSelected} ${checked.length}`;
 }
 
-function toggleNtsSub(blockId) {
-    const block = document.getElementById(blockId);
-    const sub = block.querySelector('.item-nts-sub').value;
-    const cadGroup = block.querySelector('.item-cadastres-group');
-    const imsmaGroup = block.querySelector('.item-nts-imsma-group');
-    const hromadaGroup = block.querySelector('.item-nts-hromada-group');
+function toggleGlobalType() {
+    const type = document.getElementById('globalType').value;
+    const subNts = document.getElementById('globalNtsSub');
+    const itemsSection = document.getElementById('itemsSection');
     
-    // Скидаємо всі поля
-    cadGroup.style.display = 'none';
-    imsmaGroup.style.display = 'none';
-    hromadaGroup.style.display = 'none';
+    // Очищаємо список полігонів при зміні глобального типу, щоб не міксувати
+    document.getElementById('polygonItemsContainer').innerHTML = '';
 
-    if(sub === 'in_nts') {
-        hromadaGroup.style.display = 'block'; // Тільки громада
-    } else if(sub === 'targeted') {
-        cadGroup.style.display = 'block'; // Тільки кадастри
+    if (type === 'nts') {
+        subNts.style.display = 'block';
+        itemsSection.style.display = 'block';
+    } else if (type === 'eore') {
+        subNts.style.display = 'none';
+        itemsSection.style.display = 'none'; // ІНРМ не потребує об'єктів
     } else {
-        imsmaGroup.style.display = 'grid'; // Назва + IMSMA для re_nts та demarcation
-    }
-}
-
-function toggleItemFields(blockId) {
-    const block = document.getElementById(blockId);
-    const type = block.querySelector('.item-type-select').value;
-    const polySelectGroup = block.querySelector('.item-poly-select-group');
-    const polyRegion = block.querySelector('.item-poly-region');
-    const demFields = block.querySelector('.item-demining-fields');
-    const ntsFields = block.querySelector('.item-nts-fields');
-    
-    demFields.classList.remove('active'); 
-    ntsFields.classList.remove('active');
-    
-    if(type === 'eore') { 
-        polySelectGroup.style.display = 'none';
-        polyRegion.style.display = 'block';
-    } else if(type === 'demining') { 
-        polySelectGroup.style.display = 'block'; 
-        polyRegion.style.display = 'block';
-        demFields.classList.add('active');
-    } else if(type === 'nts') { 
-        polySelectGroup.style.display = 'none'; 
-        polyRegion.style.display = 'block';
-        ntsFields.classList.add('active');
-        toggleNtsSub(blockId);
-    } else {
-        polySelectGroup.style.display = 'none'; 
-        polyRegion.style.display = 'none';
+        subNts.style.display = 'none';
+        itemsSection.style.display = 'block';
     }
 }
 
@@ -384,26 +331,17 @@ function onPolygonSelect(blockId) {
     const polyData = polygons.find(p => p.name === polyName);
     if (polyData) {
         if (polyData.imsma) block.querySelector('.item-imsma').value = polyData.imsma;
-        if (polyData.region) block.querySelector('.item-poly-region').value = polyData.region;
     }
 
     if (editingOrderIndex === -1) {
-        let foundHistory = false;
         const sortedOrders = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
-        
         for (let order of sortedOrders) {
             const item = (order.items || []).find(i => i.polygon === polyName);
-            if (item) {
-                foundHistory = true;
-                if ((!polyData || !polyData.region) && order.region) {
-                    block.querySelector('.item-poly-region').value = order.region;
-                }
-                if (item.type === 'demining') {
-                    if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
-                    const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
-                    checkboxes.forEach(cb => { cb.checked = (item.deminingTypes || []).includes(cb.value); });
-                    updateMethodLabel(blockId);
-                }
+            if (item && item.type === 'demining') {
+                if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
+                const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
+                checkboxes.forEach(cb => { cb.checked = (item.deminingTypes || []).includes(cb.value); });
+                updateMethodLabel(blockId);
                 break;
             }
         }
@@ -411,65 +349,60 @@ function onPolygonSelect(blockId) {
 }
 
 function addPolygonItemBlock(itemData = null) {
-    const t = translations[currentLang]; const blockId = 'poly_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
-    
-    let polOpts = `<option value="" disabled selected>${t.selectDefault}</option>`; 
-    polOpts += `<option value="_custom_" style="font-weight:bold; color:var(--primary);">${t.lblCustomPoly}</option>`;
-    polygons.forEach(p => polOpts += `<option value="${p.name}">${p.name}</option>`);
-    
-    let methodOpts = '';
-    const baseMethods = [ {id:'ts', l:t.demTs}, {id:'mc', l:t.demMc}, {id:'bac', l:t.demBac}, {id:'mdd', l:t.demMdd}, {id:'mech', l:t.demMech} ];
-    baseMethods.forEach(m => methodOpts += `<label class="checkbox-item"><input type="checkbox" value="${m.id}" onchange="updateMethodLabel('${blockId}')"> <span style="margin:0">${m.l}</span></label>`);
-    customMethods.forEach(m => methodOpts += `<label class="checkbox-item"><input type="checkbox" value="${m}" onchange="updateMethodLabel('${blockId}')"> <span style="margin:0">${m}</span></label>`);
-    
-    const html = `
-        <div class="polygon-block" id="${blockId}">
-            <button type="button" class="btn-remove" onclick="document.getElementById('${blockId}').remove()">X</button>
+    const t = translations[currentLang]; 
+    const blockId = 'poly_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+    const globalType = document.getElementById('globalType').value;
+    const globalSub = document.getElementById('globalNtsSub').value;
+
+    if (!globalType) { alert("Спершу оберіть Тип робіт!"); return; }
+    if (globalType === 'nts' && !globalSub) { alert("Спершу оберіть Підтип НТО!"); return; }
+
+    let html = `<div class="polygon-block" id="${blockId}"><button type="button" class="btn-remove" onclick="document.getElementById('${blockId}').remove()">X</button>`;
+
+    if (globalType === 'demining') {
+        let polOpts = `<option value="" disabled selected>${t.selectDefault}</option>`; 
+        polOpts += `<option value="_custom_" style="font-weight:bold; color:var(--primary);">${t.lblCustomPoly}</option>`;
+        polygons.forEach(p => polOpts += `<option value="${p.name}">${p.name}</option>`);
+        
+        let methodOpts = '';
+        const baseMethods = [ {id:'ts', l:t.demTs}, {id:'mc', l:t.demMc}, {id:'bac', l:t.demBac}, {id:'mdd', l:t.demMdd}, {id:'mech', l:t.demMech} ];
+        baseMethods.forEach(m => methodOpts += `<label class="checkbox-item"><input type="checkbox" value="${m.id}" onchange="updateMethodLabel('${blockId}')"> <span style="margin:0">${m.l}</span></label>`);
+        customMethods.forEach(m => methodOpts += `<label class="checkbox-item"><input type="checkbox" value="${m}" onchange="updateMethodLabel('${blockId}')"> <span style="margin:0">${m}</span></label>`);
+        
+        html += `
             <div class="form-grid">
-                <select class="item-type-select" onchange="toggleItemFields('${blockId}')">
-                    <option value="" disabled selected>${t.optType}</option>
-                    <option value="demining">${t.typeDemining}</option>
-                    <option value="nts">${t.typeNts}</option>
-                    <option value="eore">${t.typeEore}</option>
-                </select>
-                <div class="item-poly-select-group" style="display:none;">
-                    <select class="item-poly-select full-width" onchange="onPolygonSelect('${blockId}')">
-                        ${polOpts}
-                    </select>
+                <div>
+                    <select class="item-poly-select full-width" onchange="onPolygonSelect('${blockId}')">${polOpts}</select>
                     <input type="text" class="item-custom-name full-width" style="display:none; margin-top: 8px;" placeholder="${t.customPolyPlaceholder}">
                 </div>
-                <select class="item-poly-region full-width" style="display:none;">
-                    <option value="" disabled selected>${t.optRegion}</option>
-                    <option value="kharkiv">${t.regKh}</option>
-                    <option value="mykolaiv">${t.regMyk}</option>
-                </select>
-            </div>
-            
-            <div class="item-demining-fields dynamic-fields">
                 <input type="text" class="item-imsma" placeholder="${t.imsmaPlaceholder}">
-                <div class="multi-select">
-                    <div class="select-btn" onclick="toggleMultiSelect('dd_${blockId}')"><span id="lbl_${blockId}">${t.lblSelectMethods}</span> <span>▼</span></div>
-                    <div class="select-dropdown item-methods-group" id="dd_${blockId}">${methodOpts}</div>
-                </div>
             </div>
-            
-            <div class="item-nts-fields dynamic-fields">
-                <select class="item-nts-sub full-width" onchange="toggleNtsSub('${blockId}')">
-                    <option value="" disabled selected>${t.optSubNts}</option>
-                    <option value="in_nts">${t.ntsIn}</option>
-                    <option value="re_nts">${t.ntsRe}</option>
-                    <option value="demarcation">${t.ntsDemarc}</option>
-                    <option value="targeted">${t.ntsTarget}</option>
-                </select>
-
-                <!-- Поле Громада для in_nts -->
-                <div class="item-nts-hromada-group full-width" style="display:none; margin-top: 10px;">
+            <div class="multi-select" style="margin-top: 10px;">
+                <div class="select-btn" onclick="toggleMultiSelect('dd_${blockId}')"><span id="lbl_${blockId}">${t.lblSelectMethods}</span> <span>▼</span></div>
+                <div class="select-dropdown item-methods-group" id="dd_${blockId}">${methodOpts}</div>
+            </div>
+        `;
+    } 
+    else if (globalType === 'nts') {
+        if (globalSub === 'in_nts') {
+            html += `
+                <div class="full-width">
                     <label class="lbl-bold">${t.lblHromada}</label>
                     <input type="text" class="item-nts-hromada" placeholder="${t.hromadaPlaceholder}">
                 </div>
-
-                <!-- Поля Назва + IMSMA для re_nts та demarcation -->
-                <div class="full-width item-nts-imsma-group" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+            `;
+        } 
+        else if (globalSub === 'targeted') {
+            html += `
+                <div class="full-width">
+                    <label class="lbl-bold">${t.lblCadsSpace}</label>
+                    <textarea class="item-cadastres-input" placeholder="${t.cadastreInputPlaceholder}" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box; resize:vertical; min-height:60px; font-family:inherit;"></textarea>
+                </div>
+            `;
+        } 
+        else { // re_nts, demarcation
+            html += `
+                <div class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
                         <label class="lbl-bold">${t.lblName}</label>
                         <input type="text" class="item-nts-name" placeholder="${t.customPolyPlaceholder}">
@@ -479,25 +412,17 @@ function addPolygonItemBlock(itemData = null) {
                         <input type="text" class="item-nts-imsma" placeholder="${t.imsmaPlaceholder}">
                     </div>
                 </div>
+            `;
+        }
+    }
 
-                <!-- Поле Кадастри для targeted -->
-                <div class="item-cadastres-group full-width" style="display:none; margin-top: 10px;">
-                    <label class="lbl-bold">${t.lblCadsSpace}</label>
-                    <textarea class="item-cadastres-input" placeholder="${t.cadastreInputPlaceholder}" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box; resize:vertical; min-height:60px; font-family:inherit;"></textarea>
-                </div>
-            </div>
-        </div>
-    `;
+    html += `</div>`;
     document.getElementById('polygonItemsContainer').insertAdjacentHTML('beforeend', html);
     
+    // Якщо редагуємо і є дані
     if (itemData) {
         const block = document.getElementById(blockId);
-        block.querySelector('.item-type-select').value = itemData.type;
-        toggleItemFields(blockId); 
-        
-        if (itemData.region) block.querySelector('.item-poly-region').value = itemData.region;
-        
-        if (itemData.type === 'demining') {
+        if (globalType === 'demining') {
             if (itemData.polygon) {
                 const select = block.querySelector('.item-poly-select');
                 if(!Array.from(select.options).some(opt => opt.value === itemData.polygon)) {
@@ -515,13 +440,11 @@ function addPolygonItemBlock(itemData = null) {
                 checkboxes.forEach(cb => { cb.checked = itemData.deminingTypes.includes(cb.value); });
                 updateMethodLabel(blockId);
             }
-        } else if (itemData.type === 'nts') {
-            if (itemData.ntsSubType) block.querySelector('.item-nts-sub').value = itemData.ntsSubType;
-            toggleNtsSub(blockId); // Активуємо потрібні поля для НТО
-            
-            if (itemData.ntsSubType === 'in_nts' && itemData.hromada) {
+        } 
+        else if (globalType === 'nts') {
+            if (globalSub === 'in_nts' && itemData.hromada) {
                 block.querySelector('.item-nts-hromada').value = itemData.hromada;
-            } else if (itemData.ntsSubType === 'targeted' && itemData.cadastres) {
+            } else if (globalSub === 'targeted' && itemData.cadastres) {
                 block.querySelector('.item-cadastres-input').value = itemData.cadastres.join(', ');
             } else {
                 if (itemData.polygon) block.querySelector('.item-nts-name').value = itemData.polygon;
@@ -541,8 +464,17 @@ function editOrder(globalIndex) {
     document.getElementById('startDate').value = order.startDate || '';
     document.getElementById('endDate').value = order.endDate || '';
     
-    document.getElementById('polygonItemsContainer').innerHTML = ''; 
+    // Визначаємо глобальний тип і регіон зі старого формату або з нового
+    let oReg = order.region || '';
+    let oType = order.type || (order.items && order.items.length > 0 ? order.items[0].type : 'demining');
+    let oSub = order.ntsSubType || (order.items && order.items.length > 0 ? order.items[0].ntsSubType : '');
     
+    document.getElementById('globalRegion').value = oReg;
+    document.getElementById('globalType').value = oType;
+    document.getElementById('globalNtsSub').value = oSub;
+    toggleGlobalType(); // оновлює UI
+
+    document.getElementById('polygonItemsContainer').innerHTML = ''; 
     if (order.items && order.items.length > 0) {
         order.items.forEach(item => addPolygonItemBlock(item));
     }
@@ -561,6 +493,11 @@ function cancelEdit() {
     document.getElementById('orderNumber').value = '';
     document.getElementById('startDate').value = '';
     document.getElementById('endDate').value = '';
+    document.getElementById('globalRegion').value = '';
+    document.getElementById('globalType').value = '';
+    document.getElementById('globalNtsSub').value = '';
+    toggleGlobalType();
+    
     document.getElementById('polygonItemsContainer').innerHTML = '';
     
     document.getElementById('t_newOrderTitle').innerText = t.newOrderTitle;
@@ -572,16 +509,21 @@ function addOrder() {
     const number = document.getElementById('orderNumber').value.trim(); 
     const startDate = document.getElementById('startDate').value; 
     const endDate = document.getElementById('endDate').value;
+    const globalRegion = document.getElementById('globalRegion').value;
+    const globalType = document.getElementById('globalType').value;
+    const globalNtsSub = document.getElementById('globalNtsSub').value;
+    
     const blocks = document.querySelectorAll('.polygon-block');
     const t = translations[currentLang];
     
     if (!number || !startDate || !endDate) { alert("Заповніть номер ТО та дати!"); return; }
-    if (blocks.length === 0) { alert("Додайте хоча б один об'єкт до розпорядження!"); return; }
+    if (!globalRegion || !globalType) { alert(t.errNoType); return; }
+    if (globalType === 'nts' && !globalNtsSub) { alert("Оберіть підтип НТО!"); return; }
+    if (globalType !== 'eore' && blocks.length === 0) { alert("Додайте хоча б один об'єкт до розпорядження!"); return; }
 
     let items = []; 
     let validationError = false; 
     let errMsg = "";
-    let globalRegion = ""; 
     
     let orderNtsSent = false;
     if (editingOrderIndex >= 0) {
@@ -591,15 +533,9 @@ function addOrder() {
     }
     
     blocks.forEach(block => {
-        const type = block.querySelector('.item-type-select').value; 
-        const region = block.querySelector('.item-poly-region').value;
+        let item = {};
         
-        if (!type) { validationError = true; errMsg = t.errNoType; return; }
-        if (!globalRegion && region) globalRegion = region;
-        
-        let item = { type: type, region: region };
-        
-        if (type === 'demining') {
+        if (globalType === 'demining') {
             let poly = block.querySelector('.item-poly-select').value; 
             const customName = block.querySelector('.item-custom-name').value.trim();
             if (poly === '_custom_') poly = customName;
@@ -609,44 +545,47 @@ function addOrder() {
             item.imsma = block.querySelector('.item-imsma').value.trim();
             item.deminingTypes = Array.from(block.querySelectorAll('.item-methods-group input:checked')).map(cb => cb.value);
             
-        } else if (type === 'nts') {
-            item.ntsSubType = block.querySelector('.item-nts-sub').value;
-            item.ntsReportSent = orderNtsSent; 
-            
-            if (item.ntsSubType === 'in_nts') {
+        } else if (globalType === 'nts') {
+            if (globalNtsSub === 'in_nts') {
                 const hVal = block.querySelector('.item-nts-hromada').value.trim();
                 if (!hVal) { validationError = true; errMsg = t.errNtsIn; return; }
                 item.hromada = hVal;
-                item.polygon = ""; item.imsma = ""; item.cadastres = [];
             } 
-            else if (item.ntsSubType === 'targeted') {
+            else if (globalNtsSub === 'targeted') {
                 const cStr = block.querySelector('.item-cadastres-input').value.trim();
                 item.cadastres = cStr ? cStr.split(/[,;\n\s]+/).map(c => c.trim()).filter(c => c.length > 5) : [];
                 if (item.cadastres.length === 0) { validationError = true; errMsg = t.errNtsTarget; return; }
-                item.polygon = ""; item.imsma = ""; item.hromada = "";
             } 
-            else { // re_nts, demarcation
+            else { 
                 const nName = block.querySelector('.item-nts-name').value.trim();
                 const nImsma = block.querySelector('.item-nts-imsma').value.trim();
                 if (!nName && !nImsma) { validationError = true; errMsg = t.errNtsFields; return; }
                 item.polygon = nName; item.imsma = nImsma;
-                item.cadastres = []; item.hromada = "";
             }
-            
-        } else if (type === 'eore') {
-            item.polygon = "";
-            if (!region && !globalRegion) { validationError = true; errMsg = t.errNoRegion; return; }
         }
         items.push(item);
     });
 
     if (validationError) { alert(errMsg); return; }
 
+    let updatedOrder = { 
+        number, 
+        region: globalRegion, 
+        type: globalType, 
+        startDate, 
+        endDate, 
+        items 
+    };
+    if (globalType === 'nts') {
+        updatedOrder.ntsSubType = globalNtsSub;
+        updatedOrder.ntsReportSent = orderNtsSent;
+    }
+
     if (editingOrderIndex >= 0) {
-        const oldPdf = orders[editingOrderIndex].pdfLink;
-        orders[editingOrderIndex] = { number, region: globalRegion, startDate, endDate, items, pdfLink: oldPdf, ntsReportSent: orderNtsSent };
+        updatedOrder.pdfLink = orders[editingOrderIndex].pdfLink;
+        orders[editingOrderIndex] = updatedOrder;
     } else {
-        orders.push({ number, region: globalRegion, startDate, endDate, items, ntsReportSent: false });
+        orders.push(updatedOrder);
     }
     
     cancelEdit(); 
@@ -656,18 +595,13 @@ function addOrder() {
 
 function toggleOrderReportStatus(orderIdx) {
     if (!isAdmin) return;
+    let order = orders[orderIdx];
+    let currentStatus = order.ntsReportSent !== undefined ? order.ntsReportSent : (order.items || []).some(i => i.ntsReportSent);
+    order.ntsReportSent = !currentStatus;
     
-    let currentStatus = orders[orderIdx].ntsReportSent !== undefined 
-        ? orders[orderIdx].ntsReportSent 
-        : (orders[orderIdx].items || []).some(i => i.ntsReportSent);
-        
-    let newStatus = !currentStatus;
-    orders[orderIdx].ntsReportSent = newStatus;
-    
-    if (orders[orderIdx].items) {
-        orders[orderIdx].items.forEach(i => {
-            if (i.type === 'nts') i.ntsReportSent = newStatus;
-        });
+    // Для зворотної сумісності зі старою структурою
+    if (order.items) {
+        order.items.forEach(i => { if (i.type === 'nts' || order.type === 'nts') i.ntsReportSent = !currentStatus; });
     }
     
     renderOrders();
@@ -711,46 +645,32 @@ function getFilteredOrders() {
         if (fDateFrom && order.startDate < fDateFrom) return false;
         if (fDateTo && order.endDate > fDateTo) return false;
         
-        let orderNtsSent = order.ntsReportSent !== undefined ? order.ntsReportSent : (order.items || []).some(i => i.ntsReportSent);
-        let hasMatch = false;
+        let oType = order.type || (order.items && order.items.length > 0 ? order.items[0].type : '');
+        if (fType !== 'all' && oType !== fType) return false;
         
-        if (!fText && fType === 'all' && fNtsStat === 'all') {
-            return true;
+        let orderNtsSent = order.ntsReportSent !== undefined ? order.ntsReportSent : (order.items || []).some(i => i.ntsReportSent);
+        
+        if (fNtsStat !== 'all') {
+            if (oType !== 'nts') return false;
+            if (fNtsStat === 'sent' && !orderNtsSent) return false;
+            if (fNtsStat === 'pending' && orderNtsSent) return false;
         }
 
-        if (order.items && order.items.length > 0) {
-            hasMatch = order.items.some(item => {
-                let match = true;
-                
-                if (fType !== 'all' && item.type !== fType) match = false;
-                
-                if (fNtsStat !== 'all') {
-                    if (item.type !== 'nts') match = false;
-                    else {
-                        if (fNtsStat === 'sent' && !orderNtsSent) match = false;
-                        if (fNtsStat === 'pending' && orderNtsSent) match = false;
-                    }
-                }
-
-                if (fText) {
-                    const toNum = (order.number || '').toLowerCase();
-                    const pName = (item.polygon || '').toLowerCase();
-                    const iName = (item.imsma || '').toLowerCase();
-                    const cads = (item.cadastres || []).join(' ').toLowerCase();
-                    const hrom = (item.hromada || '').toLowerCase();
-                    
-                    if (!toNum.includes(fText) && !pName.includes(fText) && !iName.includes(fText) && !cads.includes(fText) && !hrom.includes(fText)) {
-                        match = false;
-                    }
-                }
-                return match;
-            });
-        } else {
-            if (fText && (order.number || '').toLowerCase().includes(fText) && fType === 'all' && fNtsStat === 'all') {
-                hasMatch = true;
+        if (fText) {
+            let matchText = false;
+            if ((order.number || '').toLowerCase().includes(fText)) matchText = true;
+            
+            if (order.items && order.items.length > 0) {
+                order.items.forEach(item => {
+                    if ((item.polygon || '').toLowerCase().includes(fText)) matchText = true;
+                    if ((item.imsma || '').toLowerCase().includes(fText)) matchText = true;
+                    if ((item.hromada || '').toLowerCase().includes(fText)) matchText = true;
+                    if ((item.cadastres || []).join(' ').toLowerCase().includes(fText)) matchText = true;
+                });
             }
+            if (!matchText) return false;
         }
-        return hasMatch;
+        return true;
     });
 }
 
@@ -786,42 +706,17 @@ function renderOrders() {
             
         let itemsHtml = ""; 
         let itemsArr = order.items || [];
-        let orderHasNts = false;
         
-        let otherItems = [];
-        let ntsGroups = {};
+        // Визначаємо глобальні властивості для рендерингу (навіть зі старої структури)
+        let oType = order.type || (itemsArr.length > 0 ? itemsArr[0].type : 'demining');
+        let oSub = order.ntsSubType || (itemsArr.length > 0 ? itemsArr[0].ntsSubType : '');
 
-        itemsArr.forEach((item, itemIdx) => {
-            if (item.type === 'nts') {
-                orderHasNts = true;
-                let sub = item.ntsSubType || 'in_nts';
-                if (!ntsGroups[sub]) ntsGroups[sub] = { polygons: [], cadastres: [], hromadas: [] };
-                
-                if (sub === 'in_nts') {
-                    if (item.hromada) ntsGroups[sub].hromadas.push(item.hromada);
-                } else if (sub === 'targeted') {
-                    if (item.cadastres && item.cadastres.length > 0) ntsGroups[sub].cadastres.push(...item.cadastres);
-                } else {
-                    if (item.polygon || item.imsma) ntsGroups[sub].polygons.push({ name: item.polygon, imsma: item.imsma });
-                }
-            } else {
-                otherItems.push(item);
-            }
-        });
-
-        otherItems.forEach((item, itemIdx) => {
-            let typeTag = ""; let detailsStr = "";
-            let polyName = item.polygon ? item.polygon : "-";
-
-            if (item.type === 'eore') {
-                typeTag = `<span class="tag eore">${t.typeEore}</span>`;
-                polyName = t.lblEoreArea;
-                if(item.region) {
-                    let rName = item.region === 'kharkiv' ? t.regKh : (item.region === 'mykolaiv' ? t.regMyk : item.region);
-                    detailsStr = `<small style="color:#586069;"><b>${t.lblEoreRegion}</b> ${rName}</small>`;
-                }
-            } else if (item.type === 'demining') {
-                typeTag = `<span class="tag demining">${t.typeDemining}</span>`;
+        if (oType === 'eore') {
+            itemsHtml += `<div class="poly-list-item"><strong>${t.lblEoreArea}</strong> <span class="tag eore">${t.typeEore}</span><br></div>`;
+        } 
+        else if (oType === 'demining') {
+            itemsArr.forEach(item => {
+                let polyName = item.polygon || "-";
                 let demTypesArr = item.deminingTypes || [];
                 let translatedTypes = demTypesArr.map(typeId => {
                     if (typeId === 'ts') return t.demTs; if (typeId === 'mc') return t.demMc; if (typeId === 'bac') return t.demBac; if (typeId === 'mdd') return t.demMdd; if (typeId === 'mech') return t.demMech; return typeId; 
@@ -833,60 +728,58 @@ function renderOrders() {
                 } else {
                     methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td></tr></tbody></table>`;
                 }
-                detailsStr = methodsTableHtml;
-            }
-            itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
-        });
-
-        for (let sub in ntsGroups) {
-            let group = ntsGroups[sub];
-            let typeTag = `<span class="tag nts">${t.typeNts}</span>`;
-            
+                itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> <span class="tag demining">${t.typeDemining}</span><br>${methodsTableHtml}</div>`;
+            });
+        }
+        else if (oType === 'nts') {
             let ntsName = t.ntsIn;
-            if(sub === 're_nts') ntsName = t.ntsRe; 
-            if(sub === 'demarcation') ntsName = t.ntsDemarc; 
-            if(sub === 'targeted') ntsName = t.ntsTarget;
+            if(oSub === 're_nts') ntsName = t.ntsRe; 
+            if(oSub === 'demarcation') ntsName = t.ntsDemarc; 
+            if(oSub === 'targeted') ntsName = t.ntsTarget;
 
-            let hromadaHtml = '';
-            if (group.hromadas.length > 0) {
-                let uniqueHromadas = [...new Set(group.hromadas)];
-                hromadaHtml = `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colHromada}</th></tr></thead><tbody>`;
-                uniqueHromadas.forEach(h => { hromadaHtml += `<tr><td><strong>${h}</strong></td></tr>`; });
-                hromadaHtml += `</tbody></table></div>`;
+            let hromadas = [];
+            let polygons = [];
+            let cadastres = [];
+            
+            itemsArr.forEach(item => {
+                if (item.hromada) hromadas.push(item.hromada);
+                if (item.polygon || item.imsma) polygons.push({ name: item.polygon, imsma: item.imsma });
+                if (item.cadastres && item.cadastres.length > 0) cadastres.push(...item.cadastres);
+            });
+
+            let detailsStr = '';
+
+            if (oSub === 'in_nts' && hromadas.length > 0) {
+                let uniqueHromadas = [...new Set(hromadas)];
+                detailsStr += `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colHromada}</th></tr></thead><tbody>`;
+                uniqueHromadas.forEach(h => { detailsStr += `<tr><td><strong>${h}</strong></td></tr>`; });
+                detailsStr += `</tbody></table></div>`;
             }
 
-            let polyHtml = '';
-            if (group.polygons.length > 0) {
-                polyHtml = `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colPolygon}</th><th>${t.colImsma}</th></tr></thead><tbody>`;
-                group.polygons.forEach(p => {
+            if ((oSub === 're_nts' || oSub === 'demarcation') && polygons.length > 0) {
+                detailsStr += `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colPolygon}</th><th>${t.colImsma}</th></tr></thead><tbody>`;
+                polygons.forEach(p => {
                     let pName = p.name || '-';
                     let pImsma = p.imsma || '-';
-                    polyHtml += `<tr><td><strong>${pName}</strong></td><td><code style="font-size: 13px;">${pImsma}</code></td></tr>`;
+                    detailsStr += `<tr><td><strong>${pName}</strong></td><td><code style="font-size: 13px;">${pImsma}</code></td></tr>`;
                 });
-                polyHtml += `</tbody></table></div>`;
+                detailsStr += `</tbody></table></div>`;
             }
 
-            let cadHtml = '';
-            if (group.cadastres.length > 0) {
-                let uniqueCads = [...new Set(group.cadastres)];
-                cadHtml = `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>Кадастрові номери</th></tr></thead><tbody>`;
-                uniqueCads.forEach(cad => { cadHtml += `<tr><td><code style="font-size: 13px;">${cad}</code></td></tr>`; });
-                cadHtml += `</tbody></table></div>`;
+            if (oSub === 'targeted' && cadastres.length > 0) {
+                let uniqueCads = [...new Set(cadastres)];
+                detailsStr += `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>Кадастрові номери</th></tr></thead><tbody>`;
+                uniqueCads.forEach(cad => { detailsStr += `<tr><td><code style="font-size: 13px;">${cad}</code></td></tr>`; });
+                detailsStr += `</tbody></table></div>`;
             }
 
-            let detailsStr = `${hromadaHtml}${polyHtml}${cadHtml}`;
+            itemsHtml += `<div class="poly-list-item"><strong>${ntsName}</strong> <span class="tag nts">${t.typeNts}</span><br>${detailsStr}</div>`;
             
-            itemsHtml += `<div class="poly-list-item"><strong>${ntsName}</strong> ${typeTag}<br>${detailsStr}</div>`;
-        }
-        
-        if (orderHasNts) {
             let isSent = order.ntsReportSent !== undefined ? order.ntsReportSent : itemsArr.some(i => i.ntsReportSent);
-            let reportHtml = '';
-            if (isAdmin) {
-                reportHtml = `<label style="cursor:pointer; display:inline-flex; align-items:center; background:#f6f8fa; padding:4px 8px; border:1px solid #e1e4e8; border-radius:4px;"><input type="checkbox" onchange="toggleOrderReportStatus(${originalOrderIndex})" ${isSent ? 'checked' : ''} style="margin-right:6px;"> ${isSent ? t.reportYes : t.reportNo}</label>`;
-            } else {
-                reportHtml = `<span style="background:#f6f8fa; padding:4px 8px; border:1px solid #e1e4e8; border-radius:4px; display:inline-block;">${isSent ? t.reportYes : t.reportNo}</span>`;
-            }
+            let reportHtml = isAdmin 
+                ? `<label style="cursor:pointer; display:inline-flex; align-items:center; background:#f6f8fa; padding:4px 8px; border:1px solid #e1e4e8; border-radius:4px;"><input type="checkbox" onchange="toggleOrderReportStatus(${originalOrderIndex})" ${isSent ? 'checked' : ''} style="margin-right:6px;"> ${isSent ? t.reportYes : t.reportNo}</label>`
+                : `<span style="background:#f6f8fa; padding:4px 8px; border:1px solid #e1e4e8; border-radius:4px; display:inline-block;">${isSent ? t.reportYes : t.reportNo}</span>`;
+            
             itemsHtml += `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border);">
                             <div style="margin-bottom:4px;"><small style="color:#586069;"><b>${t.lblStatus}:</b></small></div>
                             ${reportHtml}
