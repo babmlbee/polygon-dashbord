@@ -1522,13 +1522,13 @@
     },
     {
       "number": "1164",
-      "region": "",
+      "region": "mykolaiv",
       "startDate": "2026-04-28",
       "endDate": "2026-05-28",
       "items": [
         {
           "type": "nts",
-          "region": "",
+          "region": "mykolaiv",
           "ntsSubType": "in_nts",
           "ntsReportSent": true,
           "hromada": "Воскресенська",
