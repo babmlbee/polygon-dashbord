@@ -8,7 +8,6 @@ let customMethods = [];
 let orders = [];
 let isAdmin = !!localStorage.getItem('gh_token');
 
-// Змінна для відстеження, чи ми редагуємо, чи створюємо нове ТО
 let editingOrderIndex = -1;
 
 const translations = {
@@ -350,7 +349,6 @@ function onPolygonSelect(blockId) {
         if (polyData.region) block.querySelector('.item-poly-region').value = polyData.region;
     }
 
-    // Якщо це створення нового, а не редагування, намагаємось підтягнути історію методів
     if (editingOrderIndex === -1) {
         let foundHistory = false;
         const sortedOrders = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
@@ -378,7 +376,6 @@ function onPolygonSelect(blockId) {
     }
 }
 
-// Перероблена функція для прийому існуючих даних полігону (при редагуванні)
 function addPolygonItemBlock(itemData = null) {
     const t = translations[currentLang]; const blockId = 'poly_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
     
@@ -436,14 +433,11 @@ function addPolygonItemBlock(itemData = null) {
     `;
     document.getElementById('polygonItemsContainer').insertAdjacentHTML('beforeend', html);
     
-    // Якщо передано дані - заповнюємо форму (Режим Редагування)
     if (itemData) {
         const block = document.getElementById(blockId);
-        
         block.querySelector('.item-type-select').value = itemData.type;
-        toggleItemFields(blockId); // Активуємо потрібні блоки
+        toggleItemFields(blockId); 
         
-        // Якщо полігон нестандартний (його немає в селекті), але збережений в базі
         if (itemData.polygon) {
             const select = block.querySelector('.item-poly-select');
             if(!Array.from(select.options).some(opt => opt.value === itemData.polygon)) {
@@ -470,13 +464,10 @@ function addPolygonItemBlock(itemData = null) {
             if (itemData.cadastres && itemData.cadastres.length > 0) {
                 block.querySelector('.item-cadastres-input').value = itemData.cadastres.join(', ');
             }
-            // Зберігаємо статус відправки звіту НТО, щоб не загубити його при збереженні
-            block.dataset.reportSent = itemData.ntsReportSent ? 'true' : 'false';
         }
     }
 }
 
-// Нова функція: Завантаження розпорядження у форму для редагування
 function editOrder(globalIndex) {
     if (!isAdmin) return;
     editingOrderIndex = globalIndex;
@@ -487,23 +478,19 @@ function editOrder(globalIndex) {
     document.getElementById('startDate').value = order.startDate || '';
     document.getElementById('endDate').value = order.endDate || '';
     
-    document.getElementById('polygonItemsContainer').innerHTML = ''; // Очищаємо старі блоки
+    document.getElementById('polygonItemsContainer').innerHTML = ''; 
     
-    // Створюємо блок для кожного полігону в цьому розпорядженні
     if (order.items && order.items.length > 0) {
         order.items.forEach(item => addPolygonItemBlock(item));
     }
     
-    // Змінюємо UI на режим редагування
     document.getElementById('t_newOrderTitle').innerText = t.editOrderTitle + " #" + order.number;
     document.getElementById('t_addOrderBtn').innerText = t.btnUpdateOrder;
     document.getElementById('cancelEditBtn').style.display = 'inline-block';
     
-    // Скролимо до форми
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Нова функція: Скасування редагування
 function cancelEdit() {
     editingOrderIndex = -1;
     const t = translations[currentLang];
@@ -533,6 +520,14 @@ function addOrder() {
     let errMsg = "";
     let globalRegion = ""; 
     
+    // Перевіряємо, який статус НТО був у цього розпорядження до редагування
+    let orderNtsSent = false;
+    if (editingOrderIndex >= 0) {
+        orderNtsSent = orders[editingOrderIndex].ntsReportSent !== undefined 
+            ? orders[editingOrderIndex].ntsReportSent 
+            : (orders[editingOrderIndex].items || []).some(i => i.ntsReportSent);
+    }
+    
     blocks.forEach(block => {
         const type = block.querySelector('.item-type-select').value; 
         let poly = block.querySelector('.item-poly-select').value; 
@@ -551,8 +546,7 @@ function addOrder() {
             item.deminingTypes = Array.from(block.querySelectorAll('.item-methods-group input:checked')).map(cb => cb.value);
         } else if (type === 'nts') {
             item.ntsSubType = block.querySelector('.item-nts-sub').value;
-            // Відновлюємо статус звіту, якщо він був (при редагуванні)
-            item.ntsReportSent = block.dataset.reportSent === 'true';
+            item.ntsReportSent = orderNtsSent; // Призначаємо спільний статус
             
             if(item.ntsSubType === 'targeted') {
                 const cadStr = block.querySelector('.item-cadastres-input').value.trim();
@@ -571,22 +565,37 @@ function addOrder() {
     if (validationError) { alert(errMsg); return; }
 
     if (editingOrderIndex >= 0) {
-        // Якщо ми редагуємо існуюче розпорядження, зберігаємо старий pdfLink
         const oldPdf = orders[editingOrderIndex].pdfLink;
-        orders[editingOrderIndex] = { number, region: globalRegion, startDate, endDate, items, pdfLink: oldPdf };
+        orders[editingOrderIndex] = { number, region: globalRegion, startDate, endDate, items, pdfLink: oldPdf, ntsReportSent: orderNtsSent };
     } else {
-        // Якщо це нове розпорядження
-        orders.push({ number, region: globalRegion, startDate, endDate, items });
+        orders.push({ number, region: globalRegion, startDate, endDate, items, ntsReportSent: false });
     }
     
-    cancelEdit(); // Очищає форму та скидає стан редагування
+    cancelEdit(); 
     renderOrders(); 
     saveToGitHub();
 }
 
-function toggleReportStatus(orderIdx, itemIdx) {
+function toggleOrderReportStatus(orderIdx) {
     if (!isAdmin) return;
-    orders[orderIdx].items[itemIdx].ntsReportSent = !orders[orderIdx].items[itemIdx].ntsReportSent;
+    
+    // Отримуємо поточний статус (або шукаємо його по об'єктах для старих ТО)
+    let currentStatus = orders[orderIdx].ntsReportSent !== undefined 
+        ? orders[orderIdx].ntsReportSent 
+        : (orders[orderIdx].items || []).some(i => i.ntsReportSent);
+        
+    let newStatus = !currentStatus;
+    
+    // Зберігаємо на рівні розпорядження
+    orders[orderIdx].ntsReportSent = newStatus;
+    
+    // Дублюємо у всі НТО-елементи всередині (для зворотної сумісності бази)
+    if (orders[orderIdx].items) {
+        orders[orderIdx].items.forEach(i => {
+            if (i.type === 'nts') i.ntsReportSent = newStatus;
+        });
+    }
+    
     renderOrders();
     saveToGitHub();
 }
@@ -628,7 +637,9 @@ function getFilteredOrders() {
         if (fDateFrom && order.startDate < fDateFrom) return false;
         if (fDateTo && order.endDate > fDateTo) return false;
         
+        let orderNtsSent = order.ntsReportSent !== undefined ? order.ntsReportSent : (order.items || []).some(i => i.ntsReportSent);
         let hasMatch = false;
+        
         if (!fText && fType === 'all' && fNtsStat === 'all') {
             return true;
         }
@@ -642,8 +653,8 @@ function getFilteredOrders() {
                 if (fNtsStat !== 'all') {
                     if (item.type !== 'nts') match = false;
                     else {
-                        if (fNtsStat === 'sent' && !item.ntsReportSent) match = false;
-                        if (fNtsStat === 'pending' && item.ntsReportSent) match = false;
+                        if (fNtsStat === 'sent' && !orderNtsSent) match = false;
+                        if (fNtsStat === 'pending' && orderNtsSent) match = false;
                     }
                 }
 
@@ -700,6 +711,7 @@ function renderOrders() {
             
         let itemsHtml = ""; 
         let itemsArr = order.items || [];
+        let orderHasNts = false;
         
         itemsArr.forEach((item, itemIdx) => {
             let typeTag = ""; let detailsStr = "";
@@ -728,16 +740,10 @@ function renderOrders() {
                 detailsStr = methodsTableHtml;
 
             } else if (item.type === 'nts') {
+                orderHasNts = true;
                 typeTag = `<span class="tag nts">${t.typeNts}</span>`;
                 let ntsName = t.ntsIn;
                 if(item.ntsSubType === 're_nts') ntsName = t.ntsRe; if(item.ntsSubType === 'demarcation') ntsName = t.ntsDemarc; if(item.ntsSubType === 'targeted') ntsName = t.ntsTarget;
-                
-                let reportStatusHtml = '';
-                if (isAdmin) {
-                    reportStatusHtml = `<label style="cursor:pointer; display:inline-flex; align-items:center; background:#f6f8fa; padding:2px 6px; border:1px solid #e1e4e8; border-radius:4px;"><input type="checkbox" onchange="toggleReportStatus(${originalOrderIndex}, ${itemIdx})" ${item.ntsReportSent ? 'checked' : ''} style="margin-right:6px;"> ${item.ntsReportSent ? t.reportYes : t.reportNo}</label>`;
-                } else {
-                    reportStatusHtml = item.ntsReportSent ? t.reportYes : t.reportNo;
-                }
 
                 let cadastreHtml = '';
                 if (item.cadastres && item.cadastres.length > 0) {
@@ -751,11 +757,27 @@ function renderOrders() {
                     imsmaHtml = `<div style="margin-top:5px;"><b>${t.lblImsma}:</b> <code style="font-size: 13px;">${item.imsma}</code></div>`;
                 }
 
-                detailsStr = `<div style="margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small></div>${imsmaHtml}<div style="margin-top:5px; margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblStatus}:</b> ${reportStatusHtml}</small></div>${cadastreHtml}`;
+                // Статус звіту більше не виводиться тут!
+                detailsStr = `<div style="margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small></div>${imsmaHtml}${cadastreHtml}`;
             } 
             
             itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         });
+        
+        // Якщо це НТО, виводимо загальний статус звіту в кінці списку об'єктів
+        if (orderHasNts) {
+            let isSent = order.ntsReportSent !== undefined ? order.ntsReportSent : itemsArr.some(i => i.ntsReportSent);
+            let reportHtml = '';
+            if (isAdmin) {
+                reportHtml = `<label style="cursor:pointer; display:inline-flex; align-items:center; background:#f6f8fa; padding:4px 8px; border:1px solid #e1e4e8; border-radius:4px;"><input type="checkbox" onchange="toggleOrderReportStatus(${originalOrderIndex})" ${isSent ? 'checked' : ''} style="margin-right:6px;"> ${isSent ? t.reportYes : t.reportNo}</label>`;
+            } else {
+                reportHtml = `<span style="background:#f6f8fa; padding:4px 8px; border:1px solid #e1e4e8; border-radius:4px; display:inline-block;">${isSent ? t.reportYes : t.reportNo}</span>`;
+            }
+            itemsHtml += `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border);">
+                            <div style="margin-bottom:4px;"><small style="color:#586069;"><b>${t.lblStatus}:</b></small></div>
+                            ${reportHtml}
+                          </div>`;
+        }
 
         let html = `<td><strong>#${order.number}</strong><br><small style="color:#586069;">${regionName}</small>${pdfHtml}</td><td>${periodHtml}</td><td>${itemsHtml}</td>`;
         if (isAdmin) {
