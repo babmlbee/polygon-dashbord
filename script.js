@@ -38,7 +38,8 @@ const translations = {
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
-        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF"
+        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF",
+        lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону (не зберігається в базу)"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -67,7 +68,8 @@ const translations = {
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
-        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF"
+        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF",
+        lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name (not saved to base)"
     }
 };
 
@@ -310,13 +312,21 @@ function toggleNtsSub(blockId) {
     const block = document.getElementById(blockId);
     const sub = block.querySelector('.item-nts-sub').value;
     const cadGroup = block.querySelector('.item-cadastres-group');
-    if(sub === 'targeted') cadGroup.style.display = 'block'; else cadGroup.style.display = 'none';
+    const imsmaGroup = block.querySelector('.item-nts-imsma-group');
+    
+    if(sub === 'targeted') {
+        cadGroup.style.display = 'block'; 
+        imsmaGroup.style.display = 'none';
+    } else {
+        cadGroup.style.display = 'none';
+        imsmaGroup.style.display = 'block';
+    }
 }
 
 function toggleItemFields(blockId) {
     const block = document.getElementById(blockId);
     const type = block.querySelector('.item-type-select').value;
-    const polySelect = block.querySelector('.item-poly-select');
+    const polySelectGroup = block.querySelector('.item-poly-select-group');
     const polyRegion = block.querySelector('.item-poly-region');
     const demFields = block.querySelector('.item-demining-fields');
     const ntsFields = block.querySelector('.item-nts-fields');
@@ -324,13 +334,13 @@ function toggleItemFields(blockId) {
     demFields.classList.remove('active'); ntsFields.classList.remove('active');
     
     if(type === 'eore') { 
-        polySelect.style.display = 'none';
+        polySelectGroup.style.display = 'none';
         polyRegion.style.display = 'block';
     } else if(type) { 
-        polySelect.style.display = 'block'; 
+        polySelectGroup.style.display = 'block'; 
         polyRegion.style.display = 'block';
     } else {
-        polySelect.style.display = 'none'; 
+        polySelectGroup.style.display = 'none'; 
         polyRegion.style.display = 'none';
     }
     
@@ -341,11 +351,26 @@ function toggleItemFields(blockId) {
 function onPolygonSelect(blockId) {
     const block = document.getElementById(blockId);
     const polyName = block.querySelector('.item-poly-select').value;
+    const customNameInput = block.querySelector('.item-custom-name');
+    
+    // Обробка одноразового полігону
+    if (polyName === '_custom_') {
+        customNameInput.style.display = 'block';
+        block.querySelector('.item-imsma').value = '';
+        block.querySelector('.item-nts-imsma').value = '';
+        return;
+    } else {
+        customNameInput.style.display = 'none';
+    }
+
     if (!polyName) return;
 
     const polyData = polygons.find(p => p.name === polyName);
     if (polyData) {
-        if (polyData.imsma) block.querySelector('.item-imsma').value = polyData.imsma;
+        if (polyData.imsma) {
+            block.querySelector('.item-imsma').value = polyData.imsma;
+            block.querySelector('.item-nts-imsma').value = polyData.imsma;
+        }
         if (polyData.region) block.querySelector('.item-poly-region').value = polyData.region;
     }
 
@@ -368,6 +393,7 @@ function onPolygonSelect(blockId) {
                     updateMethodLabel(blockId);
                 } else if (item.type === 'nts') {
                     block.querySelector('.item-nts-sub').value = item.ntsSubType;
+                    if(item.imsma) block.querySelector('.item-nts-imsma').value = item.imsma;
                     toggleNtsSub(blockId);
                 }
                 break;
@@ -380,6 +406,7 @@ function addPolygonItemBlock(itemData = null) {
     const t = translations[currentLang]; const blockId = 'poly_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
     
     let polOpts = `<option value="" disabled selected>${t.selectDefault}</option>`; 
+    polOpts += `<option value="_custom_" style="font-weight:bold; color:var(--primary);">${t.lblCustomPoly}</option>`;
     polygons.forEach(p => polOpts += `<option value="${p.name}">${p.name}</option>`);
     
     let methodOpts = '';
@@ -397,9 +424,12 @@ function addPolygonItemBlock(itemData = null) {
                     <option value="nts">${t.typeNts}</option>
                     <option value="eore">${t.typeEore}</option>
                 </select>
-                <select class="item-poly-select" style="display:none;" onchange="onPolygonSelect('${blockId}')">
-                    ${polOpts}
-                </select>
+                <div class="item-poly-select-group" style="display:none;">
+                    <select class="item-poly-select full-width" onchange="onPolygonSelect('${blockId}')">
+                        ${polOpts}
+                    </select>
+                    <input type="text" class="item-custom-name full-width" style="display:none; margin-top: 8px;" placeholder="${t.customPolyPlaceholder}">
+                </div>
                 <select class="item-poly-region full-width" style="display:none;">
                     <option value="" disabled selected>${t.optRegion}</option>
                     <option value="kharkiv">${t.regKh}</option>
@@ -424,6 +454,11 @@ function addPolygonItemBlock(itemData = null) {
                     <option value="targeted">${t.ntsTarget}</option>
                 </select>
 
+                <div class="item-nts-imsma-group full-width" style="margin-top: 5px;">
+                    <label class="lbl-bold">IMSMA ID:</label>
+                    <input type="text" class="item-nts-imsma" placeholder="${t.imsmaPlaceholder}">
+                </div>
+
                 <div class="item-cadastres-group full-width" style="display:none; margin-top: 5px;">
                     <label class="lbl-bold">${t.lblCadsSpace}</label>
                     <input type="text" class="item-cadastres-input" placeholder="${t.cadastreInputPlaceholder}">
@@ -441,9 +476,13 @@ function addPolygonItemBlock(itemData = null) {
         if (itemData.polygon) {
             const select = block.querySelector('.item-poly-select');
             if(!Array.from(select.options).some(opt => opt.value === itemData.polygon)) {
-                select.insertAdjacentHTML('beforeend', `<option value="${itemData.polygon}">${itemData.polygon}</option>`);
+                select.value = '_custom_';
+                const customInput = block.querySelector('.item-custom-name');
+                customInput.style.display = 'block';
+                customInput.value = itemData.polygon;
+            } else {
+                select.value = itemData.polygon;
             }
-            select.value = itemData.polygon;
         }
         
         if (itemData.region) block.querySelector('.item-poly-region').value = itemData.region;
@@ -460,7 +499,7 @@ function addPolygonItemBlock(itemData = null) {
                 block.querySelector('.item-nts-sub').value = itemData.ntsSubType;
                 toggleNtsSub(blockId);
             }
-            if (itemData.imsma) block.querySelector('.item-imsma').value = itemData.imsma;
+            if (itemData.imsma) block.querySelector('.item-nts-imsma').value = itemData.imsma;
             if (itemData.cadastres && itemData.cadastres.length > 0) {
                 block.querySelector('.item-cadastres-input').value = itemData.cadastres.join(', ');
             }
@@ -520,7 +559,6 @@ function addOrder() {
     let errMsg = "";
     let globalRegion = ""; 
     
-    // Перевіряємо, який статус НТО був у цього розпорядження до редагування
     let orderNtsSent = false;
     if (editingOrderIndex >= 0) {
         orderNtsSent = orders[editingOrderIndex].ntsReportSent !== undefined 
@@ -531,12 +569,14 @@ function addOrder() {
     blocks.forEach(block => {
         const type = block.querySelector('.item-type-select').value; 
         let poly = block.querySelector('.item-poly-select').value; 
+        const customName = block.querySelector('.item-custom-name').value.trim();
         const region = block.querySelector('.item-poly-region').value;
         
         if (!type) { validationError = true; errMsg = t.errNoType; return; }
         if (!globalRegion && region) globalRegion = region;
         
-        if (type === 'eore') { poly = ""; }
+        if (poly === '_custom_') poly = customName;
+        if (type === 'eore') poly = ""; 
         
         let item = { polygon: poly, type: type, region: region };
         
@@ -546,14 +586,14 @@ function addOrder() {
             item.deminingTypes = Array.from(block.querySelectorAll('.item-methods-group input:checked')).map(cb => cb.value);
         } else if (type === 'nts') {
             item.ntsSubType = block.querySelector('.item-nts-sub').value;
-            item.ntsReportSent = orderNtsSent; // Призначаємо спільний статус
+            item.ntsReportSent = orderNtsSent; 
             
             if(item.ntsSubType === 'targeted') {
                 const cadStr = block.querySelector('.item-cadastres-input').value.trim();
                 item.cadastres = cadStr ? cadStr.split(/[,;]+/).map(c => c.trim()) : [];
                 if (!poly && item.cadastres.length === 0) { validationError = true; errMsg = t.errCadsOrPoly; return; }
             } else {
-                item.imsma = block.querySelector('.item-imsma').value.trim();
+                item.imsma = block.querySelector('.item-nts-imsma').value.trim();
                 if (!poly) { validationError = true; errMsg = t.errNoPoly; return; }
             }
         } else if (type === 'eore') {
@@ -579,17 +619,13 @@ function addOrder() {
 function toggleOrderReportStatus(orderIdx) {
     if (!isAdmin) return;
     
-    // Отримуємо поточний статус (або шукаємо його по об'єктах для старих ТО)
     let currentStatus = orders[orderIdx].ntsReportSent !== undefined 
         ? orders[orderIdx].ntsReportSent 
         : (orders[orderIdx].items || []).some(i => i.ntsReportSent);
         
     let newStatus = !currentStatus;
-    
-    // Зберігаємо на рівні розпорядження
     orders[orderIdx].ntsReportSent = newStatus;
     
-    // Дублюємо у всі НТО-елементи всередині (для зворотної сумісності бази)
     if (orders[orderIdx].items) {
         orders[orderIdx].items.forEach(i => {
             if (i.type === 'nts') i.ntsReportSent = newStatus;
@@ -757,14 +793,12 @@ function renderOrders() {
                     imsmaHtml = `<div style="margin-top:5px;"><b>${t.lblImsma}:</b> <code style="font-size: 13px;">${item.imsma}</code></div>`;
                 }
 
-                // Статус звіту більше не виводиться тут!
                 detailsStr = `<div style="margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small></div>${imsmaHtml}${cadastreHtml}`;
             } 
             
             itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         });
         
-        // Якщо це НТО, виводимо загальний статус звіту в кінці списку об'єктів
         if (orderHasNts) {
             let isSent = order.ntsReportSent !== undefined ? order.ntsReportSent : itemsArr.some(i => i.ntsReportSent);
             let reportHtml = '';
