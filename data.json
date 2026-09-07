@@ -1455,6 +1455,24 @@
           "region": "kharkiv"
         }
       ]
+    },
+    {
+      "number": "984",
+      "region": "kharkiv",
+      "startDate": "2026-04-13",
+      "endDate": "2026-05-13",
+      "items": [
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "demarcation",
+          "ntsReportSent": false,
+          "polygon": "Фруктова компанія – 2",
+          "imsma": "HAUA63MAG20260324-164524",
+          "cadastres": []
+        }
+      ],
+      "ntsReportSent": false
     }
   ]
 }
