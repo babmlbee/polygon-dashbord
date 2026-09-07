@@ -1473,6 +1473,33 @@
         }
       ],
       "ntsReportSent": false
+    },
+    {
+      "number": "1239",
+      "region": "kharkiv",
+      "startDate": "2026-05-04",
+      "endDate": "2026-06-04",
+      "items": [
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "demarcation",
+          "ntsReportSent": false,
+          "polygon": "Залиман-01",
+          "imsma": "HAUA63MAG20260327-172526",
+          "cadastres": []
+        },
+        {
+          "type": "nts",
+          "region": "kharkiv",
+          "ntsSubType": "demarcation",
+          "ntsReportSent": false,
+          "polygon": "Фруктова компанія - 1",
+          "imsma": "HAUA63MAG20260323-162549",
+          "cadastres": []
+        }
+      ],
+      "ntsReportSent": false
     }
   ]
 }
