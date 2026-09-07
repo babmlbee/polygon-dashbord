@@ -310,6 +310,21 @@ function updateMethodLabel(blockId) {
     else label.innerText = `${t.lblSelected} ${checked.length}`;
 }
 
+function toggleNtsSub(blockId) {
+    const block = document.getElementById(blockId);
+    const sub = block.querySelector('.item-nts-sub').value;
+    const cadGroup = block.querySelector('.item-cadastres-group');
+    const imsmaGroup = block.querySelector('.item-nts-imsma-group');
+    
+    if(sub === 'targeted') {
+        cadGroup.style.display = 'block'; 
+        imsmaGroup.style.display = 'none';
+    } else {
+        cadGroup.style.display = 'none';
+        imsmaGroup.style.display = 'block';
+    }
+}
+
 function toggleItemFields(blockId) {
     const block = document.getElementById(blockId);
     const type = block.querySelector('.item-type-select').value;
@@ -329,7 +344,7 @@ function toggleItemFields(blockId) {
         polyRegion.style.display = 'block';
         demFields.classList.add('active');
     } else if(type === 'nts') { 
-        polySelectGroup.style.display = 'none'; // Повністю ховаємо випадаючий список бази для НТО
+        polySelectGroup.style.display = 'none'; 
         polyRegion.style.display = 'block';
         ntsFields.classList.add('active');
     } else {
@@ -434,7 +449,7 @@ function addPolygonItemBlock(itemData = null) {
                     <option value="targeted">${t.ntsTarget}</option>
                 </select>
 
-                <div class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                <div class="full-width item-nts-imsma-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
                     <div>
                         <label class="lbl-bold">${t.lblName}</label>
                         <input type="text" class="item-nts-name" placeholder="${t.customPolyPlaceholder}">
@@ -738,9 +753,33 @@ function renderOrders() {
         let itemsArr = order.items || [];
         let orderHasNts = false;
         
+        let otherItems = [];
+        let ntsGroups = {};
+
+        // Розділяємо об'єкти: НТО групуємо, інші лишаємо як є
         itemsArr.forEach((item, itemIdx) => {
+            if (item.type === 'nts') {
+                orderHasNts = true;
+                let sub = item.ntsSubType || 'in_nts';
+                if (!ntsGroups[sub]) ntsGroups[sub] = { polygons: [], cadastres: [] };
+                
+                if (item.polygon || item.imsma) {
+                    if (item.polygon !== "" || item.imsma !== "") {
+                        ntsGroups[sub].polygons.push({ name: item.polygon, imsma: item.imsma });
+                    }
+                }
+                if (item.cadastres && item.cadastres.length > 0) {
+                    ntsGroups[sub].cadastres.push(...item.cadastres);
+                }
+            } else {
+                otherItems.push(item);
+            }
+        });
+
+        // Малюємо звичайні об'єкти (Розмінування, ІНРМ)
+        otherItems.forEach((item, itemIdx) => {
             let typeTag = ""; let detailsStr = "";
-            let polyName = item.polygon ? item.polygon : t.lblTargetedCadsOnly;
+            let polyName = item.polygon ? item.polygon : "-";
 
             if (item.type === 'eore') {
                 typeTag = `<span class="tag eore">${t.typeEore}</span>`;
@@ -758,35 +797,49 @@ function renderOrders() {
                 
                 let methodsTableHtml = '';
                 if (translatedTypes.length > 0) {
-                    methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th><th>${t.colMethods}</th></tr></thead><tbody><tr><td><code>${item.imsma || '-'}</code></td><td>${translatedTypes.join(', ')}</td></tr></tbody></table>`;
+                    methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th><th>${t.colMethods}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td>${translatedTypes.join(', ')}</td></tr></tbody></table>`;
                 } else {
-                    methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th></tr></thead><tbody><tr><td><code>${item.imsma || '-'}</code></td></tr></tbody></table>`;
+                    methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td></tr></tbody></table>`;
                 }
                 detailsStr = methodsTableHtml;
-
-            } else if (item.type === 'nts') {
-                orderHasNts = true;
-                typeTag = `<span class="tag nts">${t.typeNts}</span>`;
-                let ntsName = t.ntsIn;
-                if(item.ntsSubType === 're_nts') ntsName = t.ntsRe; if(item.ntsSubType === 'demarcation') ntsName = t.ntsDemarc; if(item.ntsSubType === 'targeted') ntsName = t.ntsTarget;
-
-                let cadastreHtml = '';
-                if (item.cadastres && item.cadastres.length > 0) {
-                    cadastreHtml = `<div style="margin-top:5px;"><b>${t.lblCads}:</b><table class="info-table"><thead><tr><th>Кадастрові номери</th></tr></thead><tbody>`;
-                    item.cadastres.forEach(cad => { cadastreHtml += `<tr><td><code>${cad}</code></td></tr>`; });
-                    cadastreHtml += `</tbody></table></div>`;
-                }
-                
-                let imsmaHtml = '';
-                if (item.imsma) {
-                    imsmaHtml = `<div style="margin-top:5px;"><b>${t.lblImsma}:</b> <code style="font-size: 13px;">${item.imsma}</code></div>`;
-                }
-
-                detailsStr = `<div style="margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small></div>${imsmaHtml}${cadastreHtml}`;
-            } 
-            
+            }
             itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         });
+
+        // Малюємо згруповані об'єкти НТО
+        for (let sub in ntsGroups) {
+            let group = ntsGroups[sub];
+            let typeTag = `<span class="tag nts">${t.typeNts}</span>`;
+            
+            let ntsName = t.ntsIn;
+            if(sub === 're_nts') ntsName = t.ntsRe; 
+            if(sub === 'demarcation') ntsName = t.ntsDemarc; 
+            if(sub === 'targeted') ntsName = t.ntsTarget;
+
+            let polyHtml = '';
+            if (group.polygons.length > 0) {
+                polyHtml = `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colPolygon}</th><th>${t.colImsma}</th></tr></thead><tbody>`;
+                group.polygons.forEach(p => {
+                    let pName = p.name || '-';
+                    let pImsma = p.imsma || '-';
+                    polyHtml += `<tr><td><strong>${pName}</strong></td><td><code style="font-size: 13px;">${pImsma}</code></td></tr>`;
+                });
+                polyHtml += `</tbody></table></div>`;
+            }
+
+            let cadHtml = '';
+            if (group.cadastres.length > 0) {
+                // Видаляємо можливі дублікати кадастрів
+                let uniqueCads = [...new Set(group.cadastres)];
+                cadHtml = `<div style="margin-top:5px;"><b>${t.lblCads}:</b><table class="info-table"><thead><tr><th>Кадастрові номери</th></tr></thead><tbody>`;
+                uniqueCads.forEach(cad => { cadHtml += `<tr><td><code style="font-size: 13px;">${cad}</code></td></tr>`; });
+                cadHtml += `</tbody></table></div>`;
+            }
+
+            let detailsStr = `<div style="margin-bottom: 5px;"><small style="color:#586069;"><b>${t.lblSubtype}:</b> ${ntsName}</small></div>${polyHtml}${cadHtml}`;
+            
+            itemsHtml += `<div class="poly-list-item"><strong>${ntsName}</strong> ${typeTag}<br>${detailsStr}</div>`;
+        }
         
         if (orderHasNts) {
             let isSent = order.ntsReportSent !== undefined ? order.ntsReportSent : itemsArr.some(i => i.ntsReportSent);
