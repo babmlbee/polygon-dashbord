@@ -1757,6 +1757,57 @@
         }
       ],
       "ntsReportSent": true
+    },
+    {
+      "number": "1816",
+      "region": "kharkiv",
+      "type": "nts",
+      "startDate": "2026-06-22",
+      "endDate": "2026-07-22",
+      "items": [
+        {
+          "polygon": "Поле № ЮГР01 ПрАТ “Агрокомбінат “Слобожанський”",
+          "imsma": "HAUA63IDG20241115-185540"
+        },
+        {
+          "polygon": "Поле № ЧИВ07 ПрАТ “Агрокомбінат “Слобожанський”",
+          "imsma": "HAUA63IDG20241114-181257"
+        },
+        {
+          "polygon": "Нова Дмитрівка 2",
+          "imsma": "HAUA63IDG20241114-181257"
+        },
+        {
+          "polygon": "Нова Дмитрівка 3",
+          "imsma": "HAUA63MNK20250811-163158"
+        },
+        {
+          "polygon": "Довгалівка 01",
+          "imsma": "HAUA63ATOM20250909-100134"
+        },
+        {
+          "polygon": "Довгалівка 02",
+          "imsma": "HAUA63ATOM20250910-114602"
+        },
+        {
+          "polygon": "Пришиб-22S",
+          "imsma": "HAUA63FSD20240830-001094"
+        },
+        {
+          "polygon": "Веселе-3S",
+          "imsma": "HAUA63FSD20240913-001234"
+        },
+        {
+          "polygon": "Українка-2-53",
+          "imsma": "HAUA63DU20250919-93530"
+        },
+        {
+          "polygon": "Українка-1-52",
+          "imsma": "HAUA63DU20250919-92152"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
