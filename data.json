@@ -1485,7 +1485,7 @@
           "type": "nts",
           "region": "kharkiv",
           "ntsSubType": "demarcation",
-          "ntsReportSent": false,
+          "ntsReportSent": true,
           "polygon": "Залиман-01",
           "imsma": "HAUA63MAG20260327-172526",
           "cadastres": []
@@ -1494,13 +1494,13 @@
           "type": "nts",
           "region": "kharkiv",
           "ntsSubType": "demarcation",
-          "ntsReportSent": false,
+          "ntsReportSent": true,
           "polygon": "Фруктова компанія - 1",
           "imsma": "HAUA63MAG20260323-162549",
           "cadastres": []
         }
       ],
-      "ntsReportSent": false
+      "ntsReportSent": true
     }
   ]
 }
