@@ -1767,47 +1767,57 @@
       "items": [
         {
           "polygon": "Поле № ЮГР01 ПрАТ “Агрокомбінат “Слобожанський”",
-          "imsma": "HAUA63IDG20241115-185540"
+          "imsma": "HAUA63IDG20241115-185540",
+          "ntsReportSent": true
         },
         {
           "polygon": "Поле № ЧИВ07 ПрАТ “Агрокомбінат “Слобожанський”",
-          "imsma": "HAUA63IDG20241114-181257"
+          "imsma": "HAUA63IDG20241114-181257",
+          "ntsReportSent": true
         },
         {
           "polygon": "Нова Дмитрівка 2",
-          "imsma": "HAUA63IDG20241114-181257"
+          "imsma": "HAUA63IDG20241114-181257",
+          "ntsReportSent": true
         },
         {
           "polygon": "Нова Дмитрівка 3",
-          "imsma": "HAUA63MNK20250811-163158"
+          "imsma": "HAUA63MNK20250811-163158",
+          "ntsReportSent": true
         },
         {
           "polygon": "Довгалівка 01",
-          "imsma": "HAUA63ATOM20250909-100134"
+          "imsma": "HAUA63ATOM20250909-100134",
+          "ntsReportSent": true
         },
         {
           "polygon": "Довгалівка 02",
-          "imsma": "HAUA63ATOM20250910-114602"
+          "imsma": "HAUA63ATOM20250910-114602",
+          "ntsReportSent": true
         },
         {
           "polygon": "Пришиб-22S",
-          "imsma": "HAUA63FSD20240830-001094"
+          "imsma": "HAUA63FSD20240830-001094",
+          "ntsReportSent": true
         },
         {
           "polygon": "Веселе-3S",
-          "imsma": "HAUA63FSD20240913-001234"
+          "imsma": "HAUA63FSD20240913-001234",
+          "ntsReportSent": true
         },
         {
           "polygon": "Українка-2-53",
-          "imsma": "HAUA63DU20250919-93530"
+          "imsma": "HAUA63DU20250919-93530",
+          "ntsReportSent": true
         },
         {
           "polygon": "Українка-1-52",
-          "imsma": "HAUA63DU20250919-92152"
+          "imsma": "HAUA63DU20250919-92152",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     }
   ]
 }
