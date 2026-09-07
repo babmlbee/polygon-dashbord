@@ -18,7 +18,7 @@ const translations = {
         newOrderTitle: "Нове розпорядження (ТО)", editOrderTitle: "Редагування ТО", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область",
         optType: "Оберіть тип...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт до ТО",
         lblSelectMethods: "Оберіть методи розмінування...", lblSelected: "Обрано:",
-        lblCadsSpace: "Кадастри (через пробіл/кому):", cadastreInputPlaceholder: "Наприклад: 1234567800:01:001:0001",
+        lblCadsSpace: "Кадастри (через пробіл/кому):", cadastreInputPlaceholder: "Наприклад: 6322882200:04:000:0091",
         typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
         optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне НТО", ntsRe: "Повторне НТО", ntsDemarc: "НТО з метою встановлення маркування", ntsTarget: "Цільове НТО",
         demTs: "Технічне обстеження", demMc: "Розмінування в ручну", demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
@@ -32,14 +32,15 @@ const translations = {
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
         lblTargetedCadsOnly: "Цільове НТО (тільки кадастри)",
         lblEoreArea: "В межах області (без полігону)", lblEoreRegion: "Регіон виконання:",
-        errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", errCadsOrPoly: "Для Цільового НТО потрібно вказати кадастри або обрати полігон!",
+        errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", errNtsFields: "Вкажіть Назву/IMSMA або кадастри для НТО!",
         errNoRegion: "Оберіть область хоча б для одного об'єкта (або впишіть кадастри)!",
         filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, IMSMA, Кадастр)...",
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
         lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF",
-        lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону (не зберігається в базу)"
+        lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону (не зберігається в базу)",
+        lblName: "Назва полігону:"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -62,14 +63,15 @@ const translations = {
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
         lblTargetedCadsOnly: "Targeted NTS (cadastres only)",
         lblEoreArea: "Within region (no polygon)", lblEoreRegion: "Operating Region:",
-        errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", errCadsOrPoly: "For Targeted NTS, provide cadastres or select a polygon!",
+        errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", errNtsFields: "Provide Name/IMSMA or Cadastres for NTS!",
         errNoRegion: "Select a region for at least one item!",
         filterTitle: "Filters & Search", fltSearchPlaceholder: "Search (TO, Polygon, IMSMA, Cadastre)...",
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
         lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF",
-        lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name (not saved to base)"
+        lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name (not saved to base)",
+        lblName: "Polygon Name:"
     }
 };
 
@@ -308,21 +310,6 @@ function updateMethodLabel(blockId) {
     else label.innerText = `${t.lblSelected} ${checked.length}`;
 }
 
-function toggleNtsSub(blockId) {
-    const block = document.getElementById(blockId);
-    const sub = block.querySelector('.item-nts-sub').value;
-    const cadGroup = block.querySelector('.item-cadastres-group');
-    const imsmaGroup = block.querySelector('.item-nts-imsma-group');
-    
-    if(sub === 'targeted') {
-        cadGroup.style.display = 'block'; 
-        imsmaGroup.style.display = 'none';
-    } else {
-        cadGroup.style.display = 'none';
-        imsmaGroup.style.display = 'block';
-    }
-}
-
 function toggleItemFields(blockId) {
     const block = document.getElementById(blockId);
     const type = block.querySelector('.item-type-select').value;
@@ -331,21 +318,24 @@ function toggleItemFields(blockId) {
     const demFields = block.querySelector('.item-demining-fields');
     const ntsFields = block.querySelector('.item-nts-fields');
     
-    demFields.classList.remove('active'); ntsFields.classList.remove('active');
+    demFields.classList.remove('active'); 
+    ntsFields.classList.remove('active');
     
     if(type === 'eore') { 
         polySelectGroup.style.display = 'none';
         polyRegion.style.display = 'block';
-    } else if(type) { 
+    } else if(type === 'demining') { 
         polySelectGroup.style.display = 'block'; 
         polyRegion.style.display = 'block';
+        demFields.classList.add('active');
+    } else if(type === 'nts') { 
+        polySelectGroup.style.display = 'none'; // Повністю ховаємо випадаючий список бази для НТО
+        polyRegion.style.display = 'block';
+        ntsFields.classList.add('active');
     } else {
         polySelectGroup.style.display = 'none'; 
         polyRegion.style.display = 'none';
     }
-    
-    if(type === 'demining') demFields.classList.add('active');
-    if(type === 'nts') { ntsFields.classList.add('active'); toggleNtsSub(blockId); }
 }
 
 function onPolygonSelect(blockId) {
@@ -353,11 +343,9 @@ function onPolygonSelect(blockId) {
     const polyName = block.querySelector('.item-poly-select').value;
     const customNameInput = block.querySelector('.item-custom-name');
     
-    // Обробка одноразового полігону
     if (polyName === '_custom_') {
         customNameInput.style.display = 'block';
         block.querySelector('.item-imsma').value = '';
-        block.querySelector('.item-nts-imsma').value = '';
         return;
     } else {
         customNameInput.style.display = 'none';
@@ -367,10 +355,7 @@ function onPolygonSelect(blockId) {
 
     const polyData = polygons.find(p => p.name === polyName);
     if (polyData) {
-        if (polyData.imsma) {
-            block.querySelector('.item-imsma').value = polyData.imsma;
-            block.querySelector('.item-nts-imsma').value = polyData.imsma;
-        }
+        if (polyData.imsma) block.querySelector('.item-imsma').value = polyData.imsma;
         if (polyData.region) block.querySelector('.item-poly-region').value = polyData.region;
     }
 
@@ -385,16 +370,11 @@ function onPolygonSelect(blockId) {
                 if ((!polyData || !polyData.region) && order.region) {
                     block.querySelector('.item-poly-region').value = order.region;
                 }
-
                 if (item.type === 'demining') {
                     if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
                     const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
                     checkboxes.forEach(cb => { cb.checked = (item.deminingTypes || []).includes(cb.value); });
                     updateMethodLabel(blockId);
-                } else if (item.type === 'nts') {
-                    block.querySelector('.item-nts-sub').value = item.ntsSubType;
-                    if(item.imsma) block.querySelector('.item-nts-imsma').value = item.imsma;
-                    toggleNtsSub(blockId);
                 }
                 break;
             }
@@ -446,7 +426,7 @@ function addPolygonItemBlock(itemData = null) {
             </div>
             
             <div class="item-nts-fields dynamic-fields">
-                <select class="item-nts-sub full-width" onchange="toggleNtsSub('${blockId}')">
+                <select class="item-nts-sub full-width">
                     <option value="" disabled selected>${t.optSubNts}</option>
                     <option value="in_nts">${t.ntsIn}</option>
                     <option value="re_nts">${t.ntsRe}</option>
@@ -454,14 +434,20 @@ function addPolygonItemBlock(itemData = null) {
                     <option value="targeted">${t.ntsTarget}</option>
                 </select>
 
-                <div class="item-nts-imsma-group full-width" style="margin-top: 5px;">
-                    <label class="lbl-bold">IMSMA ID:</label>
-                    <input type="text" class="item-nts-imsma" placeholder="${t.imsmaPlaceholder}">
+                <div class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                    <div>
+                        <label class="lbl-bold">${t.lblName}</label>
+                        <input type="text" class="item-nts-name" placeholder="${t.customPolyPlaceholder}">
+                    </div>
+                    <div>
+                        <label class="lbl-bold">IMSMA ID:</label>
+                        <input type="text" class="item-nts-imsma" placeholder="${t.imsmaPlaceholder}">
+                    </div>
                 </div>
 
-                <div class="item-cadastres-group full-width" style="display:none; margin-top: 5px;">
+                <div class="item-cadastres-group full-width" style="margin-top: 10px;">
                     <label class="lbl-bold">${t.lblCadsSpace}</label>
-                    <input type="text" class="item-cadastres-input" placeholder="${t.cadastreInputPlaceholder}">
+                    <textarea class="item-cadastres-input" placeholder="${t.cadastreInputPlaceholder}" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box; resize:vertical; min-height:60px; font-family:inherit;"></textarea>
                 </div>
             </div>
         </div>
@@ -473,21 +459,20 @@ function addPolygonItemBlock(itemData = null) {
         block.querySelector('.item-type-select').value = itemData.type;
         toggleItemFields(blockId); 
         
-        if (itemData.polygon) {
-            const select = block.querySelector('.item-poly-select');
-            if(!Array.from(select.options).some(opt => opt.value === itemData.polygon)) {
-                select.value = '_custom_';
-                const customInput = block.querySelector('.item-custom-name');
-                customInput.style.display = 'block';
-                customInput.value = itemData.polygon;
-            } else {
-                select.value = itemData.polygon;
-            }
-        }
-        
         if (itemData.region) block.querySelector('.item-poly-region').value = itemData.region;
         
         if (itemData.type === 'demining') {
+            if (itemData.polygon) {
+                const select = block.querySelector('.item-poly-select');
+                if(!Array.from(select.options).some(opt => opt.value === itemData.polygon)) {
+                    select.value = '_custom_';
+                    const customInput = block.querySelector('.item-custom-name');
+                    customInput.style.display = 'block';
+                    customInput.value = itemData.polygon;
+                } else {
+                    select.value = itemData.polygon;
+                }
+            }
             if (itemData.imsma) block.querySelector('.item-imsma').value = itemData.imsma;
             if (itemData.deminingTypes) {
                 const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
@@ -495,10 +480,8 @@ function addPolygonItemBlock(itemData = null) {
                 updateMethodLabel(blockId);
             }
         } else if (itemData.type === 'nts') {
-            if (itemData.ntsSubType) {
-                block.querySelector('.item-nts-sub').value = itemData.ntsSubType;
-                toggleNtsSub(blockId);
-            }
+            if (itemData.ntsSubType) block.querySelector('.item-nts-sub').value = itemData.ntsSubType;
+            if (itemData.polygon) block.querySelector('.item-nts-name').value = itemData.polygon;
             if (itemData.imsma) block.querySelector('.item-nts-imsma').value = itemData.imsma;
             if (itemData.cadastres && itemData.cadastres.length > 0) {
                 block.querySelector('.item-cadastres-input').value = itemData.cadastres.join(', ');
@@ -568,35 +551,41 @@ function addOrder() {
     
     blocks.forEach(block => {
         const type = block.querySelector('.item-type-select').value; 
-        let poly = block.querySelector('.item-poly-select').value; 
-        const customName = block.querySelector('.item-custom-name').value.trim();
         const region = block.querySelector('.item-poly-region').value;
         
         if (!type) { validationError = true; errMsg = t.errNoType; return; }
         if (!globalRegion && region) globalRegion = region;
         
-        if (poly === '_custom_') poly = customName;
-        if (type === 'eore') poly = ""; 
-        
-        let item = { polygon: poly, type: type, region: region };
+        let item = { type: type, region: region };
         
         if (type === 'demining') {
+            let poly = block.querySelector('.item-poly-select').value; 
+            const customName = block.querySelector('.item-custom-name').value.trim();
+            if (poly === '_custom_') poly = customName;
             if (!poly) { validationError = true; errMsg = t.errNoPoly; return; }
+            
+            item.polygon = poly;
             item.imsma = block.querySelector('.item-imsma').value.trim();
             item.deminingTypes = Array.from(block.querySelectorAll('.item-methods-group input:checked')).map(cb => cb.value);
+            
         } else if (type === 'nts') {
             item.ntsSubType = block.querySelector('.item-nts-sub').value;
             item.ntsReportSent = orderNtsSent; 
             
-            if(item.ntsSubType === 'targeted') {
-                const cadStr = block.querySelector('.item-cadastres-input').value.trim();
-                item.cadastres = cadStr ? cadStr.split(/[,;]+/).map(c => c.trim()) : [];
-                if (!poly && item.cadastres.length === 0) { validationError = true; errMsg = t.errCadsOrPoly; return; }
-            } else {
-                item.imsma = block.querySelector('.item-nts-imsma').value.trim();
-                if (!poly) { validationError = true; errMsg = t.errNoPoly; return; }
+            const nName = block.querySelector('.item-nts-name').value.trim();
+            const nImsma = block.querySelector('.item-nts-imsma').value.trim();
+            const cStr = block.querySelector('.item-cadastres-input').value.trim();
+            
+            item.polygon = nName;
+            item.imsma = nImsma;
+            item.cadastres = cStr ? cStr.split(/[,;\s]+/).map(c => c.trim()).filter(c => c.length > 5) : [];
+            
+            if (!nName && !nImsma && item.cadastres.length === 0) { 
+                validationError = true; errMsg = t.errNtsFields; return; 
             }
+            
         } else if (type === 'eore') {
+            item.polygon = "";
             if (!region && !globalRegion) { validationError = true; errMsg = t.errNoRegion; return; }
         }
         items.push(item);
