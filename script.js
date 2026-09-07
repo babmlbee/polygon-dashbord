@@ -18,7 +18,7 @@ const translations = {
         newOrderTitle: "Нове розпорядження (ТО)", editOrderTitle: "Редагування ТО", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область",
         optType: "Оберіть тип...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт до ТО",
         lblSelectMethods: "Оберіть методи розмінування...", lblSelected: "Обрано:",
-        lblCadsSpace: "Кадастри (через пробіл/кому):", cadastreInputPlaceholder: "Наприклад: 6322882200:04:000:0091",
+        lblCadsSpace: "Кадастри (через пробіл/кому/новий рядок):", cadastreInputPlaceholder: "Наприклад: 6322882200:04:000:0091",
         typeDemining: "Розмінування", typeNts: "НТО", typeEore: "ІНРМ",
         optSubNts: "Оберіть підтип НТО...", ntsIn: "Первинне НТО", ntsRe: "Повторне НТО", ntsDemarc: "НТО з метою встановлення маркування", ntsTarget: "Цільове НТО",
         demTs: "Технічне обстеження", demMc: "Розмінування в ручну", demBac: "ОРВБД", demMdd: "Застосування кінологічних розрахунків МРС", demMech: "Розмінування з використанням машин і механізмів",
@@ -32,15 +32,18 @@ const translations = {
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
         lblTargetedCadsOnly: "Цільове НТО (тільки кадастри)",
         lblEoreArea: "В межах області (без полігону)", lblEoreRegion: "Регіон виконання:",
-        errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", errNtsFields: "Вкажіть Назву/IMSMA або кадастри для НТО!",
-        errNoRegion: "Оберіть область хоча б для одного об'єкта (або впишіть кадастри)!",
-        filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, IMSMA, Кадастр)...",
+        errNoType: "Оберіть тип для всіх об'єктів!", errNoPoly: "Оберіть полігон!", 
+        errNtsFields: "Вкажіть Назву та IMSMA для даного виду НТО!",
+        errNtsIn: "Вкажіть Громаду для Первинного НТО!",
+        errNtsTarget: "Вкажіть кадастри для Цільового НТО!",
+        errNoRegion: "Оберіть область хоча б для одного об'єкта!",
+        filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, Громада, IMSMA, Кадастр)...",
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
         lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF",
         lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону (не зберігається в базу)",
-        lblName: "Назва полігону:"
+        lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -63,15 +66,18 @@ const translations = {
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
         lblTargetedCadsOnly: "Targeted NTS (cadastres only)",
         lblEoreArea: "Within region (no polygon)", lblEoreRegion: "Operating Region:",
-        errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", errNtsFields: "Provide Name/IMSMA or Cadastres for NTS!",
+        errNoType: "Select type for all items!", errNoPoly: "Select a polygon!", 
+        errNtsFields: "Provide Name and IMSMA for this NTS type!",
+        errNtsIn: "Provide Hromada for In-NTS!",
+        errNtsTarget: "Provide cadastres for Targeted NTS!",
         errNoRegion: "Select a region for at least one item!",
-        filterTitle: "Filters & Search", fltSearchPlaceholder: "Search (TO, Polygon, IMSMA, Cadastre)...",
+        filterTitle: "Filters & Search", fltSearchPlaceholder: "Search (TO, Polygon, Hromada, IMSMA, Cadastre)...",
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
         lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF",
         lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name (not saved to base)",
-        lblName: "Polygon Name:"
+        lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada"
     }
 };
 
@@ -315,13 +321,19 @@ function toggleNtsSub(blockId) {
     const sub = block.querySelector('.item-nts-sub').value;
     const cadGroup = block.querySelector('.item-cadastres-group');
     const imsmaGroup = block.querySelector('.item-nts-imsma-group');
+    const hromadaGroup = block.querySelector('.item-nts-hromada-group');
     
-    if(sub === 'targeted') {
-        cadGroup.style.display = 'block'; 
-        imsmaGroup.style.display = 'none';
+    // Скидаємо всі поля
+    cadGroup.style.display = 'none';
+    imsmaGroup.style.display = 'none';
+    hromadaGroup.style.display = 'none';
+
+    if(sub === 'in_nts') {
+        hromadaGroup.style.display = 'block'; // Тільки громада
+    } else if(sub === 'targeted') {
+        cadGroup.style.display = 'block'; // Тільки кадастри
     } else {
-        cadGroup.style.display = 'none';
-        imsmaGroup.style.display = 'block';
+        imsmaGroup.style.display = 'grid'; // Назва + IMSMA для re_nts та demarcation
     }
 }
 
@@ -347,6 +359,7 @@ function toggleItemFields(blockId) {
         polySelectGroup.style.display = 'none'; 
         polyRegion.style.display = 'block';
         ntsFields.classList.add('active');
+        toggleNtsSub(blockId);
     } else {
         polySelectGroup.style.display = 'none'; 
         polyRegion.style.display = 'none';
@@ -441,7 +454,7 @@ function addPolygonItemBlock(itemData = null) {
             </div>
             
             <div class="item-nts-fields dynamic-fields">
-                <select class="item-nts-sub full-width">
+                <select class="item-nts-sub full-width" onchange="toggleNtsSub('${blockId}')">
                     <option value="" disabled selected>${t.optSubNts}</option>
                     <option value="in_nts">${t.ntsIn}</option>
                     <option value="re_nts">${t.ntsRe}</option>
@@ -449,7 +462,14 @@ function addPolygonItemBlock(itemData = null) {
                     <option value="targeted">${t.ntsTarget}</option>
                 </select>
 
-                <div class="full-width item-nts-imsma-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                <!-- Поле Громада для in_nts -->
+                <div class="item-nts-hromada-group full-width" style="display:none; margin-top: 10px;">
+                    <label class="lbl-bold">${t.lblHromada}</label>
+                    <input type="text" class="item-nts-hromada" placeholder="${t.hromadaPlaceholder}">
+                </div>
+
+                <!-- Поля Назва + IMSMA для re_nts та demarcation -->
+                <div class="full-width item-nts-imsma-group" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
                     <div>
                         <label class="lbl-bold">${t.lblName}</label>
                         <input type="text" class="item-nts-name" placeholder="${t.customPolyPlaceholder}">
@@ -460,7 +480,8 @@ function addPolygonItemBlock(itemData = null) {
                     </div>
                 </div>
 
-                <div class="item-cadastres-group full-width" style="margin-top: 10px;">
+                <!-- Поле Кадастри для targeted -->
+                <div class="item-cadastres-group full-width" style="display:none; margin-top: 10px;">
                     <label class="lbl-bold">${t.lblCadsSpace}</label>
                     <textarea class="item-cadastres-input" placeholder="${t.cadastreInputPlaceholder}" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box; resize:vertical; min-height:60px; font-family:inherit;"></textarea>
                 </div>
@@ -496,10 +517,15 @@ function addPolygonItemBlock(itemData = null) {
             }
         } else if (itemData.type === 'nts') {
             if (itemData.ntsSubType) block.querySelector('.item-nts-sub').value = itemData.ntsSubType;
-            if (itemData.polygon) block.querySelector('.item-nts-name').value = itemData.polygon;
-            if (itemData.imsma) block.querySelector('.item-nts-imsma').value = itemData.imsma;
-            if (itemData.cadastres && itemData.cadastres.length > 0) {
+            toggleNtsSub(blockId); // Активуємо потрібні поля для НТО
+            
+            if (itemData.ntsSubType === 'in_nts' && itemData.hromada) {
+                block.querySelector('.item-nts-hromada').value = itemData.hromada;
+            } else if (itemData.ntsSubType === 'targeted' && itemData.cadastres) {
                 block.querySelector('.item-cadastres-input').value = itemData.cadastres.join(', ');
+            } else {
+                if (itemData.polygon) block.querySelector('.item-nts-name').value = itemData.polygon;
+                if (itemData.imsma) block.querySelector('.item-nts-imsma').value = itemData.imsma;
             }
         }
     }
@@ -587,16 +613,24 @@ function addOrder() {
             item.ntsSubType = block.querySelector('.item-nts-sub').value;
             item.ntsReportSent = orderNtsSent; 
             
-            const nName = block.querySelector('.item-nts-name').value.trim();
-            const nImsma = block.querySelector('.item-nts-imsma').value.trim();
-            const cStr = block.querySelector('.item-cadastres-input').value.trim();
-            
-            item.polygon = nName;
-            item.imsma = nImsma;
-            item.cadastres = cStr ? cStr.split(/[,;\s]+/).map(c => c.trim()).filter(c => c.length > 5) : [];
-            
-            if (!nName && !nImsma && item.cadastres.length === 0) { 
-                validationError = true; errMsg = t.errNtsFields; return; 
+            if (item.ntsSubType === 'in_nts') {
+                const hVal = block.querySelector('.item-nts-hromada').value.trim();
+                if (!hVal) { validationError = true; errMsg = t.errNtsIn; return; }
+                item.hromada = hVal;
+                item.polygon = ""; item.imsma = ""; item.cadastres = [];
+            } 
+            else if (item.ntsSubType === 'targeted') {
+                const cStr = block.querySelector('.item-cadastres-input').value.trim();
+                item.cadastres = cStr ? cStr.split(/[,;\n\s]+/).map(c => c.trim()).filter(c => c.length > 5) : [];
+                if (item.cadastres.length === 0) { validationError = true; errMsg = t.errNtsTarget; return; }
+                item.polygon = ""; item.imsma = ""; item.hromada = "";
+            } 
+            else { // re_nts, demarcation
+                const nName = block.querySelector('.item-nts-name').value.trim();
+                const nImsma = block.querySelector('.item-nts-imsma').value.trim();
+                if (!nName && !nImsma) { validationError = true; errMsg = t.errNtsFields; return; }
+                item.polygon = nName; item.imsma = nImsma;
+                item.cadastres = []; item.hromada = "";
             }
             
         } else if (type === 'eore') {
@@ -703,8 +737,9 @@ function getFilteredOrders() {
                     const pName = (item.polygon || '').toLowerCase();
                     const iName = (item.imsma || '').toLowerCase();
                     const cads = (item.cadastres || []).join(' ').toLowerCase();
+                    const hrom = (item.hromada || '').toLowerCase();
                     
-                    if (!toNum.includes(fText) && !pName.includes(fText) && !iName.includes(fText) && !cads.includes(fText)) {
+                    if (!toNum.includes(fText) && !pName.includes(fText) && !iName.includes(fText) && !cads.includes(fText) && !hrom.includes(fText)) {
                         match = false;
                     }
                 }
@@ -760,15 +795,14 @@ function renderOrders() {
             if (item.type === 'nts') {
                 orderHasNts = true;
                 let sub = item.ntsSubType || 'in_nts';
-                if (!ntsGroups[sub]) ntsGroups[sub] = { polygons: [], cadastres: [] };
+                if (!ntsGroups[sub]) ntsGroups[sub] = { polygons: [], cadastres: [], hromadas: [] };
                 
-                if (item.polygon || item.imsma) {
-                    if (item.polygon !== "" || item.imsma !== "") {
-                        ntsGroups[sub].polygons.push({ name: item.polygon, imsma: item.imsma });
-                    }
-                }
-                if (item.cadastres && item.cadastres.length > 0) {
-                    ntsGroups[sub].cadastres.push(...item.cadastres);
+                if (sub === 'in_nts') {
+                    if (item.hromada) ntsGroups[sub].hromadas.push(item.hromada);
+                } else if (sub === 'targeted') {
+                    if (item.cadastres && item.cadastres.length > 0) ntsGroups[sub].cadastres.push(...item.cadastres);
+                } else {
+                    if (item.polygon || item.imsma) ntsGroups[sub].polygons.push({ name: item.polygon, imsma: item.imsma });
                 }
             } else {
                 otherItems.push(item);
@@ -813,6 +847,14 @@ function renderOrders() {
             if(sub === 'demarcation') ntsName = t.ntsDemarc; 
             if(sub === 'targeted') ntsName = t.ntsTarget;
 
+            let hromadaHtml = '';
+            if (group.hromadas.length > 0) {
+                let uniqueHromadas = [...new Set(group.hromadas)];
+                hromadaHtml = `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colHromada}</th></tr></thead><tbody>`;
+                uniqueHromadas.forEach(h => { hromadaHtml += `<tr><td><strong>${h}</strong></td></tr>`; });
+                hromadaHtml += `</tbody></table></div>`;
+            }
+
             let polyHtml = '';
             if (group.polygons.length > 0) {
                 polyHtml = `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colPolygon}</th><th>${t.colImsma}</th></tr></thead><tbody>`;
@@ -832,7 +874,7 @@ function renderOrders() {
                 cadHtml += `</tbody></table></div>`;
             }
 
-            let detailsStr = `${polyHtml}${cadHtml}`;
+            let detailsStr = `${hromadaHtml}${polyHtml}${cadHtml}`;
             
             itemsHtml += `<div class="poly-list-item"><strong>${ntsName}</strong> ${typeTag}<br>${detailsStr}</div>`;
         }
