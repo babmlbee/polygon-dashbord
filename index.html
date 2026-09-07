@@ -21,11 +21,9 @@
         
         h2, h3 { margin-top: 0; margin-bottom: 15px; }
         
-        /* Адаптивні сітки */
         .form-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px; }
         .filter-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .date-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        .dynamic-fields.active { display: grid; grid-template-columns: 1fr; gap: 15px; }
         .bases-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         
         @media (min-width: 768px) {
@@ -35,11 +33,10 @@
             .bases-grid { grid-template-columns: 1fr 1fr 1fr auto; }
             .full-width { grid-column: span 2; }
             .filter-span-2 { grid-column: span 2; }
-            .dynamic-fields.active { grid-template-columns: 1fr 1fr; }
         }
 
         .form-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        input[type="text"], input[type="date"], select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box; }
+        input[type="text"], input[type="date"], select, textarea { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; width: 100%; box-sizing: border-box; font-family: inherit; }
         button { background-color: var(--primary); color: white; border: none; cursor: pointer; font-weight: 600; padding: 10px 12px; border-radius: 4px; font-size: 14px; }
         button:hover { background-color: #005cc5; }
         .btn-outline { background-color: white; color: var(--primary); border: 1px solid var(--primary); display: inline-block; width: 100%; text-align: center; box-sizing: border-box; }
@@ -49,7 +46,6 @@
         .btn-remove:hover { background-color: #cb2431; }
         
         .polygon-block { background: #fafbfc; border: 1px solid #e1e4e8; border-left: 4px solid var(--primary); padding: 15px; border-radius: 4px; margin-bottom: 15px; }
-        .dynamic-fields { display: none; background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #e1e4e8; margin-top: 15px; }
         
         .multi-select { position: relative; width: 100%; user-select: none; }
         .select-btn { padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
@@ -62,7 +58,6 @@
         .checkbox-item input { margin: 0; cursor: pointer; width: auto; }
         .lbl-bold { font-weight: 600; font-size: 14px; margin-bottom: 6px; display: block; }
 
-        /* Адаптивні таблиці */
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 10px; border-radius: 4px; }
         table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
         th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
@@ -114,7 +109,6 @@
         </div>
     </div>
 
-    <!-- Адмін панель -->
     <div id="adminForms" class="admin-panel">
         <button id="t_btnToggleBases" class="btn-outline" onclick="toggleBases()" style="margin-bottom: 15px; width: 100%;">+ Відкрити налаштування баз (Полігони / Методи)</button>
         
@@ -125,15 +119,9 @@
                     <div class="bases-grid">
                         <input type="text" id="newPolygonInput" placeholder="Назва полігону">
                         <input type="text" id="newPolyImsma" placeholder="IMSMA ID (необов'язково)">
-                        <select id="newPolyRegion">
-                            <option value="" disabled selected id="t_polyOptRegion">Оберіть область...</option>
-                            <option value="kharkiv" id="t_polyRegKh">Харківська область</option>
-                            <option value="mykolaiv" id="t_polyRegMyk">Миколаївська область</option>
-                        </select>
-                        <button id="t_addPolygonBtn" onclick="addPolygon()">Додати</button>
+                        <button id="t_addPolygonBtn" onclick="addPolygon()" style="grid-column: span 2;">Додати</button>
                     </div>
                 </div>
-                
                 <div class="card" style="margin-bottom: 15px;">
                     <h3 id="t_addMethodTitle">База методів розмінування</h3>
                     <div class="bases-grid" style="grid-template-columns: 1fr auto;">
@@ -149,20 +137,40 @@
             
             <div class="form-grid">
                 <input type="text" id="orderNumber" placeholder="Номер розпорядження" required>
+                <select id="globalRegion" required>
+                    <option value="" disabled selected id="t_optRegion">Оберіть область...</option>
+                    <option value="kharkiv" id="t_regKh">Харківська область</option>
+                    <option value="mykolaiv" id="t_regMyk">Миколаївська область</option>
+                </select>
                 
+                <select id="globalType" onchange="toggleGlobalType()" required>
+                    <option value="" disabled selected id="t_optType">Оберіть тип робіт...</option>
+                    <option value="demining" id="t_typeDemining">Розмінування</option>
+                    <option value="nts" id="t_typeNts">НТО</option>
+                    <option value="eore" id="t_typeEore">ІНРМ</option>
+                </select>
+                <select id="globalNtsSub" onchange="toggleGlobalType()" style="display:none;">
+                    <option value="" disabled selected id="t_optSubNts">Оберіть підтип НТО...</option>
+                    <option value="in_nts" id="t_ntsIn">Первинне НТО</option>
+                    <option value="re_nts" id="t_ntsRe">Повторне НТО</option>
+                    <option value="demarcation" id="t_ntsDemarc">НТО з метою встановлення маркування</option>
+                    <option value="targeted" id="t_ntsTarget">Цільове НТО</option>
+                </select>
+
                 <div class="date-grid full-width">
                     <input type="date" id="startDate" required onchange="calculateEndDate()" title="Дата початку">
                     <input type="date" id="endDate" required title="Кінцева дата">
                 </div>
             </div>
 
-            <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                <h4 style="margin: 0;" id="t_lblPolygonsInTO">Об'єкти в цьому розпорядженні:</h4>
-                <button type="button" class="btn-outline" onclick="addPolygonItemBlock()" id="t_btnAddPolygonToTO" style="width: auto;">+ Додати об'єкт</button>
+            <div id="itemsSection">
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h4 style="margin: 0;" id="t_lblPolygonsInTO">Об'єкти в цьому розпорядженні:</h4>
+                    <button type="button" class="btn-outline" onclick="addPolygonItemBlock()" id="t_btnAddPolygonToTO" style="width: auto;">+ Додати об'єкт</button>
+                </div>
+                <div id="polygonItemsContainer"></div>
             </div>
-
-            <div id="polygonItemsContainer"></div>
 
             <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
             <div style="display: flex; gap: 10px;">
@@ -176,27 +184,23 @@
     <div class="card filter-panel">
         <h3 id="t_filterTitle" style="margin-bottom: 10px;">Фільтри та Пошук</h3>
         <div class="filter-grid">
-            <input type="text" id="filterText" class="filter-span-2" placeholder="Пошук (ТО, Полігон, IMSMA, Кадастр)..." oninput="renderOrders()">
-            
+            <input type="text" id="filterText" class="filter-span-2" placeholder="Пошук (ТО, Полігон, Громада, IMSMA, Кадастр)..." oninput="renderOrders()">
             <select id="filterRegion" onchange="renderOrders()">
                 <option value="all" id="t_fltAllReg">Всі області</option>
                 <option value="kharkiv" id="t_fltKh">Харківська</option>
                 <option value="mykolaiv" id="t_fltMyk">Миколаївська</option>
             </select>
-            
             <select id="filterType" onchange="renderOrders()">
                 <option value="all" id="t_fltAllTypes">Всі типи робіт</option>
                 <option value="demining" id="t_fltDem">Розмінування</option>
                 <option value="nts" id="t_fltNts">НТО</option>
                 <option value="eore" id="t_fltEore">ІНРМ</option>
             </select>
-            
             <div class="form-group filter-span-2" style="display: flex; gap: 5px; flex-wrap: wrap;">
                 <label id="t_lblFilterDate" style="white-space: nowrap; font-size: 14px; font-weight: 600; width: 100%;">Період (з - по):</label>
                 <input type="date" id="filterDateFrom" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
                 <input type="date" id="filterDateTo" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
             </div>
-
             <select id="filterNtsStatus" onchange="renderOrders()" class="filter-span-2">
                 <option value="all" id="t_fltAllStatus">Всі статуси звітів (тільки для НТО)</option>
                 <option value="pending" id="t_fltPending">⏳ Очікується звіт</option>
@@ -244,6 +248,7 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<!-- Додав ?v=3 щоб браузер точно скачав оновлений скрипт -->
+<script src="script.js?v=3"></script>
 </body>
 </html>
