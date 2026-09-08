@@ -2084,6 +2084,37 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "1219",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-05-04",
+      "endDate": "2026-06-04",
+      "items": [
+        {
+          "polygon": "Мирне - 9",
+          "imsma": "HAUA48NPA20230802-858"
+        },
+        {
+          "polygon": "Любомирівка-25",
+          "imsma": "HAUA48NPA20240412-922"
+        },
+        {
+          "polygon": "Любомирівка 54",
+          "imsma": "HAUA48NPA20250818-143258"
+        },
+        {
+          "polygon": "Ясна Поляна-9",
+          "imsma": "HAUA48HALO20250129-9333906"
+        },
+        {
+          "polygon": "Новокондакове-8",
+          "imsma": "HAUA48HALO20250409-10293406"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
