@@ -2115,6 +2115,41 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "1675",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-06-08",
+      "endDate": "2026-07-08",
+      "items": [
+        {
+          "polygon": "Снігурівка-29",
+          "imsma": "HAUA48HALO20241104-8761406"
+        },
+        {
+          "polygon": "Євгенівка-27",
+          "imsma": "HAUA48HALO20250312-10064706"
+        },
+        {
+          "polygon": "Яковлівка-2",
+          "imsma": "HAUA48DRC20250522-143333"
+        },
+        {
+          "polygon": "Євгенівка-41",
+          "imsma": "HAUA48HALO20250910-11177406"
+        },
+        {
+          "polygon": "Любине-3",
+          "imsma": "HAUA48HALO20250716-10907906"
+        },
+        {
+          "polygon": "Любине-2",
+          "imsma": "HAUA48HALO20250710-10855506"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
