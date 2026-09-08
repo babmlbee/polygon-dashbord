@@ -2202,35 +2202,42 @@
       "items": [
         {
           "polygon": "Українка -02",
-          "imsma": "HAUA48DS20230215-2159"
+          "imsma": "HAUA48DS20230215-2159",
+          "ntsReportSent": true
         },
         {
           "polygon": "Авангард-1",
-          "imsma": "HAUA48UDS20250821-162333"
+          "imsma": "HAUA48UDS20250821-162333",
+          "ntsReportSent": true
         },
         {
           "polygon": "Галицинове-6",
-          "imsma": "HAUA48MOV20251022-105945"
+          "imsma": "HAUA48MOV20251022-105945",
+          "ntsReportSent": true
         },
         {
           "polygon": "МГЗ - 02",
-          "imsma": "HAUA48uda20240320-1135"
+          "imsma": "HAUA48uda20240320-1135",
+          "ntsReportSent": true
         },
         {
           "polygon": "Шевченківська Канал Р-10.18",
-          "imsma": "HAUA48DS20230814-1459"
+          "imsma": "HAUA48DS20230814-1459",
+          "ntsReportSent": true
         },
         {
           "polygon": "Шевченківська канал Р-10 01",
-          "imsma": "HAUA48DS20230606-1030"
+          "imsma": "HAUA48DS20230606-1030",
+          "ntsReportSent": true
         },
         {
           "polygon": "Свобода-1",
-          "imsma": "HAUA48HALO20240521-8073406"
+          "imsma": "HAUA48HALO20240521-8073406",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     }
   ]
 }
