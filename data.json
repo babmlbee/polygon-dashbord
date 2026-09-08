@@ -2340,11 +2340,12 @@
             "6320288000:03:000:0367",
             "6320288000:03:000:0365",
             "6320288000:03:000:0172"
-          ]
+          ],
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "targeted",
-      "ntsReportSent": false
+      "ntsReportSent": true
     }
   ]
 }
