@@ -2395,6 +2395,49 @@
       ],
       "ntsSubType": "targeted",
       "ntsReportSent": true
+    },
+    {
+      "number": "2544",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-08-25",
+      "endDate": "2026-09-25",
+      "items": [
+        {
+          "polygon": "Березнегувате - Т 13",
+          "imsma": "HAUA48uda20251024-120239"
+        },
+        {
+          "polygon": "Березнегуватська А - 03.1",
+          "imsma": "HAUA48uda20250827-192246"
+        },
+        {
+          "polygon": "Село Тернові Поди, трансформаторна підстанція з ділянкою",
+          "imsma": "HAUA48DS20230216-1757"
+        },
+        {
+          "polygon": "Тернові Поди-48",
+          "imsma": "HAUA48NPA20240802-901"
+        },
+        {
+          "polygon": "Село Любомирівка, Водонапірна вежа",
+          "imsma": "HAUA48DS20230214-2255"
+        },
+        {
+          "polygon": "Любомирівка-6",
+          "imsma": "HAUA48NPA20230830-1032"
+        },
+        {
+          "polygon": "Тернові Поди-5",
+          "imsma": "HAUA48NPA20230801-1437"
+        },
+        {
+          "polygon": "Тернові Поди-6",
+          "imsma": "HAUA48NPA20230803-933"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
