@@ -26,7 +26,7 @@ const translations = {
         actualOrdersTitle: "Актуальні розпорядження", inactiveOrdersTitle: "Неактивні / Завершені розпорядження",
         thNum: "ТО / Регіон", thPeriod: "Період", thPolDetails: "Об'єкти, Полігони та Деталі", thAction: "Дія", deleteBtn: "Видалити", editBtn: "Редагувати",
         statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження...", statusSaved: "✅ Збережено",
-        lblImsma: "IMSMA ID", lblType: "Методи", lblSubtype: "Підтип", lblStatus: "Completion Report Status",
+        lblImsma: "IMSMA ID", lblType: "Методи", lblSubtype: "Підтип", lblStatus: "NMAC Report Status",
         reportYes: "✅ Надіслано", reportNo: "⏳ Очікується", lblCads: "Кадастри",
         colPolygon: "Полігон", colImsma: "IMSMA ID", colMethods: "Методи розмінування",
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
