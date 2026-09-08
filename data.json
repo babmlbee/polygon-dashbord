@@ -1829,71 +1829,71 @@
         {
           "polygon": "СД Агро-59",
           "imsma": "HAUA63HS20250227-133723",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "СД Агро-49",
           "imsma": "HAUA63HS20250227-124917",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "АДП-4-6",
           "imsma": "HAUA63HS20250722-151109",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "АДП-4-9",
           "imsma": "HAUA63HS20250722-161036",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "СД Агро-37",
           "imsma": "HAUA63HS20250226-115954",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "Пришиб-30S",
           "imsma": "HAUA63FSD20241105-001351",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "Пришиб-31S",
           "imsma": "HAUA63FSD20241105-001357",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "Пришиб-32S",
           "imsma": "HAUA63FSD20241105-001363",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "Пришиб-33S",
           "imsma": "HAUA63FSD20241105-001365",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "АДП-4-114",
           "imsma": "HAUA63HS20250724-104232",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "АДП-4-52",
           "imsma": "HAUA63HS20250724-100108",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "АДП-4-51",
           "imsma": "HAUA63HS20250723-131655",
-          "ntsReportSent": false
+          "ntsReportSent": true
         },
         {
           "polygon": "Червона Поляна-1W",
           "imsma": "HAUA63FSD20250910-001656",
-          "ntsReportSent": false
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "492",
