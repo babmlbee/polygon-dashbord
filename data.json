@@ -2018,6 +2018,45 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "962",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-04-10",
+      "endDate": "2026-05-10",
+      "items": [
+        {
+          "polygon": "Березнегувате - Т 05",
+          "imsma": "HAUA48uda20250916-184545"
+        },
+        {
+          "polygon": "Березнегувате - Т 04",
+          "imsma": "HAUA48uda20250916-172140"
+        },
+        {
+          "polygon": "Березнегувате - Т 11",
+          "imsma": "HAUA48uda20251017-190914"
+        },
+        {
+          "polygon": "Березнегуватська Ш - 05",
+          "imsma": "HAUA48uda20251015-103408"
+        },
+        {
+          "polygon": "Новокондакове-9",
+          "imsma": "HAUA48HALO20250423-10461806"
+        },
+        {
+          "polygon": "Безіменне-38",
+          "imsma": "HAUA48HALO20250123-9222306"
+        },
+        {
+          "polygon": "Ділянка №2",
+          "imsma": "HAUA48UDS20240824-174856"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
