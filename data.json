@@ -2232,7 +2232,7 @@
       "ntsReportSent": true
     },
     {
-      "number": "2171",
+      "number": "2271",
       "region": "mykolaiv",
       "type": "nts",
       "startDate": "2026-07-30",
@@ -2240,38 +2240,31 @@
       "items": [
         {
           "polygon": "Українка -02",
-          "imsma": "HAUA48DS20230215-2159",
-          "ntsReportSent": true
+          "imsma": "HAUA48DS20230215-2159"
         },
         {
           "polygon": "Авангард-1",
-          "imsma": "HAUA48UDS20250821-162333",
-          "ntsReportSent": true
+          "imsma": "HAUA48UDS20250821-162333"
         },
         {
           "polygon": "Галицинове-6",
-          "imsma": "HAUA48MOV20251022-105945",
-          "ntsReportSent": true
+          "imsma": "HAUA48MOV20251022-105945"
         },
         {
           "polygon": "МГЗ - 02",
-          "imsma": "HAUA48uda20240320-1135",
-          "ntsReportSent": true
+          "imsma": "HAUA48uda20240320-1135"
         },
         {
           "polygon": "Шевченківська Канал Р-10.18",
-          "imsma": "HAUA48DS20230814-1459",
-          "ntsReportSent": true
+          "imsma": "HAUA48DS20230814-1459"
         },
         {
           "polygon": "Шевченківська канал Р-10 01",
-          "imsma": "HAUA48DS20230606-1030",
-          "ntsReportSent": true
+          "imsma": "HAUA48DS20230606-1030"
         },
         {
           "polygon": "Свобода-1",
-          "imsma": "HAUA48HALO20240521-8073406",
-          "ntsReportSent": true
+          "imsma": "HAUA48HALO20240521-8073406"
         }
       ],
       "ntsSubType": "re_nts",
