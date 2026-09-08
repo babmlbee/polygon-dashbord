@@ -2125,27 +2125,32 @@
       "items": [
         {
           "polygon": "Мирне - 9",
-          "imsma": "HAUA48NPA20230802-858"
+          "imsma": "HAUA48NPA20230802-858",
+          "ntsReportSent": true
         },
         {
           "polygon": "Любомирівка-25",
-          "imsma": "HAUA48NPA20240412-922"
+          "imsma": "HAUA48NPA20240412-922",
+          "ntsReportSent": true
         },
         {
           "polygon": "Любомирівка 54",
-          "imsma": "HAUA48NPA20250818-143258"
+          "imsma": "HAUA48NPA20250818-143258",
+          "ntsReportSent": true
         },
         {
           "polygon": "Ясна Поляна-9",
-          "imsma": "HAUA48HALO20250129-9333906"
+          "imsma": "HAUA48HALO20250129-9333906",
+          "ntsReportSent": true
         },
         {
           "polygon": "Новокондакове-8",
-          "imsma": "HAUA48HALO20250409-10293406"
+          "imsma": "HAUA48HALO20250409-10293406",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "1675",
