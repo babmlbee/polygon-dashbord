@@ -1894,6 +1894,29 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "492",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-03-04",
+      "endDate": "2026-04-04",
+      "items": [
+        {
+          "polygon": "Зоря 66",
+          "imsma": "HAUA48ATOM20250618-105550"
+        },
+        {
+          "polygon": "Благодатне 49",
+          "imsma": "HAUA48NPA20250529-161523"
+        },
+        {
+          "polygon": "Благодатне 53",
+          "imsma": "HAUA48NPA20250711-94726"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
