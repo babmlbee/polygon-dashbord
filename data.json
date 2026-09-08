@@ -2150,6 +2150,45 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "2171",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-07-30",
+      "endDate": "2026-08-30",
+      "items": [
+        {
+          "polygon": "Українка -02",
+          "imsma": "HAUA48DS20230215-2159"
+        },
+        {
+          "polygon": "Авангард-1",
+          "imsma": "HAUA48UDS20250821-162333"
+        },
+        {
+          "polygon": "Галицинове-6",
+          "imsma": "HAUA48MOV20251022-105945"
+        },
+        {
+          "polygon": "МГЗ - 02",
+          "imsma": "HAUA48uda20240320-1135"
+        },
+        {
+          "polygon": "Шевченківська Канал Р-10.18",
+          "imsma": "HAUA48DS20230814-1459"
+        },
+        {
+          "polygon": "Шевченківська канал Р-10 01",
+          "imsma": "HAUA48DS20230606-1030"
+        },
+        {
+          "polygon": "Свобода-1",
+          "imsma": "HAUA48HALO20240521-8073406"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
