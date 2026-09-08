@@ -60,7 +60,7 @@ const translations = {
         actualOrdersTitle: "Current Task Orders", inactiveOrdersTitle: "Inactive / Completed Task Orders",
         thNum: "TO / Region", thPeriod: "Period", thPolDetails: "Items, Polygons & Details", thAction: "Action", deleteBtn: "Delete", editBtn: "Edit",
         statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving...", statusSaved: "✅ Saved",
-        lblImsma: "IMSMA ID", lblType: "Methods", lblSubtype: "Subtype", lblStatus: "Completion Report Status",
+        lblImsma: "IMSMA ID", lblType: "Methods", lblSubtype: "Subtype", lblStatus: "NMAC Report Status",
         reportYes: "✅ Sent", reportNo: "⏳ Pending", lblCads: "Cadastres",
         colPolygon: "Polygon", colImsma: "IMSMA ID", colMethods: "Demining Methods",
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
