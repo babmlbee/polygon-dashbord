@@ -2161,31 +2161,37 @@
       "items": [
         {
           "polygon": "Снігурівка-29",
-          "imsma": "HAUA48HALO20241104-8761406"
+          "imsma": "HAUA48HALO20241104-8761406",
+          "ntsReportSent": true
         },
         {
           "polygon": "Євгенівка-27",
-          "imsma": "HAUA48HALO20250312-10064706"
+          "imsma": "HAUA48HALO20250312-10064706",
+          "ntsReportSent": true
         },
         {
           "polygon": "Яковлівка-2",
-          "imsma": "HAUA48DRC20250522-143333"
+          "imsma": "HAUA48DRC20250522-143333",
+          "ntsReportSent": true
         },
         {
           "polygon": "Євгенівка-41",
-          "imsma": "HAUA48HALO20250910-11177406"
+          "imsma": "HAUA48HALO20250910-11177406",
+          "ntsReportSent": true
         },
         {
           "polygon": "Любине-3",
-          "imsma": "HAUA48HALO20250716-10907906"
+          "imsma": "HAUA48HALO20250716-10907906",
+          "ntsReportSent": true
         },
         {
           "polygon": "Любине-2",
-          "imsma": "HAUA48HALO20250710-10855506"
+          "imsma": "HAUA48HALO20250710-10855506",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "2171",
