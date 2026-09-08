@@ -2234,11 +2234,12 @@
             "6325455900:04:000:0028",
             "6325455900:04:000:0027",
             "6320282800:02:000:0417"
-          ]
+          ],
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "targeted",
-      "ntsReportSent": false
+      "ntsReportSent": true
     }
   ]
 }
