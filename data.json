@@ -1930,31 +1930,37 @@
       "items": [
         {
           "polygon": "Велике Артакове - 01",
-          "imsma": "HAUA48DS20231222-939"
+          "imsma": "HAUA48DS20231222-939",
+          "ntsReportSent": true
         },
         {
           "polygon": "Березнегувате - 01",
-          "imsma": "HAUA48uda20240723-1441"
+          "imsma": "HAUA48uda20240723-1441",
+          "ntsReportSent": true
         },
         {
           "polygon": "Киселівка 12",
-          "imsma": "HAUA48NPA20250225-101925"
+          "imsma": "HAUA48NPA20250225-101925",
+          "ntsReportSent": true
         },
         {
           "polygon": "Степова Долина 37",
-          "imsma": "HAUA48NPA20250711-150625"
+          "imsma": "HAUA48NPA20250711-150625",
+          "ntsReportSent": true
         },
         {
           "polygon": "Степова Долина 38",
-          "imsma": "HAUA48NPA20250815-94650"
+          "imsma": "HAUA48NPA20250815-94650",
+          "ntsReportSent": true
         },
         {
           "polygon": "Степова Долина 34",
-          "imsma": "HAUA48NPA20250408-85702"
+          "imsma": "HAUA48NPA20250408-85702",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "758",
@@ -1965,31 +1971,37 @@
       "items": [
         {
           "polygon": "Кавказ-5",
-          "imsma": "HAUA48DRC20250217-134139"
+          "imsma": "HAUA48DRC20250217-134139",
+          "ntsReportSent": true
         },
         {
           "polygon": "Кавказ-7",
-          "imsma": "HAUA48DRC20250224-143858"
+          "imsma": "HAUA48DRC20250224-143858",
+          "ntsReportSent": true
         },
         {
           "polygon": "С.Новогригорівка (ЛЕП_13)",
-          "imsma": "HAUA48DS20230506-928"
+          "imsma": "HAUA48DS20230506-928",
+          "ntsReportSent": true
         },
         {
           "polygon": "Новогеоргіївка-1",
-          "imsma": "HAUA48HALO20250922-1118100"
+          "imsma": "HAUA48HALO20250922-1118100",
+          "ntsReportSent": true
         },
         {
           "polygon": "Червоне-2",
-          "imsma": "HAUA48MAG20250415-160957"
+          "imsma": "HAUA48MAG20250415-160957",
+          "ntsReportSent": true
         },
         {
           "polygon": "Миролюбове-1",
-          "imsma": "HAUA48MAG20250501-155139"
+          "imsma": "HAUA48MAG20250501-155139",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "805",
