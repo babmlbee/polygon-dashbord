@@ -2057,6 +2057,33 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "1132",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-04-30",
+      "endDate": "2026-05-30",
+      "items": [
+        {
+          "polygon": "Інгулка-2",
+          "imsma": "HAUA48HALO20250130-9229406"
+        },
+        {
+          "polygon": "Одрадне-1",
+          "imsma": "HAUA48HALO20250922-11180906"
+        },
+        {
+          "polygon": "Шевченкове-1",
+          "imsma": "HAUA48FSD20230411-855"
+        },
+        {
+          "polygon": "Квітневе 1",
+          "imsma": "HAUA48NPA20250731-91907"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
