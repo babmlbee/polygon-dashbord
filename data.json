@@ -1818,6 +1818,69 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": true
+    },
+    {
+      "number": "2220",
+      "region": "kharkiv",
+      "type": "nts",
+      "startDate": "2026-08-03",
+      "endDate": "2026-09-03",
+      "items": [
+        {
+          "polygon": "СД Агро-59",
+          "imsma": "HAUA63HS20250227-133723"
+        },
+        {
+          "polygon": "СД Агро-49",
+          "imsma": "HAUA63HS20250227-124917"
+        },
+        {
+          "polygon": "АДП-4-6",
+          "imsma": "HAUA63HS20250722-151109"
+        },
+        {
+          "polygon": "АДП-4-9",
+          "imsma": "HAUA63HS20250722-161036"
+        },
+        {
+          "polygon": "СД Агро-37",
+          "imsma": "HAUA63HS20250226-115954"
+        },
+        {
+          "polygon": "Пришиб-30S",
+          "imsma": "HAUA63FSD20241105-001351"
+        },
+        {
+          "polygon": "Пришиб-31S",
+          "imsma": "HAUA63FSD20241105-001357"
+        },
+        {
+          "polygon": "Пришиб-32S",
+          "imsma": "HAUA63FSD20241105-001363"
+        },
+        {
+          "polygon": "Пришиб-33S",
+          "imsma": "HAUA63FSD20241105-001365"
+        },
+        {
+          "polygon": "АДП-4-114",
+          "imsma": "HAUA63HS20250724-104232"
+        },
+        {
+          "polygon": "АДП-4-52",
+          "imsma": "HAUA63HS20250724-100108"
+        },
+        {
+          "polygon": "АДП-4-51",
+          "imsma": "HAUA63HS20250723-131655"
+        },
+        {
+          "polygon": "Червона Поляна-1W",
+          "imsma": "HAUA63FSD20250910-001656"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
