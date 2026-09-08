@@ -1561,13 +1561,13 @@
           "type": "nts",
           "region": "",
           "ntsSubType": "demarcation",
-          "ntsReportSent": false,
+          "ntsReportSent": true,
           "polygon": "Воскресенське Н-11",
           "imsma": "HAUA48MAG20260506-101000",
           "cadastres": []
         }
       ],
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "1164",
