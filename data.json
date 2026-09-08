@@ -2012,27 +2012,32 @@
       "items": [
         {
           "polygon": "Любомирівка-20",
-          "imsma": "HAUA48NPA20231122-1057"
+          "imsma": "HAUA48NPA20231122-1057",
+          "ntsReportSent": true
         },
         {
           "polygon": "Любомирівка-1",
-          "imsma": "HAUA48DRC20250401-113932"
+          "imsma": "HAUA48DRC20250401-113932",
+          "ntsReportSent": true
         },
         {
           "polygon": "Тернові Поди-13",
-          "imsma": "HAUA48NPA20230904-1529"
+          "imsma": "HAUA48NPA20230904-1529",
+          "ntsReportSent": true
         },
         {
           "polygon": "Тернові Поди -7",
-          "imsma": "HAUA48NPA20230830-1135"
+          "imsma": "HAUA48NPA20230830-1135",
+          "ntsReportSent": true
         },
         {
           "polygon": "Тернові Поди-9",
-          "imsma": "HAUA48NPA20230830-1359"
+          "imsma": "HAUA48NPA20230830-1359",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "962",
