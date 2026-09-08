@@ -1917,6 +1917,41 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "623",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-03-12",
+      "endDate": "2026-04-12",
+      "items": [
+        {
+          "polygon": "Велике Артакове - 01",
+          "imsma": "HAUA48DS20231222-939"
+        },
+        {
+          "polygon": "Березнегувате - 01",
+          "imsma": "HAUA48uda20240723-1441"
+        },
+        {
+          "polygon": "Киселівка 12",
+          "imsma": "HAUA48NPA20250225-101925"
+        },
+        {
+          "polygon": "Степова Долина 37",
+          "imsma": "HAUA48NPA20250711-150625"
+        },
+        {
+          "polygon": "Степова Долина 38",
+          "imsma": "HAUA48NPA20250815-94650"
+        },
+        {
+          "polygon": "Степова Долина 34",
+          "imsma": "HAUA48NPA20250408-85702"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
