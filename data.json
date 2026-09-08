@@ -1952,6 +1952,41 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "758",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-03-24",
+      "endDate": "2026-04-24",
+      "items": [
+        {
+          "polygon": "Кавказ-5",
+          "imsma": "HAUA48DRC20250217-134139"
+        },
+        {
+          "polygon": "Кавказ-7",
+          "imsma": "HAUA48DRC20250224-143858"
+        },
+        {
+          "polygon": "С.Новогригорівка (ЛЕП_13)",
+          "imsma": "HAUA48DS20230506-928"
+        },
+        {
+          "polygon": "Новогеоргіївка-1",
+          "imsma": "HAUA48HALO20250922-1118100"
+        },
+        {
+          "polygon": "Червоне-2",
+          "imsma": "HAUA48MAG20250415-160957"
+        },
+        {
+          "polygon": "Миролюбове-1",
+          "imsma": "HAUA48MAG20250501-155139"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
