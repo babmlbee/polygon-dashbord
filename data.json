@@ -2346,6 +2346,42 @@
       ],
       "ntsSubType": "targeted",
       "ntsReportSent": true
+    },
+    {
+      "number": "2776",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-09-09",
+      "endDate": "2026-10-09",
+      "pdfLink": "https://drive.google.com/file/d/16E1XyYPHLFBH2vvE4M1v6i5FWhsMSi6r/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Село Мирне, Газовий розподільчий пункт з ділянкою",
+          "imsma": "HAUA48DS20230311-1815"
+        },
+        {
+          "polygon": "Тернові Поди 56",
+          "imsma": "HAUA48NPA20250711-152130"
+        },
+        {
+          "polygon": "Партизанське-1",
+          "imsma": "HAUA48NPA20230626-928"
+        },
+        {
+          "polygon": "Степова Долина – 03 (водонапірна вежа)",
+          "imsma": "HAUA48DS20230415-1316"
+        },
+        {
+          "polygon": "Новопетрівка-16",
+          "imsma": "HAUA48HALO20240615-8128006"
+        },
+        {
+          "polygon": "Червоне-1",
+          "imsma": "HAUA48MAG20250331-130451"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
