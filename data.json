@@ -2048,35 +2048,42 @@
       "items": [
         {
           "polygon": "Березнегувате - Т 05",
-          "imsma": "HAUA48uda20250916-184545"
+          "imsma": "HAUA48uda20250916-184545",
+          "ntsReportSent": true
         },
         {
           "polygon": "Березнегувате - Т 04",
-          "imsma": "HAUA48uda20250916-172140"
+          "imsma": "HAUA48uda20250916-172140",
+          "ntsReportSent": true
         },
         {
           "polygon": "Березнегувате - Т 11",
-          "imsma": "HAUA48uda20251017-190914"
+          "imsma": "HAUA48uda20251017-190914",
+          "ntsReportSent": true
         },
         {
           "polygon": "Березнегуватська Ш - 05",
-          "imsma": "HAUA48uda20251015-103408"
+          "imsma": "HAUA48uda20251015-103408",
+          "ntsReportSent": true
         },
         {
           "polygon": "Новокондакове-9",
-          "imsma": "HAUA48HALO20250423-10461806"
+          "imsma": "HAUA48HALO20250423-10461806",
+          "ntsReportSent": true
         },
         {
           "polygon": "Безіменне-38",
-          "imsma": "HAUA48HALO20250123-9222306"
+          "imsma": "HAUA48HALO20250123-9222306",
+          "ntsReportSent": true
         },
         {
           "polygon": "Ділянка №2",
-          "imsma": "HAUA48UDS20240824-174856"
+          "imsma": "HAUA48UDS20240824-174856",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "1132",
@@ -2087,23 +2094,27 @@
       "items": [
         {
           "polygon": "Інгулка-2",
-          "imsma": "HAUA48HALO20250130-9229406"
+          "imsma": "HAUA48HALO20250130-9229406",
+          "ntsReportSent": true
         },
         {
           "polygon": "Одрадне-1",
-          "imsma": "HAUA48HALO20250922-11180906"
+          "imsma": "HAUA48HALO20250922-11180906",
+          "ntsReportSent": true
         },
         {
           "polygon": "Шевченкове-1",
-          "imsma": "HAUA48FSD20230411-855"
+          "imsma": "HAUA48FSD20230411-855",
+          "ntsReportSent": true
         },
         {
           "polygon": "Квітневе 1",
-          "imsma": "HAUA48NPA20250731-91907"
+          "imsma": "HAUA48NPA20250731-91907",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "1219",
