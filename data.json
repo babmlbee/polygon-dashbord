@@ -1572,7 +1572,8 @@
           "cadastres": []
         }
       ],
-      "ntsReportSent": true
+      "ntsReportSent": true,
+      "pdfLink": "https://drive.google.com/file/d/1Jx32cglg6i37apeacKl_rGcFx7Y8JVey/view?usp=drivesdk"
     },
     {
       "number": "1164",
@@ -2229,7 +2230,8 @@
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": true
+      "ntsReportSent": true,
+      "pdfLink": "https://drive.google.com/file/d/1zmYC623F6XzYKZjEB6zMwJoh_vfoSeMB/view?usp=drivesdk"
     },
     {
       "number": "2271",
