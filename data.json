@@ -1904,19 +1904,22 @@
       "items": [
         {
           "polygon": "Зоря 66",
-          "imsma": "HAUA48ATOM20250618-105550"
+          "imsma": "HAUA48ATOM20250618-105550",
+          "ntsReportSent": true
         },
         {
           "polygon": "Благодатне 49",
-          "imsma": "HAUA48NPA20250529-161523"
+          "imsma": "HAUA48NPA20250529-161523",
+          "ntsReportSent": true
         },
         {
           "polygon": "Благодатне 53",
-          "imsma": "HAUA48NPA20250711-94726"
+          "imsma": "HAUA48NPA20250711-94726",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "623",
