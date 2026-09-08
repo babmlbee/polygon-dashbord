@@ -1987,6 +1987,37 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "805",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-04-01",
+      "endDate": "2026-05-01",
+      "items": [
+        {
+          "polygon": "Любомирівка-20",
+          "imsma": "HAUA48NPA20231122-1057"
+        },
+        {
+          "polygon": "Любомирівка-1",
+          "imsma": "HAUA48DRC20250401-113932"
+        },
+        {
+          "polygon": "Тернові Поди-13",
+          "imsma": "HAUA48NPA20230904-1529"
+        },
+        {
+          "polygon": "Тернові Поди -7",
+          "imsma": "HAUA48NPA20230830-1135"
+        },
+        {
+          "polygon": "Тернові Поди-9",
+          "imsma": "HAUA48NPA20230830-1359"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
