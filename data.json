@@ -170,11 +170,7 @@
       "imsma": "HAUA63HS20250628-142557",
       "region": "kharkiv"
     },
-    {
-      "name": "Квітневе 1",
-      "imsma": "HAUA48NPА20250731-91907",
-      "region": "mykolaiv"
-    }
+
   ],
   "customMethods": [],
   "orders": [
@@ -2159,11 +2155,6 @@
           "imsma": "HAUA48FSD20230411-855",
           "ntsReportSent": true
         },
-        {
-          "polygon": "Квітневе 1",
-          "imsma": "HAUA48NPA20250731-91907",
-          "ntsReportSent": true
-        }
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": true,
