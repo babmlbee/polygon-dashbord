@@ -159,6 +159,21 @@
       "name": "Бражківка-19",
       "imsma": "HAUA63FSD20240326-000885",
       "region": "kharkiv"
+    },
+    {
+      "name": "Гусарівське-16",
+      "imsma": "HAUA63HS20250628-111754",
+      "region": "kharkiv"
+    },
+    {
+      "name": "Гусарівське-21",
+      "imsma": "HAUA63HS20250628-142557",
+      "region": "kharkiv"
+    },
+    {
+      "name": "MAG is registered as a charitable company in the UK. Registered in England No. 4016409. Registered Charity No. 1083008. Registered Office",
+      "imsma": "Suite",
+      "region": "kharkiv"
     }
   ],
   "customMethods": [],
@@ -2491,6 +2506,31 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "2781",
+      "region": "kharkiv",
+      "type": "demining",
+      "startDate": "2026-09-14",
+      "endDate": "2026-10-14",
+      "pdfLink": "https://drive.google.com/file/d/17gKPn8KMpLv9UHZZE_vk-TPSjcGPWqqd/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Гусарівське-16",
+          "imsma": "HAUA63HS20250628-111754",
+          "deminingTypes": []
+        },
+        {
+          "polygon": "Гусарівське-21",
+          "imsma": "HAUA63HS20250628-142557",
+          "deminingTypes": []
+        },
+        {
+          "polygon": "MAG is registered as a charitable company in the UK. Registered in England No. 4016409. Registered Charity No. 1083008. Registered Office",
+          "imsma": "Suite",
+          "deminingTypes": []
+        }
+      ]
     }
   ]
 }
