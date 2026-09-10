@@ -2538,7 +2538,6 @@
       "type": "demining",
       "startDate": "2026-09-11",
       "endDate": "2026-10-11",
-      "pdfLink": "https://drive.google.com/file/d/15oRZBS7UdT_Upmb3N3s0rPHlouVEjlJ-/view?usp=drivesdk",
       "items": [
         {
           "polygon": "Поле №69 ТОВ СВП Снігурівське",
@@ -2562,15 +2561,11 @@
         },
         {
           "polygon": "Квітневе 1",
-          "imsma": "HAUA48NP",
-          "deminingTypes": []
-        },
-        {
-          "polygon": "MAG is registered as a charitable company in the UK. Registered in England No. 4016409. Registered Charity No. 1083008. Registered Office",
-          "imsma": "Suite",
+          "imsma": "HAUA48NPА20250731-91907",
           "deminingTypes": []
         }
-      ]
+      ],
+      "pdfLink": "https://drive.google.com/file/d/15oRZBS7UdT_Upmb3N3s0rPHlouVEjlJ-/view?usp=drivesdk"
     }
   ]
 }
