@@ -2547,27 +2547,49 @@
         {
           "polygon": "Поле №69 ТОВ СВП Снігурівське",
           "imsma": "HAUA48HDR20240714-1425",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
         },
         {
           "polygon": "Поле №1 ТОВ СВП Снігурівське-3",
           "imsma": "HAUA48HDR20240715-1943",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
         },
         {
           "polygon": "Поле №1 ТОВ СВП Снігурівське-1",
           "imsma": "HAUA48HDR20240716-1627",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
         },
         {
           "polygon": "Максимівка 45",
           "imsma": "HAUA48NPA20250814-152700",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc"
+          ]
         },
         {
           "polygon": "Квітневе 1",
           "imsma": "HAUA48NPА20250731-91907",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mech"
+          ]
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/15oRZBS7UdT_Upmb3N3s0rPHlouVEjlJ-/view?usp=drivesdk"
