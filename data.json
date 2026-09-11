@@ -2517,12 +2517,22 @@
         {
           "polygon": "Гусарівське-16",
           "imsma": "HAUA63HS20250628-111754",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "bac",
+            "mdd",
+            "mech"
+          ]
         },
         {
           "polygon": "Гусарівське-21",
           "imsma": "HAUA63HS20250628-142557",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "bac",
+            "mdd",
+            "mech"
+          ]
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/17gKPn8KMpLv9UHZZE_vk-TPSjcGPWqqd/view?usp=drivesdk"
