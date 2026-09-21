@@ -2592,6 +2592,25 @@
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/15oRZBS7UdT_Upmb3N3s0rPHlouVEjlJ-/view?usp=drivesdk"
+    },
+    {
+      "number": "2908",
+      "region": "kharkiv",
+      "type": "demining",
+      "startDate": "2026-09-21",
+      "endDate": "2026-10-21",
+      "pdfLink": "https://drive.google.com/file/d/1n_kyWfuESAVnYv0ovK9S8mt864fs4E3O/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Волохів Яр-17",
+          "imsma": "HAUA63HALO20240716-8337706",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
