@@ -2611,6 +2611,15 @@
           ]
         }
       ]
+    },
+    {
+      "number": "2915",
+      "region": "kharkiv",
+      "type": "eore",
+      "startDate": "2026-09-22",
+      "endDate": "2026-10-22",
+      "pdfLink": "https://drive.google.com/file/d/10qpteXNVtXs6392jdw3vqXqrAB5sjkuC/view?usp=drivesdk",
+      "items": []
     }
   ]
 }
