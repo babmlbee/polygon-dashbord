@@ -2647,19 +2647,29 @@
       "type": "demining",
       "startDate": "2026-09-23",
       "endDate": "2026-10-23",
-      "pdfLink": "https://drive.google.com/file/d/1y-G00_skQ_Ox32_LOsD-fTyPBJFI89md/view?usp=drivesdk",
       "items": [
         {
           "polygon": "Савинці – 6S",
           "imsma": "HAUA63FSD20241025-001330",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
         },
         {
           "polygon": "Савинці – 8S",
           "imsma": "HAUA63FSD20241104-001355",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
         }
-      ]
+      ],
+      "pdfLink": "https://drive.google.com/file/d/1y-G00_skQ_Ox32_LOsD-fTyPBJFI89md/view?usp=drivesdk"
     }
   ]
 }
