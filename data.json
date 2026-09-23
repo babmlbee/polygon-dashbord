@@ -184,6 +184,16 @@
       "name": "Савинці – 8S",
       "imsma": "HAUA63FSD20241104-001355",
       "region": ""
+    },
+    {
+      "name": "Савинці – test",
+      "imsma": "HAUA63FSD20241025-001340",
+      "region": "kharkiv"
+    },
+    {
+      "name": "Савинці – 8test",
+      "imsma": "HAUA63FSD20241104-001340",
+      "region": "kharkiv"
     }
   ],
   "customMethods": [],
@@ -2647,6 +2657,26 @@
         {
           "polygon": "Савинці – 8S",
           "imsma": "HAUA63FSD20241104-001355",
+          "deminingTypes": []
+        }
+      ]
+    },
+    {
+      "number": "3000",
+      "region": "kharkiv",
+      "type": "demining",
+      "startDate": "2026-11-23",
+      "endDate": "2026-12-23",
+      "pdfLink": "",
+      "items": [
+        {
+          "polygon": "Савинці – test",
+          "imsma": "HAUA63FSD20241025-001340",
+          "deminingTypes": []
+        },
+        {
+          "polygon": "Савинці – 8test",
+          "imsma": "HAUA63FSD20241104-001340",
           "deminingTypes": []
         }
       ]
