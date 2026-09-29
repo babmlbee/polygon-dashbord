@@ -2674,11 +2674,17 @@
     {
       "number": "2966",
       "region": "mykolaiv",
-      "type": "eore",
-      "startDate": "2026-09-28",
-      "endDate": "2026-10-28",
-      "pdfLink": "https://drive.google.com/file/d/1fdBHE1MpLzt5F3k0pEY34YT4m68gFuP2/view?usp=drivesdk",
-      "items": []
+      "type": "demining",
+      "startDate": "2026-09-29",
+      "endDate": "2026-10-29",
+      "pdfLink": "https://drive.google.com/file/d/1ISCdZZIDn304Sp-V2cETkJYrzAk9_hq7/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Novokondakove – 1",
+          "imsma": "HAUA48HALO20230801-5659506",
+          "deminingTypes": []
+        }
+      ]
     }
   ]
 }
