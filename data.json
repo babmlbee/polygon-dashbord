@@ -2679,6 +2679,25 @@
       "endDate": "2026-10-28",
       "items": [],
       "pdfLink": "https://drive.google.com/file/d/1PFzatvAvVaGqBw-OL6d_fWmmbYF4j8Xu/view?usp=drivesdk"
+    },
+    {
+      "number": "2990",
+      "region": "mykolaiv",
+      "type": "demining",
+      "startDate": "2026-09-29",
+      "endDate": "2026-10-29",
+      "items": [
+        {
+          "polygon": "Novokondakove – 1",
+          "imsma": "HAUA48HALO20230801-5659506",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
+        }
+      ]
     }
   ]
 }
