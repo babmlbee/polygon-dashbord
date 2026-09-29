@@ -2670,21 +2670,6 @@
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/1y-G00_skQ_Ox32_LOsD-fTyPBJFI89md/view?usp=drivesdk"
-    },
-    {
-      "number": "2966",
-      "region": "mykolaiv",
-      "type": "demining",
-      "startDate": "2026-09-29",
-      "endDate": "2026-10-29",
-      "pdfLink": "https://drive.google.com/file/d/1PFzatvAvVaGqBw-OL6d_fWmmbYF4j8Xu/view?usp=drivesdk",
-      "items": [
-        {
-          "polygon": "Novokondakove – 1",
-          "imsma": "HAUA48HALO20230801-5659506",
-          "deminingTypes": []
-        }
-      ]
     }
   ]
 }
