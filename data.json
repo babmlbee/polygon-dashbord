@@ -2393,11 +2393,12 @@
             "6320288000:02:000:0198",
             "6320288000:02:000:0361",
             "6320288000:02:000:0300"
-          ]
+          ],
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "targeted",
-      "ntsReportSent": false,
+      "ntsReportSent": true,
       "pdfLink": "https://drive.google.com/file/d/1veRxtMB9wkpTgrNH7hE6nvCiqlWAkUzV/view?usp=drivesdk"
     },
     {
@@ -2455,39 +2456,47 @@
       "items": [
         {
           "polygon": "Березнегувате - Т 13",
-          "imsma": "HAUA48uda20251024-120239"
+          "imsma": "HAUA48uda20251024-120239",
+          "ntsReportSent": true
         },
         {
           "polygon": "Березнегуватська А - 03.1",
-          "imsma": "HAUA48uda20250827-192246"
+          "imsma": "HAUA48uda20250827-192246",
+          "ntsReportSent": true
         },
         {
           "polygon": "Село Тернові Поди, трансформаторна підстанція з ділянкою",
-          "imsma": "HAUA48DS20230216-1757"
+          "imsma": "HAUA48DS20230216-1757",
+          "ntsReportSent": true
         },
         {
           "polygon": "Тернові Поди-48",
-          "imsma": "HAUA48NPA20240802-901"
+          "imsma": "HAUA48NPA20240802-901",
+          "ntsReportSent": true
         },
         {
           "polygon": "Село Любомирівка, Водонапірна вежа",
-          "imsma": "HAUA48DS20230214-2255"
+          "imsma": "HAUA48DS20230214-2255",
+          "ntsReportSent": true
         },
         {
           "polygon": "Любомирівка-6",
-          "imsma": "HAUA48NPA20230830-1032"
+          "imsma": "HAUA48NPA20230830-1032",
+          "ntsReportSent": true
         },
         {
           "polygon": "Тернові Поди-5",
-          "imsma": "HAUA48NPA20230801-1437"
+          "imsma": "HAUA48NPA20230801-1437",
+          "ntsReportSent": true
         },
         {
           "polygon": "Тернові Поди-6",
-          "imsma": "HAUA48NPA20230803-933"
+          "imsma": "HAUA48NPA20230803-933",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false,
+      "ntsReportSent": true,
       "pdfLink": "https://drive.google.com/file/d/1671dIYYW-Fxa8YiyCD_AMQzYOunK8_b9/view?usp=drivesdk"
     },
     {
