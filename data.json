@@ -2708,6 +2708,74 @@
       "endDate": "2026-10-28",
       "items": [],
       "pdfLink": "https://drive.google.com/file/d/1GJVMOTFbcMbBQPXeEjvs9ZOxycvya1lh/view?usp=drivesdk"
+    },
+    {
+      "number": "3105",
+      "region": "mykolaiv",
+      "type": "nts",
+      "startDate": "2026-10-07",
+      "endDate": "2026-11-07",
+      "pdfLink": "https://drive.google.com/file/d/1G_XvqipVzHpJEgM_WxZ34xjgdUn1Mt8B/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Івано-Кепине-6",
+          "imsma": "HAUA48HALO20250325-10194306"
+        },
+        {
+          "polygon": "Івано-Кепине-5",
+          "imsma": "HAUA48HALO20250311-10078106"
+        },
+        {
+          "polygon": "Івано-Кепине-9",
+          "imsma": "HAUA48HALO20250504-10637706"
+        },
+        {
+          "polygon": "Івано-Кепине-4",
+          "imsma": "HAUA48HALO20250213-9426206"
+        },
+        {
+          "polygon": "Поле № 3 ТОВ СВП Снігурівське-3",
+          "imsma": "HAUA48HDR20240714-1607"
+        },
+        {
+          "polygon": "Івано-Кепине-10",
+          "imsma": "HAUA48HALO20250716-10908106"
+        },
+        {
+          "polygon": "Івано-Кепине-1",
+          "imsma": "HAUA48HALO20250130-9342706"
+        },
+        {
+          "polygon": "Ділянка № 13 (Лісові насадження 15) Полігон № 1",
+          "imsma": "HAUA48UDS20240817-201935"
+        },
+        {
+          "polygon": "Ділянка № 13 (Лісові насадження 15) Полігон № 3",
+          "imsma": "HAUA48UDS20240819-211421"
+        },
+        {
+          "polygon": "Bezimenne-8",
+          "imsma": "HAUA48HALO20231021-6054006"
+        },
+        {
+          "polygon": "Безіменне-22",
+          "imsma": "HAUA48HALO20240327-7108406"
+        },
+        {
+          "polygon": "Безіменне-45",
+          "imsma": "HAUA48HALO20250312-10078406"
+        },
+        {
+          "polygon": "Любомирівка-46",
+          "imsma": "HAUA48NPA20250212-143517"
+        },
+        {
+          "polygon": "@Denys Perederiy<mailto",
+          "imsma": "Denys"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
