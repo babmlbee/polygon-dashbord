@@ -2715,7 +2715,6 @@
       "type": "nts",
       "startDate": "2026-10-07",
       "endDate": "2026-11-07",
-      "pdfLink": "https://drive.google.com/file/d/1G_XvqipVzHpJEgM_WxZ34xjgdUn1Mt8B/view?usp=drivesdk",
       "items": [
         {
           "polygon": "Івано-Кепине-6",
@@ -2768,14 +2767,11 @@
         {
           "polygon": "Любомирівка-46",
           "imsma": "HAUA48NPA20250212-143517"
-        },
-        {
-          "polygon": "@Denys Perederiy<mailto",
-          "imsma": "Denys"
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": false,
+      "pdfLink": "https://drive.google.com/file/d/1G_XvqipVzHpJEgM_WxZ34xjgdUn1Mt8B/view?usp=drivesdk"
     }
   ]
 }
