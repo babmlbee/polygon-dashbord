@@ -2509,31 +2509,37 @@
       "items": [
         {
           "polygon": "Село Мирне, Газовий розподільчий пункт з ділянкою",
-          "imsma": "HAUA48DS20230311-1815"
+          "imsma": "HAUA48DS20230311-1815",
+          "ntsReportSent": true
         },
         {
           "polygon": "Тернові Поди 56",
-          "imsma": "HAUA48NPA20250711-152130"
+          "imsma": "HAUA48NPA20250711-152130",
+          "ntsReportSent": true
         },
         {
           "polygon": "Партизанське-1",
-          "imsma": "HAUA48NPA20230626-928"
+          "imsma": "HAUA48NPA20230626-928",
+          "ntsReportSent": true
         },
         {
           "polygon": "Степова Долина – 03 (водонапірна вежа)",
-          "imsma": "HAUA48DS20230415-1316"
+          "imsma": "HAUA48DS20230415-1316",
+          "ntsReportSent": true
         },
         {
           "polygon": "Новопетрівка-16",
-          "imsma": "HAUA48HALO20240615-8128006"
+          "imsma": "HAUA48HALO20240615-8128006",
+          "ntsReportSent": true
         },
         {
           "polygon": "Червоне-1",
-          "imsma": "HAUA48MAG20250331-130451"
+          "imsma": "HAUA48MAG20250331-130451",
+          "ntsReportSent": true
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": true
     },
     {
       "number": "2781",
