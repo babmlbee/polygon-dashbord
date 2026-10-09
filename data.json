@@ -2772,6 +2772,70 @@
       "ntsSubType": "re_nts",
       "ntsReportSent": false,
       "pdfLink": "https://drive.google.com/file/d/1G_XvqipVzHpJEgM_WxZ34xjgdUn1Mt8B/view?usp=drivesdk"
+    },
+    {
+      "number": "3137",
+      "region": "kharkiv",
+      "type": "nts",
+      "startDate": "2026-10-12",
+      "endDate": "2026-11-12",
+      "pdfLink": "",
+      "items": [
+        {
+          "polygon": "Гаврилівка3-1",
+          "imsma": "HAUA63UOS20241016-161337"
+        },
+        {
+          "polygon": "Гаврилівка2-1",
+          "imsma": "HAUA63UOS20241017-112015"
+        },
+        {
+          "polygon": "Гаврилівка1-1",
+          "imsma": "HAUA63UOS20241016-102034"
+        },
+        {
+          "polygon": "АДП-5-8",
+          "imsma": "HAUA63HS20251104-122039"
+        },
+        {
+          "polygon": "Вербівка-33",
+          "imsma": "HAUA63HALO20250925-11192606"
+        },
+        {
+          "polygon": "Гусарівське – 93",
+          "imsma": "HAUA63HS20250624-131142"
+        },
+        {
+          "polygon": "НА25-79",
+          "imsma": "HAUA63FSD20240830-001244"
+        },
+        {
+          "polygon": "НА25-80",
+          "imsma": "HAUA63FSD20240909-001228"
+        },
+        {
+          "polygon": "AДП-5-20",
+          "imsma": "HAUA63HS20251105-173853"
+        },
+        {
+          "polygon": "AДП-5-23-1",
+          "imsma": "HAUA63HS20251111-103305"
+        },
+        {
+          "polygon": "Велика Комишуваха-115",
+          "imsma": "HAUA63PSM20251008-123947"
+        },
+        {
+          "polygon": "Велика Комишуваха-17А",
+          "imsma": "HAUA63PSM20251031-124906"
+        },
+        {
+          "polygon": "@Ihor Yudenko<mailto",
+          "imsma": "Ihor"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
