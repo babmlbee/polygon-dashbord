@@ -42,7 +42,7 @@ const translations = {
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська", fltKherson: "Херсонська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
-        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF",
+        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити Розпорядження",
         lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону",
         lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада", colDocs: "Документи"
     },
@@ -77,7 +77,7 @@ const translations = {
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv", fltKherson: "Kherson",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
-        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF",
+        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open the Task Order",
         lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name",
         lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada", colDocs: "Documents"
     }
