@@ -2692,7 +2692,9 @@
             "bac",
             "mdd",
             "mech"
-          ]
+          ],
+          "tcpLink": "https://drive.google.com/drive/folders/1R__pFPh4XnvWxr3x-TGsh7s4cJV9zHsE",
+          "haLink": "https://drive.google.com/drive/folders/1hIxRiAbIcizcgbnUjzUSe9PnqEjKol6p"
         },
         {
           "polygon": "Гусарівське-21",
@@ -2702,7 +2704,9 @@
             "bac",
             "mdd",
             "mech"
-          ]
+          ],
+          "tcpLink": "https://drive.google.com/drive/folders/1fVOtzbSq2zLM82rYnzr9GPguD78zPZ5m",
+          "haLink": "https://drive.google.com/drive/folders/1u5kG0A2Wq92x7x3RMG_k61UTpHAwCeY8"
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/17gKPn8KMpLv9UHZZE_vk-TPSjcGPWqqd/view?usp=drivesdk"
