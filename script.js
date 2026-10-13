@@ -15,7 +15,8 @@ const translations = {
         mainTitle: "Дашборд розпоряджень", addPolygonTitle: "База полігонів", polygonPlaceholder: "Назва полігону", addPolygonBtn: "Додати",
         polyImsmaPlaceholder: "IMSMA ID (необов'язково)", addMethodTitle: "База методів", methodPlaceholder: "Власний тип", addMethodBtn: "Додати",
         btnToggleBasesShow: "+ Відкрити налаштування баз (Полігони / Методи)", btnToggleBasesHide: "- Сховати налаштування баз",
-        newOrderTitle: "Нове розпорядження (ТО)", editOrderTitle: "Редагування ТО", optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область", regKherson: "Херсонська область",
+        newOrderTitle: "Нове розпорядження (ТО)", editOrderTitle: "Редагування ТО", 
+        optRegion: "Оберіть область...", regKh: "Харківська область", regMyk: "Миколаївська область", regKherson: "Херсонська область",
         optType: "Оберіть тип робіт...", selectDefault: "Оберіть полігон...", lblPolygonsInTO: "Об'єкти в цьому розпорядженні:", btnAddPolygonToTO: "+ Додати об'єкт",
         lblSelectMethods: "Оберіть методи розмінування...", lblSelected: "Обрано:",
         lblCadsSpace: "Кадастри (через пробіл/кому/новий рядок):", cadastreInputPlaceholder: "Наприклад: 6322882200:04:000:0091",
@@ -39,10 +40,9 @@ const translations = {
         errNoRegion: "Оберіть область!",
         filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, Громада, IMSMA, Кадастр)...",
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська", fltKherson: "Херсонська",
-        fltKh: "Харківська", fltMyk: "Миколаївська", fltKherson: "Херсонська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
-        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити Розпорядження",
+        lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF",
         lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону",
         lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада"
     },
@@ -50,7 +50,8 @@ const translations = {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
         polyImsmaPlaceholder: "IMSMA ID (optional)", addMethodTitle: "Methods Base", methodPlaceholder: "Custom method", addMethodBtn: "Add",
         btnToggleBasesShow: "+ Open Base Settings (Polygons / Methods)", btnToggleBasesHide: "- Hide Base Settings",
-        newOrderTitle: "New Task Order", editOrderTitle: "Edit Task Order", optRegion: "Select Region...", regKh: "Kharkiv Region", regMyk: "Mykolaiv Region", regKherson: "Kherson Region",
+        newOrderTitle: "New Task Order", editOrderTitle: "Edit Task Order", 
+        optRegion: "Select Region...", regKh: "Kharkiv Region", regMyk: "Mykolaiv Region", regKherson: "Kherson Region",
         optType: "Select Type...", selectDefault: "Select Polygon...", lblPolygonsInTO: "Items in this TO:", btnAddPolygonToTO: "+ Add Item",
         lblSelectMethods: "Select demining methods...", lblSelected: "Selected:",
         lblCadsSpace: "Cadastres (space/comma separated):", cadastreInputPlaceholder: "Example: 1234567800:01:001:0001",
@@ -76,7 +77,7 @@ const translations = {
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv", fltKherson: "Kherson",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
-        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open the Task Order",
+        lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF",
         lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name",
         lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada"
     }
@@ -93,10 +94,12 @@ function setLanguage(lang) {
     document.getElementById('t_addPolygonTitle').innerText = t.addPolygonTitle; 
     document.getElementById('newPolygonInput').placeholder = t.polygonPlaceholder; 
     document.getElementById('newPolyImsma').placeholder = t.polyImsmaPlaceholder;
+    
     document.getElementById('t_optRegion').innerText = t.optRegion;
     document.getElementById('t_regKh').innerText = t.regKh;
     document.getElementById('t_regMyk').innerText = t.regMyk;
     document.getElementById('t_regKherson').innerText = t.regKherson;
+    
     document.getElementById('t_addPolygonBtn').innerText = t.addPolygonBtn;
     
     document.getElementById('t_addMethodTitle').innerText = t.addMethodTitle; 
@@ -144,10 +147,12 @@ function setLanguage(lang) {
 
     document.getElementById('t_filterTitle').innerText = t.filterTitle;
     document.getElementById('filterText').placeholder = t.fltSearchPlaceholder;
+    
     document.getElementById('t_fltAllReg').innerText = t.fltAllReg;
     document.getElementById('t_fltKh').innerText = t.fltKh;
     document.getElementById('t_fltMyk').innerText = t.fltMyk;
     document.getElementById('t_fltKherson').innerText = t.fltKherson;
+    
     document.getElementById('t_fltAllTypes').innerText = t.fltAllTypes;
     document.getElementById('t_fltDem').innerText = t.fltDem;
     document.getElementById('t_fltNts').innerText = t.fltNts;
