@@ -2903,7 +2903,6 @@
       "type": "demining",
       "startDate": "2026-10-08",
       "endDate": "2026-11-08",
-      "pdfLink": "https://drive.google.com/file/d/1FybWhTLtDGgEgIlBOhGorrwvElgsp4Ax/view?usp=drivesdk",
       "items": [
         {
           "polygon": "Поле №69 ТОВ СВП Снігурівське",
@@ -2955,14 +2954,21 @@
         {
           "polygon": "Любине-1",
           "imsma": "HAUA48HALO20231106-6615106",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc"
+          ]
         },
         {
           "polygon": "Любине-4",
           "imsma": "HAUA48HALO20260225-12253406",
-          "deminingTypes": []
+          "deminingTypes": [
+            "ts",
+            "mc"
+          ]
         }
-      ]
+      ],
+      "pdfLink": "https://drive.google.com/file/d/1FybWhTLtDGgEgIlBOhGorrwvElgsp4Ax/view?usp=drivesdk"
     }
   ]
 }
