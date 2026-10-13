@@ -276,7 +276,9 @@
             "mc",
             "mdd",
             "mech"
-          ]
+          ],
+          "tcpLink": null,
+          "haLink": null
         },
         {
           "polygon": "Савинці-7S",
@@ -287,7 +289,9 @@
             "mc",
             "mdd",
             "mech"
-          ]
+          ],
+          "tcpLink": null,
+          "haLink": null
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/1ujfKcU_qoEP6cbMuf6wtmuV7bRABTgmb/view?usp=drivesdk"
@@ -694,7 +698,9 @@
             "mc",
             "mdd",
             "mech"
-          ]
+          ],
+          "tcpLink": null,
+          "haLink": null
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/1uklf7yM7eL1FX-OCHE0kwaNN7gFAXHA9/view?usp=drivesdk"
