@@ -714,7 +714,7 @@ function renderOrders() {
         if (oType === 'eore') {
             itemsHtml += `<div class="poly-list-item"><strong>${t.lblEoreArea}</strong> <span class="tag eore">${t.typeEore}</span><br></div>`;
         } 
-        else if (oType === 'demining') {
+else if (oType === 'demining') {
             itemsArr.forEach(item => {
                 let polyName = item.polygon || "-";
                 let demTypesArr = item.deminingTypes || [];
@@ -722,11 +722,20 @@ function renderOrders() {
                     if (typeId === 'ts') return t.demTs; if (typeId === 'mc') return t.demMc; if (typeId === 'bac') return t.demBac; if (typeId === 'mdd') return t.demMdd; if (typeId === 'mech') return t.demMech; return typeId; 
                 });
                 
+                // Генеруємо HTML для кнопок TCP та HA Report
+                let docsHtml = '';
+                if (item.tcpLink) {
+                    docsHtml += `<a href="${item.tcpLink}" target="_blank" style="display:inline-block; padding:3px 8px; margin:2px; background:#e1f0fa; color:#0366d6; border:1px solid #c8e1ff; border-radius:4px; text-decoration:none; font-size:12px; font-weight:600; white-space:nowrap;">📁 TCP</a><br>`;
+                }
+                if (item.haLink) {
+                    docsHtml += `<a href="${item.haLink}" target="_blank" style="display:inline-block; padding:3px 8px; margin:2px; background:#f0f8f1; color:#176f2c; border:1px solid #aceeaf; border-radius:4px; text-decoration:none; font-size:12px; font-weight:600; white-space:nowrap;">📁 HA Report</a>`;
+                }
+
                 let methodsTableHtml = '';
                 if (translatedTypes.length > 0) {
-                    methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th><th>${t.colMethods}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td>${translatedTypes.join(', ')}</td></tr></tbody></table>`;
+                    methodsTableHtml = `<table class="info-table"><thead><tr><th style="width: 30%">${t.colImsma}</th><th style="width: 25%">Документи</th><th style="width: 45%">${t.colMethods}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td style="vertical-align: middle;">${docsHtml}</td><td>${translatedTypes.join(', ')}</td></tr></tbody></table>`;
                 } else {
-                    methodsTableHtml = `<table class="info-table"><thead><tr><th>${t.colImsma}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td></tr></tbody></table>`;
+                    methodsTableHtml = `<table class="info-table"><thead><tr><th style="width: 30%">${t.colImsma}</th><th style="width: 70%">Документи</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td style="vertical-align: middle;">${docsHtml}</td></tr></tbody></table>`;
                 }
                 itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> <span class="tag demining">${t.typeDemining}</span><br>${methodsTableHtml}</div>`;
             });
