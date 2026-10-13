@@ -3077,21 +3077,6 @@
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/1FybWhTLtDGgEgIlBOhGorrwvElgsp4Ax/view?usp=drivesdk"
-    },
-    {
-      "number": "3122",
-      "region": "kherson",
-      "type": "nts",
-      "startDate": "2026-10-12",
-      "endDate": "2026-11-12",
-      "pdfLink": "https://drive.google.com/file/d/1BLHMZSwjNakIFvvT-W-RC1MV54re9y5V/view?usp=drivesdk",
-      "items": [
-        {
-          "hromada": "Чорнобаївська"
-        }
-      ],
-      "ntsSubType": "in_nts",
-      "ntsReportSent": false
     }
   ]
 }
