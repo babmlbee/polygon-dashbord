@@ -38,6 +38,7 @@ const translations = {
         errNtsTarget: "Вкажіть кадастри для Цільового НТО!",
         errNoRegion: "Оберіть область!",
         filterTitle: "Фільтри та Пошук", fltSearchPlaceholder: "Пошук (ТО, Полігон, Громада, IMSMA, Кадастр)...",
+        fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська", fltKherson: "Херсонська",
         fltKh: "Харківська", fltMyk: "Миколаївська", fltKherson: "Херсонська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
