@@ -705,7 +705,7 @@ function renderOrders() {
         
         let pdfHtml = '';
         if (order.pdfLink) {
-            pdfHtml = `<div style="margin-top: 10px;"><a href="${order.pdfLink}" target="_blank" style="display: inline-block; background-color: #f1f8ff; color: #0366d6; border: 1px solid #c8e1ff; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 600;">${t.btnOpenPdf}</a></div>`;
+            pdfHtml = `<div style="margin-top: 10px;"><a href="${order.pdfLink}" target="_blank" style="display: inline-block; background-color: #f1f8ff; color: #0366d6; border: 1px solid #c8e1ff; padding: 6px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: 600; white-space: nowrap; text-align: center;">${t.btnOpenPdf}</a></div>`;
         }
 
         let periodHtml = order.startDate ? 
