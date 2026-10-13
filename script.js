@@ -44,7 +44,7 @@ const translations = {
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
         lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити PDF",
         lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону",
-        lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада"
+        lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада", colDocs: "Документи"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -79,7 +79,7 @@ const translations = {
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
         lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open PDF",
         lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name",
-        lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada"
+        lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada", colDocs: "Documents"
     }
 };
 
@@ -741,9 +741,9 @@ else if (oType === 'demining') {
 
                 let methodsTableHtml = '';
                 if (translatedTypes.length > 0) {
-                    methodsTableHtml = `<table class="info-table"><thead><tr><th style="width: 30%">${t.colImsma}</th><th style="width: 25%">Документи</th><th style="width: 45%">${t.colMethods}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td style="vertical-align: middle;">${docsHtml}</td><td>${translatedTypes.join(', ')}</td></tr></tbody></table>`;
+                    methodsTableHtml = `<table class="info-table"><thead><tr><th style="width: 30%">${t.colImsma}</th><th style="width: 25%">${t.colDocs}</th><th style="width: 45%">${t.colMethods}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td style="vertical-align: middle;">${docsHtml}</td><td>${translatedTypes.join(', ')}</td></tr></tbody></table>`;
                 } else {
-                    methodsTableHtml = `<table class="info-table"><thead><tr><th style="width: 30%">${t.colImsma}</th><th style="width: 70%">Документи</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td style="vertical-align: middle;">${docsHtml}</td></tr></tbody></table>`;
+                    methodsTableHtml = `<table class="info-table"><thead><tr><th style="width: 30%">${t.colImsma}</th><th style="width: 70%">${t.colDocs}</th></tr></thead><tbody><tr><td><code style="font-size: 13px;">${item.imsma || '-'}</code></td><td style="vertical-align: middle;">${docsHtml}</td></tr></tbody></table>`;
                 }
                 itemsHtml += `<div class="poly-list-item"><strong>${polyName}</strong> <span class="tag demining">${t.typeDemining}</span><br>${methodsTableHtml}</div>`;
             });
