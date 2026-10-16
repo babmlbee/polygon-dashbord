@@ -3124,6 +3124,14 @@
           ]
         }
       ]
+    },
+    {
+      "number": "3181",
+      "region": "kherson",
+      "type": "eore",
+      "startDate": "2026-10-19",
+      "endDate": "2026-11-19",
+      "items": []
     }
   ]
 }
