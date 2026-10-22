@@ -3153,6 +3153,49 @@
       ],
       "ntsSubType": "re_nts",
       "ntsReportSent": false
+    },
+    {
+      "number": "3249",
+      "region": "kharkiv",
+      "type": "demining",
+      "startDate": "2026-10-26",
+      "endDate": "2026-11-26",
+      "pdfLink": "https://drive.google.com/file/d/1OIWws1HBceXp-phw_JB-R1lbbmT7dD49/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Савинці – 6S",
+          "imsma": "HAUA63FSD20241025-001330",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ],
+          "tcpLink": "https://drive.google.com/drive/folders/1zLIfVsjGnhzQ3-fEvQ-4i5bL68cqO0qv",
+          "haLink": "https://drive.google.com/drive/folders/1wPu9aEPWCbDQZNE1D-RHqgvcLrdTjXZc"
+        },
+        {
+          "polygon": "Савинці – 8S",
+          "imsma": "HAUA63FSD20241104-001355",
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ],
+          "tcpLink": "https://drive.google.com/drive/folders/17kme9y7tcI3uTPay61Lds7B6HKce8fIP",
+          "haLink": "https://drive.google.com/drive/folders/1f1guyAcD_IHdgosQLSc4_vtbccdV3e85"
+        }
+      ]
+    },
+    {
+      "number": "3248",
+      "region": "kharkiv",
+      "type": "eore",
+      "startDate": "2026-10-23",
+      "endDate": "2026-11-23",
+      "pdfLink": "https://drive.google.com/file/d/1mTx6f77eZUJ-8d56UwffnrIHnkww14i1/view?usp=drivesdk",
+      "items": []
     }
   ]
 }
