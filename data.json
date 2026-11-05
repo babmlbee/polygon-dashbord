@@ -3233,6 +3233,26 @@
           "haLink": "https://drive.google.com/drive/folders/1msuhY1NO4v4Fo8IAmlcZRZZ3dMeHDPtg"
         }
       ]
+    },
+    {
+      "number": "3405",
+      "region": "kharkiv",
+      "type": "demining",
+      "startDate": "2026-11-06",
+      "endDate": "2026-12-06",
+      "pdfLink": "https://drive.google.com/file/d/1jixpK4jnGN_EyYdSSfd4tEJ2c8JJZ8sh/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Гусарівка – 6S",
+          "imsma": "HAUA63FSD20240927-001297/1105",
+          "deminingTypes": []
+        },
+        {
+          "polygon": "Савинці – 5S",
+          "imsma": "HAUA63FSD20240927-001303",
+          "deminingTypes": []
+        }
+      ]
     }
   ]
 }
