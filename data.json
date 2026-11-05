@@ -3240,23 +3240,27 @@
       "type": "demining",
       "startDate": "2026-11-06",
       "endDate": "2026-12-06",
-      "pdfLink": "https://drive.google.com/file/d/1jixpK4jnGN_EyYdSSfd4tEJ2c8JJZ8sh/view?usp=drivesdk",
       "items": [
         {
           "polygon": "Гусарівка – 2S",
           "imsma": "HAUA63FSD20240927-001297/1105",
-          "deminingTypes": [],
-          "tcpLink": "https://drive.google.com/drive/folders/1vfbJwKdhkQY7NXZAO81FAHtWply85uSS",
-          "haLink": "https://drive.google.com/drive/folders/1yMlTDYoT1db8mdDyf2nKY34BEP1f9CbW"
+          "deminingTypes": [
+            "bac",
+            "mech"
+          ]
         },
         {
           "polygon": "Савинці – 5S",
           "imsma": "HAUA63FSD20240927-001303",
-          "deminingTypes": [],
-          "tcpLink": "https://drive.google.com/drive/folders/1FNI9NEaFIyiBMQUnoOzCCoQCRKoh6z-4",
-          "haLink": "https://drive.google.com/drive/folders/13BqF6DDnjPrqeorUEwDZLcKHTx1ZqAvp"
+          "deminingTypes": [
+            "ts",
+            "mc",
+            "mdd",
+            "mech"
+          ]
         }
-      ]
+      ],
+      "pdfLink": "https://drive.google.com/file/d/1jixpK4jnGN_EyYdSSfd4tEJ2c8JJZ8sh/view?usp=drivesdk"
     }
   ]
 }
