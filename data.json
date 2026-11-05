@@ -3247,9 +3247,7 @@
           "deminingTypes": [
             "bac",
             "mech"
-          ],
-          "tcpLink": "https://drive.google.com/drive/folders/1vfbJwKdhkQY7NXZAO81FAHtWply85uSS",
-          "haLink": "https://drive.google.com/drive/folders/1yMlTDYoT1db8mdDyf2nKY34BEP1f9CbW"
+          ]
         },
         {
           "polygon": "Савинці – 5S",
@@ -3259,9 +3257,7 @@
             "mc",
             "mdd",
             "mech"
-          ],
-          "tcpLink": "https://drive.google.com/drive/folders/1FNI9NEaFIyiBMQUnoOzCCoQCRKoh6z-4",
-          "haLink": "https://drive.google.com/drive/folders/13BqF6DDnjPrqeorUEwDZLcKHTx1ZqAvp"
+          ]
         }
       ],
       "pdfLink": "https://drive.google.com/file/d/1jixpK4jnGN_EyYdSSfd4tEJ2c8JJZ8sh/view?usp=drivesdk"
