@@ -44,7 +44,7 @@ const translations = {
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
         lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити Розпорядження",
         lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону",
-        lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада", colDocs: "Документи"
+        lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада", colDocs: "Документи", fltAllMethods: "Всі методи розмінування"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -79,7 +79,7 @@ const translations = {
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
         lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open the Task Order",
         lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name",
-        lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada", colDocs: "Documents"
+        lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada", colDocs: "Documents", fltAllMethods: "All Demining Methods"
     }
 };
 
@@ -162,6 +162,13 @@ function setLanguage(lang) {
     document.getElementById('t_fltSent').innerText = t.fltSent;
     document.getElementById('t_lblFilterDate').innerText = t.lblFilterDate;
     document.getElementById('t_btnResetFilters').innerText = t.btnResetFilters;
+    document.getElementById('t_fltAllMethods').innerText = t.fltAllMethods;
+
+    document.getElementById('t_fltTs').innerText = t.demTs;
+    document.getElementById('t_fltMc').innerText = t.demMc;
+    document.getElementById('t_fltBac').innerText = t.demBac;
+    document.getElementById('t_fltMdd').innerText = t.demMdd;
+    document.getElementById('t_fltMech').innerText = t.demMech;
     
     renderOrders();
 }
@@ -637,6 +644,7 @@ function resetFilters() {
     document.getElementById('filterNtsStatus').value = 'all';
     document.getElementById('filterDateFrom').value = '';
     document.getElementById('filterDateTo').value = '';
+    document.getElementById('filterMethod').value = 'all';
     renderOrders();
 }
 
@@ -694,6 +702,7 @@ function renderOrders() {
     let activeCount = 0; let inactiveCount = 0;
     
     sorted.forEach((order) => {
+        const fltMethod = document.getElementById('filterMethod').value;
         const originalOrderIndex = orders.indexOf(order);
         const dateStatus = getDateStatus(order.endDate);
         const isInactive = dateStatus.isInactive;
@@ -765,7 +774,13 @@ else if (oType === 'demining') {
             });
 
             let detailsStr = '';
-
+            if (fltMethod !== 'all') {
+                if ((order.type || '').toLowerCase() !== 'demining') return;
+                const hasMethod = (order.items || []).some(item => 
+                    item.deminingTypes && item.deminingTypes.includes(fltMethod)
+                );
+            if (!hasMethod) return;
+}
             if (oSub === 'in_nts' && hromadas.length > 0) {
                 let uniqueHromadas = [...new Set(hromadas)];
                 detailsStr += `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colHromada}</th></tr></thead><tbody>`;
