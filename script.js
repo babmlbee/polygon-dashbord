@@ -29,7 +29,7 @@ const translations = {
         statusLoaded: "✅ Дані завантажено", statusSaving: "⏳ Збереження...", statusSaved: "✅ Збережено",
         lblImsma: "IMSMA ID", lblType: "Методи", lblSubtype: "Підтип", lblStatus: "NMAC Report Status",
         reportYes: "✅ Надіслано", reportNo: "⏳ Очікується", lblCads: "Кадастри",
-        colPolygon: "Полігон", colImsma: "IMSMA ID", colMethods: "Методи розмінування",
+        colPolygon: "Полігон", colImsma: "IMSMA ID", colMethods: "Методи розмінування", colDocs: "Документи",
         dateWarning: "УВАГА: Наступний місяць має іншу кількість днів. Кінцева дата зміщена. Перевірте її!",
         lblTargetedCadsOnly: "Цільове НТО (тільки кадастри)",
         lblEoreArea: "В межах області (без полігонів)", lblEoreRegion: "Регіон виконання:",
@@ -42,9 +42,10 @@ const translations = {
         fltAllReg: "Всі області", fltKh: "Харківська", fltMyk: "Миколаївська", fltKherson: "Херсонська",
         fltAllTypes: "Всі типи робіт", fltDem: "Розмінування", fltNts: "НТО", fltEore: "ІНРМ",
         fltAllStatus: "Всі статуси звітів (тільки для НТО)", fltPending: "⏳ Очікується звіт", fltSent: "✅ Звіт надіслано",
+        fltAllMethods: "Всі методи розмінування",
         lblFilterDate: "Період (з - по):", btnResetFilters: "Скинути фільтри", btnOpenPdf: "📄 Відкрити Розпорядження",
         lblCustomPoly: "✏️ Одноразовий полігон (ввести вручну)", customPolyPlaceholder: "Назва полігону",
-        lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада", colDocs: "Документи", fltAllMethods: "Всі методи розмінування"
+        lblName: "Назва полігону:", lblHromada: "Громада:", hromadaPlaceholder: "Наприклад: Балаклійська", colHromada: "Громада"
     },
     en: {
         mainTitle: "Task Orders Dashboard", addPolygonTitle: "Polygons Base", polygonPlaceholder: "Polygon Name", addPolygonBtn: "Add",
@@ -64,7 +65,7 @@ const translations = {
         statusLoaded: "✅ Data loaded", statusSaving: "⏳ Saving...", statusSaved: "✅ Saved",
         lblImsma: "IMSMA ID", lblType: "Methods", lblSubtype: "Subtype", lblStatus: "NMAC Report Status",
         reportYes: "✅ Sent", reportNo: "⏳ Pending", lblCads: "Cadastres",
-        colPolygon: "Polygon", colImsma: "IMSMA ID", colMethods: "Demining Methods",
+        colPolygon: "Polygon", colImsma: "IMSMA ID", colMethods: "Demining Methods", colDocs: "Documents",
         dateWarning: "WARNING: The next month has a different number of days. The end date was adjusted!",
         lblTargetedCadsOnly: "Targeted NTS (cadastres only)",
         lblEoreArea: "Within region (no polygons)", lblEoreRegion: "Operating Region:",
@@ -77,9 +78,10 @@ const translations = {
         fltAllReg: "All Regions", fltKh: "Kharkiv", fltMyk: "Mykolaiv", fltKherson: "Kherson",
         fltAllTypes: "All Types", fltDem: "Demining", fltNts: "NTS", fltEore: "EORE",
         fltAllStatus: "All Report Statuses (NTS only)", fltPending: "⏳ Pending", fltSent: "✅ Sent",
+        fltAllMethods: "All Demining Methods",
         lblFilterDate: "Period (from - to):", btnResetFilters: "Reset Filters", btnOpenPdf: "📄 Open the Task Order",
         lblCustomPoly: "✏️ One-time polygon (manual entry)", customPolyPlaceholder: "Polygon name",
-        lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada", colDocs: "Documents", fltAllMethods: "All Demining Methods"
+        lblName: "Polygon Name:", lblHromada: "Hromada:", hromadaPlaceholder: "Example: Balakliiska", colHromada: "Hromada"
     }
 };
 
@@ -162,8 +164,8 @@ function setLanguage(lang) {
     document.getElementById('t_fltSent').innerText = t.fltSent;
     document.getElementById('t_lblFilterDate').innerText = t.lblFilterDate;
     document.getElementById('t_btnResetFilters').innerText = t.btnResetFilters;
-    document.getElementById('t_fltAllMethods').innerText = t.fltAllMethods;
 
+    document.getElementById('t_fltAllMethods').innerText = t.fltAllMethods;
     document.getElementById('t_fltTs').innerText = t.demTs;
     document.getElementById('t_fltMc').innerText = t.demMc;
     document.getElementById('t_fltBac').innerText = t.demBac;
@@ -282,7 +284,6 @@ function addCustomMethod() {
         customMethods.push(name); 
         document.getElementById('newMethodInput').value = ''; 
         saveToGitHub(); 
-        // Need to re-render form dropdowns if any exist, but they are dynamically generated so it's fine for next blocks
     }
 }
 
@@ -313,7 +314,6 @@ function toggleGlobalType() {
     const subNts = document.getElementById('globalNtsSub');
     const itemsSection = document.getElementById('itemsSection');
     
-    // Очищаємо список полігонів при зміні глобального типу, щоб не міксувати
     document.getElementById('polygonItemsContainer').innerHTML = '';
 
     if (type === 'nts') {
@@ -321,7 +321,7 @@ function toggleGlobalType() {
         itemsSection.style.display = 'block';
     } else if (type === 'eore') {
         subNts.style.display = 'none';
-        itemsSection.style.display = 'none'; // ІНРМ не потребує об'єктів
+        itemsSection.style.display = 'none';
     } else {
         subNts.style.display = 'none';
         itemsSection.style.display = 'block';
@@ -352,7 +352,7 @@ function onPolygonSelect(blockId) {
         const sortedOrders = [...orders].sort((a, b) => new Date(b.startDate || b.date) - new Date(a.startDate || a.date));
         for (let order of sortedOrders) {
             const item = (order.items || []).find(i => i.polygon === polyName);
-            if (item && item.type === 'demining') {
+            if (item && (order.type === 'demining' || item.type === 'demining')) {
                 if (item.imsma) block.querySelector('.item-imsma').value = item.imsma;
                 const checkboxes = block.querySelectorAll('.item-methods-group input[type="checkbox"]');
                 checkboxes.forEach(cb => { cb.checked = (item.deminingTypes || []).includes(cb.value); });
@@ -415,7 +415,7 @@ function addPolygonItemBlock(itemData = null) {
                 </div>
             `;
         } 
-        else { // re_nts, demarcation
+        else {
             html += `
                 <div class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
@@ -434,7 +434,6 @@ function addPolygonItemBlock(itemData = null) {
     html += `</div>`;
     document.getElementById('polygonItemsContainer').insertAdjacentHTML('beforeend', html);
     
-    // Якщо редагуємо і є дані
     if (itemData) {
         const block = document.getElementById(blockId);
         if (globalType === 'demining') {
@@ -479,7 +478,6 @@ function editOrder(globalIndex) {
     document.getElementById('startDate').value = order.startDate || '';
     document.getElementById('endDate').value = order.endDate || '';
     
-    // Визначаємо глобальний тип і регіон зі старого формату або з нового
     let oReg = order.region || '';
     let oType = order.type || (order.items && order.items.length > 0 ? order.items[0].type : 'demining');
     let oSub = order.ntsSubType || (order.items && order.items.length > 0 ? order.items[0].ntsSubType : '');
@@ -487,7 +485,7 @@ function editOrder(globalIndex) {
     document.getElementById('globalRegion').value = oReg;
     document.getElementById('globalType').value = oType;
     document.getElementById('globalNtsSub').value = oSub;
-    toggleGlobalType(); // оновлює UI
+    toggleGlobalType();
 
     document.getElementById('polygonItemsContainer').innerHTML = ''; 
     if (order.items && order.items.length > 0) {
@@ -614,7 +612,6 @@ function toggleOrderReportStatus(orderIdx) {
     let currentStatus = order.ntsReportSent !== undefined ? order.ntsReportSent : (order.items || []).some(i => i.ntsReportSent);
     order.ntsReportSent = !currentStatus;
     
-    // Для зворотної сумісності зі старою структурою
     if (order.items) {
         order.items.forEach(i => { if (i.type === 'nts' || order.type === 'nts') i.ntsReportSent = !currentStatus; });
     }
@@ -648,7 +645,6 @@ function resetFilters() {
     renderOrders();
 }
 
-JavaScript
 function getFilteredOrders() {
     const fText = document.getElementById('filterText').value.toLowerCase().trim();
     const fReg = document.getElementById('filterRegion').value;
@@ -733,14 +729,13 @@ function renderOrders() {
         let itemsHtml = ""; 
         let itemsArr = order.items || [];
         
-        // Визначаємо глобальні властивості для рендерингу (навіть зі старої структури)
         let oType = order.type || (itemsArr.length > 0 ? itemsArr[0].type : 'demining');
         let oSub = order.ntsSubType || (itemsArr.length > 0 ? itemsArr[0].ntsSubType : '');
 
         if (oType === 'eore') {
             itemsHtml += `<div class="poly-list-item"><strong>${t.lblEoreArea}</strong> <span class="tag eore">${t.typeEore}</span><br></div>`;
         } 
-else if (oType === 'demining') {
+        else if (oType === 'demining') {
             itemsArr.forEach(item => {
                 let polyName = item.polygon || "-";
                 let demTypesArr = item.deminingTypes || [];
@@ -748,7 +743,6 @@ else if (oType === 'demining') {
                     if (typeId === 'ts') return t.demTs; if (typeId === 'mc') return t.demMc; if (typeId === 'bac') return t.demBac; if (typeId === 'mdd') return t.demMdd; if (typeId === 'mech') return t.demMech; return typeId; 
                 });
                 
-                // Генеруємо HTML для кнопок TCP та HA Report
                 let docsHtml = '';
                 if (item.tcpLink) {
                     docsHtml += `<a href="${item.tcpLink}" target="_blank" style="display:inline-block; padding:3px 8px; margin:2px; background:#e1f0fa; color:#0366d6; border:1px solid #c8e1ff; border-radius:4px; text-decoration:none; font-size:12px; font-weight:600; white-space:nowrap;">📁 TCP</a><br>`;
@@ -783,7 +777,6 @@ else if (oType === 'demining') {
             });
 
             let detailsStr = '';
-
             if (oSub === 'in_nts' && hromadas.length > 0) {
                 let uniqueHromadas = [...new Set(hromadas)];
                 detailsStr += `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colHromada}</th></tr></thead><tbody>`;
