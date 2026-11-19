@@ -32,7 +32,7 @@
             .date-grid { grid-template-columns: 1fr 1fr; }
             .bases-grid { grid-template-columns: 1fr 1fr 1fr auto; }
             .full-width { grid-column: span 2; }
-            .filter-span-2 { grid-column: span 2; }
+            .-span-2 { grid-column: span 2; }
         }
 
         .form-group { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
@@ -92,7 +92,7 @@
         code { word-break: break-all; white-space: normal; }
         
         .inactive-section { margin-top: 30px; opacity: 0.85; border-top: 2px dashed #d73a49; padding-top: 20px; }
-        .filter-panel { background: #eef3f8; border: 1px solid #d1d5da; }
+        .-panel { background: #eef3f8; border: 1px solid #d1d5da; }
     </style>
 </head>
 <body>
@@ -182,31 +182,39 @@
     </div>
 
     <!-- Панель фільтрів -->
-    <div class="card filter-panel">
-        <h3 id="t_filterTitle" style="margin-bottom: 10px;">Фільтри та Пошук</h3>
-        <div class="filter-grid">
-            <input type="text" id="filterText" class="filter-span-2" placeholder="Пошук (ТО, Полігон, Громада, IMSMA, Кадастр)..." oninput="renderOrders()">
-            <select id="filterRegion" onchange="renderOrders()">
+    <div class="card -panel">
+        <h3 id="t_Title" style="margin-bottom: 10px;">Фільтри та Пошук</h3>
+        <div class="-grid">
+            <input type="text" id="Text" class="-span-2" placeholder="Пошук (ТО, Полігон, Громада, IMSMA, Кадастр)..." oninput="renderOrders()">
+            <select id="Region" onchange="renderOrders()">
                 <option value="all" id="t_fltAllReg">Всі області</option>
                 <option value="kharkiv" id="t_fltKh">Харківська</option>
                 <option value="mykolaiv" id="t_fltMyk">Миколаївська</option>
                 <option value="kherson" id="t_fltKherson">Херсонська</option>
             </select>
-            <select id="filterType" onchange="renderOrders()">
+            <select id="Type" onchange="renderOrders()">
                 <option value="all" id="t_fltAllTypes">Всі типи робіт</option>
                 <option value="demining" id="t_fltDem">Розмінування</option>
                 <option value="nts" id="t_fltNts">НТО</option>
                 <option value="eore" id="t_fltEore">ІНРМ</option>
             </select>
-            <div class="form-group filter-span-2" style="display: flex; gap: 5px; flex-wrap: wrap;">
-                <label id="t_lblFilterDate" style="white-space: nowrap; font-size: 14px; font-weight: 600; width: 100%;">Період (з - по):</label>
-                <input type="date" id="filterDateFrom" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
-                <input type="date" id="filterDateTo" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
+            <div class="form-group -span-2" style="display: flex; gap: 5px; flex-wrap: wrap;">
+                <label id="t_lblDate" style="white-space: nowrap; font-size: 14px; font-weight: 600; width: 100%;">Період (з - по):</label>
+                <input type="date" id="DateFrom" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
+                <input type="date" id="DateTo" onchange="renderOrders()" style="flex: 1; min-width: 130px;">
             </div>
-            <select id="filterNtsStatus" onchange="renderOrders()" class="filter-span-2">
+            <select id="NtsStatus" onchange="renderOrders()" class="filter-span-2">
                 <option value="all" id="t_fltAllStatus">Всі статуси звітів (тільки для НТО)</option>
                 <option value="pending" id="t_fltPending">⏳ Очікується звіт</option>
                 <option value="sent" id="t_fltSent">✅ Звіт надіслано</option>
+            </select>
+                <select id="filterMethod" onchange="renderOrders()">
+                <option value="all" id="t_fltAllMethods">Всі методи розмінування</option>
+                <option value="ts" id="t_fltTs">Технічне обстеження</option>
+            <option value="mc" id="t_fltMc">Розмінування в ручну</option>
+            <option value="bac" id="t_fltBac">ОРВБД</option>
+            <option value="mdd" id="t_fltMdd">Застосування кінологічних розрахунків МРС</option>
+            <option value="mech" id="t_fltMech">Розмінування з використанням машин і механізмів</option>
             </select>
         </div>
         <button class="btn-outline" onclick="resetFilters()" id="t_btnResetFilters" style="margin-top: 15px; width: 100%;">Скинути фільтри</button>
