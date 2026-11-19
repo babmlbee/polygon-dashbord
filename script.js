@@ -648,6 +648,7 @@ function resetFilters() {
     renderOrders();
 }
 
+JavaScript
 function getFilteredOrders() {
     const fText = document.getElementById('filterText').value.toLowerCase().trim();
     const fReg = document.getElementById('filterRegion').value;
@@ -655,6 +656,7 @@ function getFilteredOrders() {
     const fNtsStat = document.getElementById('filterNtsStatus').value;
     const fDateFrom = document.getElementById('filterDateFrom').value;
     const fDateTo = document.getElementById('filterDateTo').value;
+    const fMethod = document.getElementById('filterMethod').value;
 
     return orders.filter(order => {
         if (fReg !== 'all' && order.region !== fReg) return false;
@@ -663,6 +665,14 @@ function getFilteredOrders() {
         
         let oType = order.type || (order.items && order.items.length > 0 ? order.items[0].type : '');
         if (fType !== 'all' && oType !== fType) return false;
+
+        if (fMethod !== 'all') {
+            if (oType !== 'demining') return false;
+            const hasMethod = (order.items || []).some(item => 
+                item.deminingTypes && item.deminingTypes.includes(fMethod)
+            );
+            if (!hasMethod) return false;
+        }
         
         let orderNtsSent = order.ntsReportSent !== undefined ? order.ntsReportSent : (order.items || []).some(i => i.ntsReportSent);
         
@@ -702,7 +712,6 @@ function renderOrders() {
     let activeCount = 0; let inactiveCount = 0;
     
     sorted.forEach((order) => {
-        const fltMethod = document.getElementById('filterMethod').value;
         const originalOrderIndex = orders.indexOf(order);
         const dateStatus = getDateStatus(order.endDate);
         const isInactive = dateStatus.isInactive;
@@ -774,13 +783,7 @@ else if (oType === 'demining') {
             });
 
             let detailsStr = '';
-            if (fltMethod !== 'all') {
-                if ((order.type || '').toLowerCase() !== 'demining') return;
-                const hasMethod = (order.items || []).some(item => 
-                    item.deminingTypes && item.deminingTypes.includes(fltMethod)
-                );
-            if (!hasMethod) return;
-}
+
             if (oSub === 'in_nts' && hromadas.length > 0) {
                 let uniqueHromadas = [...new Set(hromadas)];
                 detailsStr += `<div style="margin-top:5px;"><table class="info-table"><thead><tr><th>${t.colHromada}</th></tr></thead><tbody>`;
