@@ -3431,8 +3431,7 @@
       "region": "kharkiv",
       "type": "nts",
       "startDate": "2026-11-23",
-      "endDate": "2026-11-23",
-      "pdfLink": "https://drive.google.com/file/d/1uP9LRIj5gHsN97P1thEMVXBrwtLL3NW0/view?usp=drivesdk",
+      "endDate": "2026-12-23",
       "items": [
         {
           "polygon": "Нова Гусарівка-29",
@@ -3468,7 +3467,8 @@
         }
       ],
       "ntsSubType": "re_nts",
-      "ntsReportSent": false
+      "ntsReportSent": false,
+      "pdfLink": "https://drive.google.com/file/d/1uP9LRIj5gHsN97P1thEMVXBrwtLL3NW0/view?usp=drivesdk"
     }
   ]
 }
