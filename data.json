@@ -3425,6 +3425,50 @@
       "endDate": "2026-11-24",
       "pdfLink": "https://drive.google.com/file/d/1UKw1NnDDLfRiYRdkGnza_n5m4Q5zY99_/view?usp=drivesdk",
       "items": []
+    },
+    {
+      "number": "3555",
+      "region": "kharkiv",
+      "type": "nts",
+      "startDate": "2026-11-23",
+      "endDate": "2026-11-23",
+      "pdfLink": "https://drive.google.com/file/d/1uP9LRIj5gHsN97P1thEMVXBrwtLL3NW0/view?usp=drivesdk",
+      "items": [
+        {
+          "polygon": "Нова Гусарівка-29",
+          "imsma": "HAUA63HALO20241104-8693406"
+        },
+        {
+          "polygon": "Нова Гусарівка-30",
+          "imsma": "HAUA63HALO20241119-8761806"
+        },
+        {
+          "polygon": "Вербівка-37-1",
+          "imsma": "HAUA63PSM20250418-150427"
+        },
+        {
+          "polygon": "Андріївка-1S",
+          "imsma": "HAUA63FSD20240917-001273"
+        },
+        {
+          "polygon": "Полігон-Е3",
+          "imsma": "HAUA63DS20230609-1129/0905"
+        },
+        {
+          "polygon": "Вербівка-25",
+          "imsma": "HAUA63HALO20250129-9147806"
+        },
+        {
+          "polygon": "Поле № ЮГР01-2 ПрАТ \"Агрокомбінат \"Слобожанський\"",
+          "imsma": "HAUA63IDG20241122-152550/0619"
+        },
+        {
+          "polygon": "Вербівка-5ГА",
+          "imsma": "HAUA63IDG20250916-172831"
+        }
+      ],
+      "ntsSubType": "re_nts",
+      "ntsReportSent": false
     }
   ]
 }
