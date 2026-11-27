@@ -3469,6 +3469,15 @@
       "ntsSubType": "re_nts",
       "ntsReportSent": false,
       "pdfLink": "https://drive.google.com/file/d/1uP9LRIj5gHsN97P1thEMVXBrwtLL3NW0/view?usp=drivesdk"
+    },
+    {
+      "number": "3623",
+      "region": "mykolaiv",
+      "type": "eore",
+      "startDate": "2026-11-30",
+      "endDate": "2026-12-30",
+      "pdfLink": "https://drive.google.com/file/d/1utXvZGVN9-RW-4bRHRO8aVAsHGORtiaU/view?usp=drivesdk",
+      "items": []
     }
   ]
 }
